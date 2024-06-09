@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Str;
 
 class User extends Authenticatable
 {
@@ -57,31 +58,31 @@ class User extends Authenticatable
      * @param int $idPersona El ID de la persona.
      * @return string|null El nombre de usuario generado o null si no se puede generar.
      */
-    public function generarNombreusuarios($Id)
+    public function generarNombreUsuario($nombreCompleto)
     {
-        $persona = User::find($Id);
-      
-
-        if ($persona ) {
-            $nombreUsuario = strtolower(substr($persona->name, 0, 1));
-            // Reemplaza los espacios por guiones bajos
-            $nombreUsuario = str_replace(' ', '_', $nombreUsuario);
-
-            $contador = 1;
-            $nombreUsuarioOriginal = $nombreUsuario;
-
-            // Verifica si el nombre de usuario ya existe en la base de datos
-            while (User::where('email', $nombreUsuario)->exists()) {
-                $nombreUsuario = $nombreUsuarioOriginal . $contador++;
-            }
-
-            return $nombreUsuario. '@verdies.com';
+        // Convertir el nombre completo a minúsculas
+        $nombre = strtolower($nombreCompleto);
+    
+        // Obtener el primer nombre
+        $primerNombre = explode(' ', $nombre)[0];
+    
+        // Generar un número aleatorio
+        $numeroAleatorio = rand(100, 999);
+    
+        // Formar el nombre de usuario
+        $nombreUsuario = $primerNombre . '.' . $numeroAleatorio;
+    
+        // Verificar si el nombre de usuario ya existe en la base de datos
+        while (User::where('email', $nombreUsuario . '@verdies.com')->exists()) {
+            // Generar un nuevo número aleatorio
+            $numeroAleatorio = rand(100, 999);
+            // Formar el nuevo nombre de usuario
+            $nombreUsuario = $primerNombre . '.' . $numeroAleatorio;
         }
-
-        return null;
+    
+        // Devolver el nombre de usuario con el dominio
+        return $nombreUsuario . '@verdies.com';
     }
-
-
 
     /**
      * Genera una contraseña segura siguiendo estándares de seguridad comunes.
@@ -150,9 +151,9 @@ class User extends Authenticatable
         // Obtener la información básica de la persona
         $User = User::findOrFail($UserId);
         $imagen = Media::where('imagenable_type', 'App\Models\Users')
-        ->where('imagenable_id', $User->id)
-        ->first();
-    $fotoPerfil = $imagen ? $imagen->url : $this->ObtenerFotoPerfilStatica($User->name);
+            ->where('imagenable_id', $User->id)
+            ->first();
+        $fotoPerfil = $imagen ? $imagen->url : $this->ObtenerFotoPerfilStatica($User->name);
         // Retornar la información recopilada
         return [
             'nombre' => $User->name,
@@ -201,7 +202,7 @@ class User extends Authenticatable
         return $url;
     }
 
- 
+
 
 
 

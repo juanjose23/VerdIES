@@ -11,6 +11,15 @@ use App\Http\Requests\UpdateCategorias;
 class CategoriasController extends Controller
 {
     //
+    public function __construct()
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Categorias')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Categorias')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\Categorias')->only(['destroy']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\Categorias')->except(['index', 'show']);
+    }
     public function index()
     {
        return view('Gestion_Catalogos.Categorias.index');

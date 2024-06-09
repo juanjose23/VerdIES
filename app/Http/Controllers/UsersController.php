@@ -32,21 +32,20 @@ class UsersController extends Controller
 
     public function create()
     {
-        $colaborador = new Empleados();
+      
         $rol = new RolesModel();
-        $empleados = $colaborador->empleadosSinUsuarios();
         $roles = $rol->SelectRoles();
 
-        return view('Gestion_usuarios.usuarios.create', compact('empleados', 'roles'));
+        return view('Gestion_usuarios.usuarios.create', compact('roles'));
     }
 
     public function store(StoreUsers $request)
     {
         $user = new User();
-        $user->personas_id = $request->empleados;
-        $usuario = $user->generarNombreusuarios($request->empleados);
+        $user->name = $request->nombre;
+        $usuario = $user->generarNombreUsuario($request->nombre);
         $contraseña = $user->generarContrasenaSegura();
-        $user->usuario = $usuario;
+        $user->email = $usuario;
         $user->password =  bcrypt($contraseña);
         $user->estado = $request->estado;
         $user->save();
@@ -86,7 +85,7 @@ class UsersController extends Controller
     {
         //Roles
         $roles = new RolesModel();
-        $usuario = User::with(['personas', 'personas.persona_naturales', 'personas.empleados'])->findOrFail($usuarios);
+        $usuario = User::findOrFail($usuarios);
         $rolesusuarios = RolesUsuarios::where('users_id', $usuarios)->get();
         $rolesdisponibles = $roles->obtenerRolesDisponiblesParaUsuario($usuarios);
         // return $usuario;

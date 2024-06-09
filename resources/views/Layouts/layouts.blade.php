@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{ asset('css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/Iconos/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <script src="{{ asset('vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('js/config.js') }}"></script>
 </head>
@@ -227,7 +229,8 @@
     <script src="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('vendor/js/menu.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.css') }}"></script>
     <script>
@@ -251,6 +254,17 @@
         });
     </script>
 
+<script>
+    $(function() {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.buscador').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
 </body>
 
 </html>
