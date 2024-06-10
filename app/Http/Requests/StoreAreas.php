@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateMateriales extends FormRequest
+class StoreAreas extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +21,11 @@ class UpdateMateriales extends FormRequest
      */
     public function rules(): array
     {
-        $productoId = $this->route('materiales');
         return [
-            'nombre' => [
-                'required',
-                Rule::unique('materiales', 'nombre')->ignore($productoId),
-                'regex:/^[a-zA-Z\s]+$/'
-            ],
+            //
+            'nombre' => ['required', 'unique:area_conocimientos,nombre', 'regex:/^[a-zA-Z\sáéíóúÁÉÍÓÚüÜ]+$/'],
             'estado' => 'required|int',
             'descripcion' => 'nullable|max:500',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

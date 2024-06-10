@@ -25,7 +25,7 @@ class StoreMateriales extends FormRequest
             'categorias' => 'required|numeric',
             'nombre' => 'required|string|max:255|unique:materiales', 
             'estado' => 'required|in:0,1',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'descripcion' => 'nullable|string|max:500',
         ];
     }

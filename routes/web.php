@@ -5,6 +5,8 @@ use App\Http\Controllers\Catalogos\CategoriasController;
 use App\Http\Controllers\Catalogos\MaterialesController;
 use App\Http\Controllers\Catalogos\MonedasController;
 use App\Http\Controllers\Catalogos\TasasController;
+use App\Http\Controllers\Facultades\AreasController;
+use App\Http\Controllers\Facultades\CarrerasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PrivilegiosController;
@@ -35,6 +37,12 @@ Route::resource('categorias',CategoriasController::class)->parameters(['categori
 Route::resource('materiales',MaterialesController::class)->parameters(['materiales' => 'materiales'])->names('materiales')->middleware('checkRole:2');
 Route::resource('monedas',MonedasController::class)->parameters(['monedas' => 'monedas'])->names('monedas')->middleware('checkRole:3');
 Route::resource('tasas',TasasController::class)->parameters(['tasas' => 'tasas'])->names('tasas')->middleware('checkRole:4');
+
+//Areas de conocimientos
+Route::resource('areas',AreasController::class)->parameters(['areas' => 'areas'])->names('areas')->middleware('checkRole:7');
+Route::resource('carreras',CarrerasController::class)->parameters(['carreras' => 'carreras'])->names('carreras')->middleware('checkRole:8');
+
+
 //Gestion de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:12');
 Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios')->middleware('checkRole:14');

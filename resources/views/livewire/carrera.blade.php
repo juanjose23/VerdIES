@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gestión Catalogos /</span> Monedas</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gestión Areas de conocimiento /</span> Carreras</h4>
 
             <div class="card">
                 <div class="card-header">
@@ -16,10 +16,10 @@
                         <!-- Botones -->
                         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
                             <!-- Botón para crear una categoría -->
-                            @can('create', App\Models\Categorias::class)
+                            @can('create', App\Models\Areas::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
-                                    <a href="{{ route('monedas.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus me-1"></i> Registrar monedas
+                                    <a href="{{ route('carreras.create') }}" class="btn btn-primary">
+                                        <i class="fas fa-plus me-1"></i> Registrar Carrera
                                     </a>
                                 </div>
                             @endcan
@@ -59,53 +59,57 @@
                 <div class="table-responsive text-nowrap">
                     <table class="table">
                         <caption class="ms-4">
-                            Lista de monedas
+                            Lista de Carreras
                         </caption>
                         <thead>
                             <tr>
                                 <th>#</th>
-                             
-                                <th>Moneda</th>
+                                <th>Area de conocimiento</th>
+
+                                <th>Carrera</th>
                                 <th>Descripcion</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($monedas as $moneda)
-                                <tr>
+                            @foreach ($carreras as $carrera)
+                                <tr class="odd">
                                     <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $carrera->areas->nombre }}</td>
+
+
                                     <td class="sorting_1">
                                         <div class="d-flex justify-content-start align-items-center user-name">
 
                                             <div class="avatar-wrapper">
 
 
-                                                @if ($moneda->imagenes)
+                                                @if ($carrera->imagenes)
                                                     <div class="avatar avatar-sm me-3"><img
-                                                            src="{{ $moneda->imagenes->url }}" alt="Avatar"
+                                                            src="{{ $carrera->imagenes->url }}" alt="Avatar"
                                                             class="rounded-circle">
                                                     </div>
                                                 @else
                                                     <div class="avatar avatar-sm me-3">
-                                                        <img src="https://ui-avatars.com/api/?name= {{ $moneda->nombre }}"
+                                                        <img src="https://ui-avatars.com/api/?name= {{ $carrera->nombre }}"
                                                             alt="Avatar" class="rounded-circle">
                                                     </div>
                                                 @endif
                                             </div>
                                             <div class="d-flex flex-column">
                                                 <a href="" class="text-body text-truncate">
-                                                    <span class="fw-medium">{{ $moneda->nombre }}</span>
+                                                    <span class="fw-medium">{{ $carrera->nombre }}</span>
                                                 </a>
                                             </div>
 
                                         </div>
                                     </td>
 
-                                    <td class="text-wrap">{{ wordwrap($moneda->descripcion, 50, "\n", true) }}</td>
+                                    <td class="text-wrap">{{ wordwrap($carrera->descripcion, 50, "\n", true) }}</td>
                                     <td><span
-                                            class=" badge bg-label-{{ $moneda->estado == 1 ? 'primary' : 'danger' }} me-1">
-                                            {{ $moneda->estado == 1 ? 'Activo' : 'Inactivo' }}
+                                            class=" badge bg-label-{{ $carrera->estado == 1 ? 'primary' : 'danger' }} me-1">
+                                            {{ $carrera->estado == 1 ? 'Activo' : 'Inactivo' }}
                                         </span>
                                     </td>
                                     <td>
@@ -116,28 +120,28 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('update', App\Models\Categorias::class)
+                                                @can('update', App\Models\Areas::class)
                                                     <a class="dropdown-item"
-                                                        href="{{ route('monedas.edit', ['monedas' => $moneda->id]) }}">
+                                                        href="{{ route('carreras.edit', ['carreras' => $carrera->id]) }}">
                                                         <i class="bx bx-edit-alt me-1"></i> Editar
                                                     </a>
                                                 @endcan
-                                                @can('delete', App\Models\Categorias::class)
+                                                @can('delete', App\Models\Areas::class)
                                                     <a class="dropdown-item" href="javascript:void(0);"
-                                                        onclick="confirmAction({{ $moneda->id }})">
+                                                        onclick="confirmAction({{ $carrera->id }})">
                                                         <i
-                                                            class="fas fa-{{ $moneda->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
-                                                        {{ $moneda->estado == 1 ? 'Eliminar' : 'Activar' }}
+                                                            class="fas fa-{{ $carrera->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                        {{ $carrera->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan
                                             </div>
                                         </div>
-                                        <form id="deleteForm{{ $moneda->id }}"
-                                            action="{{ route('monedas.destroy', ['monedas' => $moneda->id]) }}"
+                                        <form id="deleteForm{{ $carrera->id }}"
+                                            action="{{ route('carreras.destroy', ['carreras' => $carrera->id]) }}"
                                             method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
-                                            <button id="submitBtn{{ $moneda->id }}" type="submit"></button>
+                                            <button id="submitBtn{{ $carrera->id }}" type="submit"></button>
                                         </form>
 
                                     </td>
@@ -151,15 +155,15 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
                             <!-- Botón para la página anterior -->
-                            <li class="page-item {{ $monedas->onFirstPage() ? 'disabled' : '' }}">
+                            <li class="page-item {{ $carreras->onFirstPage() ? 'disabled' : '' }}">
                                 <button type="button" class="page-link" wire:click="previousPage"
-                                    {{ $monedas->onFirstPage() ? 'disabled' : '' }}>
+                                    {{ $carreras->onFirstPage() ? 'disabled' : '' }}>
                                     Previo
                                 </button>
                             </li>
 
                             <!-- Botones para cada página -->
-                            @foreach ($monedas->links()->elements as $element)
+                            @foreach ($carreras->links()->elements as $element)
                                 @if (is_string($element))
                                     <li class="page-item disabled"><span class="page-link">{{ $element }}</span>
                                     </li>
@@ -167,7 +171,8 @@
 
                                 @if (is_array($element))
                                     @foreach ($element as $page => $url)
-                                        <li class="page-item {{ $page == $monedas->currentPage() ? 'active' : '' }}">
+                                        <li
+                                            class="page-item {{ $page == $carreras->currentPage() ? 'active' : '' }}">
                                             <button type="button" class="page-link"
                                                 wire:click="gotoPage({{ $page }})">
                                                 {{ $page }}
@@ -178,9 +183,9 @@
                             @endforeach
 
                             <!-- Botón para la página siguiente -->
-                            <li class="page-item {{ $monedas->hasMorePages() ? '' : 'disabled' }}">
+                            <li class="page-item {{ $carreras->hasMorePages() ? '' : 'disabled' }}">
                                 <button type="button" class="page-link" wire:click="nextPage"
-                                    {{ $monedas->hasMorePages() ? '' : 'disabled' }}>
+                                    {{ $carreras->hasMorePages() ? '' : 'disabled' }}>
                                     Siguiente
                                 </button>
                             </li>
@@ -196,7 +201,7 @@
     function confirmAction(categoriaId) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este categoría?',
+            text: '¿Quieres cambiar el estado de esta carrera?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

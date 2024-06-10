@@ -65,7 +65,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Categoria</th>
-                                <th></th>
+
                                 <th>Material</th>
                                 <th>Descripcion</th>
                                 <th>Estado</th>
@@ -74,38 +74,36 @@
                         </thead>
                         <tbody>
                             @foreach ($materiales as $material)
-                                <tr>
+                                <tr class="odd">
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $material->categorias->nombre }}</td>
 
-                                    <td>
-                                        @if ($material->imagenes)
-                                          
-                                                <ul
-                                                    class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                        data-bs-placement="top" class="avatar avatar-xl pull-up"
-                                                        title=" {{ $material->nombre }}">
-                                                        <img src="{{ $material->imagenes->url }}" alt="{{ $material->nombre }}"
-                                                            class="rounded-circle" />
-                                                    </li>
-                                                </ul>
-                                     
-                                        @else
-                                            <ul
-                                                class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                    data-bs-placement="top" class="avatar avatar-xl pull-up"
-                                                    title="{{ $material->nombre }}">
-                                                    <img src="https://ui-avatars.com/api/?name= {{ $material->nombre }}"
-                                                        alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                            </ul>
-                                        @endif
-                                      
-                                    </td>
-                                    <td>
-                                        {{ $material->nombre }}
+
+                                    <td class="sorting_1">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+
+                                            <div class="avatar-wrapper">
+
+
+                                                @if ($material->imagenes)
+                                                    <div class="avatar avatar-sm me-3"><img
+                                                            src="{{ $material->imagenes->url }}" alt="Avatar"
+                                                            class="rounded-circle">
+                                                    </div>
+                                                @else
+                                                    <div class="avatar avatar-sm me-3">
+                                                        <img src="https://ui-avatars.com/api/?name= {{ $material->nombre }}"
+                                                            alt="Avatar" class="rounded-circle">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <a href="" class="text-body text-truncate">
+                                                    <span class="fw-medium">{{ $material->nombre }}</span>
+                                                </a>
+                                            </div>
+
+                                        </div>
                                     </td>
 
                                     <td class="text-wrap">{{ wordwrap($material->descripcion, 50, "\n", true) }}</td>

@@ -25,21 +25,21 @@ class submodulos extends Seeder
             [
                 'modulos_id'=>1,
                 'nombre' => 'Materiales',
-                'descripcion' => '',
+                'descripcion' => 'materiales.index',
                 'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>1,
                 'nombre' => 'Monedas',
-                'descripcion' => '',
+                'descripcion' => 'monedas.index',
                 'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>1,
                 'nombre' => 'Tasas',
-                'descripcion' => '',
+                'descripcion' => 'tasas.index',
                 'enlace'=>null,
                 'estado' => 1
             ],
@@ -60,14 +60,14 @@ class submodulos extends Seeder
             [
                 'modulos_id'=>3,
                 'nombre' => 'Área de conocimientos',
-                'descripcion' => '',
+                'descripcion' => 'areas.index',
                 'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Carreras',
-                'descripcion' => '',
+                'descripcion' => 'carreras.index',
                 'enlace'=>null,
                 'estado' => 1
             ],
