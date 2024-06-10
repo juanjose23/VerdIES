@@ -7,6 +7,7 @@ use App\Http\Controllers\Catalogos\MonedasController;
 use App\Http\Controllers\Catalogos\TasasController;
 use App\Http\Controllers\Facultades\AreasController;
 use App\Http\Controllers\Facultades\CarrerasController;
+use App\Http\Controllers\Reciclaje\AcopiosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PrivilegiosController;
@@ -41,6 +42,7 @@ Route::resource('tasas',TasasController::class)->parameters(['tasas' => 'tasas']
 //Areas de conocimientos
 Route::resource('areas',AreasController::class)->parameters(['areas' => 'areas'])->names('areas')->middleware('checkRole:7');
 Route::resource('carreras',CarrerasController::class)->parameters(['carreras' => 'carreras'])->names('carreras')->middleware('checkRole:8');
+Route::resource('acopios',AcopiosController::class)->parameters(['acopios' => 'acopios'])->names('acopios')->middleware('checkRole:9');
 
 
 //Gestion de usuarios

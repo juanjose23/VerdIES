@@ -21,4 +21,9 @@ class Area extends Component
         
         return view('livewire.area',compact('areas'));
     }
+    public function setPerPage($perPage)
+    {
+        $this->perPage = $perPage;
+        $this->gotoPage(1); // Reiniciar el paginado a la página 1
+    }
 }
