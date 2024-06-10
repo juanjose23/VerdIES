@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
+<html lang="es" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
     data-assets-path="../assets/" data-template="vertical-menu-template-free">
 
 <head>
@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717918325/Verdies/yrttfhjuhiqfesaxbsoi.png" />
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,9 +41,9 @@
 
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
-                    <a href="index.html" class="app-brand-link">
+                    <a href="" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717918325/Verdies/yrttfhjuhiqfesaxbsoi.png"
+                            <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
                                 alt="" width="50">
                         </span>
                         <span class="app-brand-text demo menu-text fw-bold ms-2">VerdIES</span>
@@ -111,7 +111,7 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 <i class="fas fa-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2"
+                                <input type="text" class="form-control bg-transparent border-0 shadow-none ps-1 ps-sm-2"
                                     placeholder="Buscar..." aria-label="Buscar..." />
                             </div>
                         </div>

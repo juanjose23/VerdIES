@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
 class Materiales extends Model
 {
     use HasFactory;
@@ -12,13 +13,15 @@ class Materiales extends Model
     {
         return $this->belongsTo('App\Models\Categorias');
     }
-   
-
+    public function tasas()
+    {
+        return $this->hasMany('App\Models\Tasas');
+    }
     public function imagenes()
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
     }
-   
+
     /**
      * Genera el código de un producto basado en la categoría.
      *
@@ -36,4 +39,42 @@ class Materiales extends Model
         // Generar el código del producto concatenando el prefijo y el ID
         return $prefijo . '-' . str_pad($siguienteId, 5, '0', STR_PAD_LEFT);
     }
+
+
+
+    /**
+     * 
+     */
+    public static function ObtenerCategoriasConMateriales()
+    {
+        $materialesEnTasas = Tasas::pluck('materiales_id')->toArray();
+
+        // Obtener las categorías con materiales filtrados que no existen en Tasas
+        $categorias = Categorias::where('estado', 1)
+            ->with([
+                'materiales' => function ($query) use ($materialesEnTasas) {
+                    $query->whereNotIn('id', $materialesEnTasas);
+                }
+            ])
+            ->get();
+
+
+        $resultados = [];
+
+        foreach ($categorias as $categoria) {
+            $nombreCategoria = $categoria->nombre;
+
+            if ($categoria->materiales !== null && $categoria->materiales->count() > 0) {
+                foreach ($categoria->materiales as $material) {
+                    $resultados[$nombreCategoria][] = [
+                        'id' => $material->id,
+                        'nombre' => $material->nombre
+                    ];
+                }
+            }
+        }
+
+        return $resultados;
+    }
+
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMateriales extends FormRequest
+class StoreTasas extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,10 @@ class StoreMateriales extends FormRequest
     public function rules(): array
     {
         return [
-            'categorias' => 'required|numeric',
-            'nombre' => 'required|string|max:255|unique:materiales', 
+            'materiales' => 'required', 
             'estado' => 'required|in:0,1',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'descripcion' => 'nullable|string|max:500',
+            'monedas' => 'required',
+            'cantidad' => 'required',
         ];
     }
 }

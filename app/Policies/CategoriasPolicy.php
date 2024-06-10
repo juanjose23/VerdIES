@@ -5,10 +5,11 @@ namespace App\Policies;
 use App\Models\Categorias;
 use App\Models\permisosroles;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class CategoriasPolicy
 {
-  /**
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
@@ -32,10 +33,15 @@ class CategoriasPolicy
     public function create(User $user): bool
     {
         //
-        $idPermisoDeseado=1;
+
+        $idPermisoDeseado = 1;
+      
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
+           
             return true;
+
         }
+
         
         return false;
     }
@@ -46,11 +52,11 @@ class CategoriasPolicy
     public function update(User $user): bool
     {
         //
-        $idPermisoDeseado=2;
+        $idPermisoDeseado = 2;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -60,11 +66,11 @@ class CategoriasPolicy
     public function delete(User $user): bool
     {
         //
-        $idPermisoDeseado=3;
+        $idPermisoDeseado = 3;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -74,11 +80,11 @@ class CategoriasPolicy
     public function restore(User $user): bool
     {
         //
-        $idPermisoDeseado=3;
+        $idPermisoDeseado = 3;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -88,29 +94,20 @@ class CategoriasPolicy
     public function forceDelete(User $user): bool
     {
         //
-        $idPermisoDeseado=3;
+        $idPermisoDeseado = 3;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
             return true;
         }
-        
+
         return false;
     }
     private function tienePermiso(User $user, $idPermisoDeseado): bool
     {
         $userId = $user->id;
-        $permisos =permisosroles::obtenerPermisosRoles($userId); // Aquí deberías llamar a tu función para obtener los permisos del usuario
+        $permisos = permisosroles::obtenerPermisosRoles($userId);
 
-       // ID del permiso necesario para crear cargos
-        
         // Verifica si el usuario tiene el permiso deseado
-        foreach ($permisos as $permiso) {
-           
-            if ($permiso->id === $idPermisoDeseado) {
-                
-                return true;
-            }
-        }
-     
-        return false;
+        return collect($permisos)->contains('id', $idPermisoDeseado);
     }
+
 }

@@ -27,8 +27,7 @@ class StorePermisos extends FormRequest
     {
         return [
             'rol' => 'required|exists:roles,id',
-            'submodulos' => 'required',
-            'submodulos.*' => 'required|exists:submodulos,id',
+           
         ];
     }
 
@@ -37,9 +36,7 @@ class StorePermisos extends FormRequest
         return [
             'rol.required' => 'El campo Rol es obligatorio.',
             'rol.exists' => 'El Rol seleccionado no es válido.',
-            'submodulos.required' => 'Debe seleccionar al menos un submódulo.',
-            'submodulos.*.required' => 'Todos los submódulos seleccionados son obligatorios.',
-            'submodulos.*.exists' => 'Alguno de los submódulos seleccionados no es válido.',
+            
         ];
     }
 }

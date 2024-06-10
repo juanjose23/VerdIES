@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717918325/Verdies/yrttfhjuhiqfesaxbsoi.png" />
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -56,7 +56,7 @@
                         <div class="app-brand justify-content-center">
                             <a href="index.html" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717918325/Verdies/yrttfhjuhiqfesaxbsoi.png"
+                                    <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
                                         alt="" width="50">
                                 </span>
                                 <span class="app-brand-text demo text-body fw-bold">VerdIES</span>

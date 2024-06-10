@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Session;
 class PermisoController extends Controller
 {
     //
+    public function __construct()
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\permisos')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\permisos')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\permisos')->only(['destroy']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\permisos')->except(['index', 'show']);
+    }
 
     public function index()
     {
@@ -31,6 +40,7 @@ class PermisoController extends Controller
     public function edit($permisos)
     {
         $rol = RolesModel::findOrFail($permisos);
+       
         $permiso = new permisosroles();
         $permisos = $permiso->obtenerpermisosfaltantes($permisos);
         return view('Gestion_usuarios.Permisos.edit', compact('permisos', 'rol'));
@@ -40,6 +50,7 @@ class PermisoController extends Controller
     public function store(StorePermisos $request)
     {
         $submodulo = $request->submodulos;
+     
         foreach ($submodulo as $submoduloIds) {
             foreach ($submoduloIds as $id_submodulo) {
                 $privilegios = new permisosroles();

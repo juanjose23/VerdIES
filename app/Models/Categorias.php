@@ -10,6 +10,6 @@ class Categorias extends Model
     use HasFactory;
     public function materiales()
     {
-        return $this->hasOne('App\Models\Materiales');
+        return $this->hasMany('App\Models\Materiales');
     }
 }

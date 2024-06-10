@@ -17,7 +17,7 @@ class RolesUsuariosSeeders extends Seeder
         $roles = [
             [
                 'roles_id' => 2,
-                'users_id' => 1,
+                'users_id' => 5,
                 'estado' => 1
             ],
 

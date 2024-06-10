@@ -28,26 +28,22 @@ class RolesSeeder extends Seeder
             ],
 
             [
-                'nombre' => 'Gerente de Ventas',
-                'descripcion' => 'Responsable de la gestión de ventas y clientes.',
+                'nombre' => 'Inspector',
+                'descripcion' => 'Responsable de la inspección.',
                 'estado' => 1,
             ],
 
             [
-                'nombre' => 'Gerente de Compras',
-                'descripcion' => 'Encargado de gestionar las compras de productos y proveedores.',
+                'nombre' => 'Encargado de la promociones',
+                'descripcion' => 'Encargado de gestionar las promociones.',
                 'estado' => 1,
             ],
             [
-                'nombre' => 'Vendedor',
+                'nombre' => 'Encargado de reciclaje',
                 'descripcion' => 'Responsable de interactuar con los clientes y realizar ventas.',
                 'estado' => 1,
             ],
-            [
-                'nombre' => 'Asistente de Almacén',
-                'descripcion' => 'Encargado de gestionar el inventario y la logística.',
-                'estado' => 1,
-            ]
+          
         ];
 
         // Crear los modelos utilizando el array
