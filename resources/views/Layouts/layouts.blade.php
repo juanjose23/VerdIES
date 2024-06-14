@@ -124,9 +124,10 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ Session::get('Foto') }}" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+                                        <img src="{{ Session::get('Foto') }}" alt="Avatar"
+                                            class="w-100 h-auto rounded-circle" style="max-width: 40px; max-height: 40px; " />
                                     </div>
+                                    
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
@@ -135,7 +136,7 @@
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
                                                         <img src="{{ Session::get('Foto') }}" alt
-                                                            class="w-px-40 h-auto rounded-circle" />
+                                                            class="w-px-40   h-auto rounded-circle" style="max-width: 40px; max-height: 40px; "/>
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -149,7 +150,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{route('inicios')}}">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">Mi perfil</span>
                                         </a>

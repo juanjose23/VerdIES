@@ -30,7 +30,11 @@ class AreasSeeders extends Seeder
                 'descripcion' => '',
                 'estado' => 1
             ],
-          
+            [
+                'nombre' => 'Colaborador Uni',
+                'descripcion' => '',
+                'estado' => 1
+            ],
            
         ];
         

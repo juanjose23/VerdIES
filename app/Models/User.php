@@ -47,6 +47,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\RolesUsuarios', 'users_id');
     }
+    public function user_carrera()
+    {
+        return $this->hasOne('App\Models\User_carreras', 'users_id');
+    }
+    public function puntos()
+    {
+        return $this->hasMany('App\Models\Puntos');
+    }
 
     public function session()
     {
@@ -64,6 +72,10 @@ class User extends Authenticatable
     public function entregas()
     {
         return $this->hasMany('App\Models\Entregas');
+    }
+    public function transciones()
+    {
+        return $this->hasMany('App\Models\Transciones');
     }
     /**
      * Genera un nombre de usuario único combinando el nombre y el apellido de una persona.

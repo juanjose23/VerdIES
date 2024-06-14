@@ -154,63 +154,65 @@ class EntregasController extends Controller
         // Actualizar la nota y el estado de la entrega
         $entrega->nota = $request->nota;
         $iduser = $entrega->users_id;
-        $acopio = $entregas->acopios_id;
+        $acopio = $entrega->acopios_id;
         $entrega->estado = $request->estado;
         $entrega->save();
 
-        // Decodificar la cadena JSON en un array asociativo
-        $materialesData = json_decode($request->materialesData);
-        // Verificar si la decodificación fue exitosa
-        if ($materialesData !== null) {
-            // Iterar sobre los datos de materiales
-            foreach ($materialesData as $item) {
-                // Buscar la tasa correspondiente al material
-                $tasa = Tasas::where('materiales_id', $item->id)->where('estado', 1)->first();
+        if ($request->estado == 2) {
+            // Decodificar la cadena JSON en un array asociativo
+            $materialesData = json_decode($request->materialesData);
+            // Verificar si la decodificación fue exitosa
+            if ($materialesData !== null) {
+                // Iterar sobre los datos de materiales
+                foreach ($materialesData as $item) {
+                    // Buscar la tasa correspondiente al material
+                    $tasa = Tasas::where('materiales_id', $item->id)->where('estado', 1)->first();
 
-                // Verificar si se encontró una tasa válida
-                if ($tasa) {
-                    // Buscar o crear un nuevo detalle de entrega
-                    $detalle = Detalles_entregas::firstOrNew(['materiales_id' => $item->id, 'entregas_id' => $entrega->id]);
-                    $detalle->monedas_id = $tasa->monedas_id;
-                    $detalle->cantidad = $item->cantidad;
-                    $detalle->valor = $tasa->cantidad * $item->cantidad;
-                    $detalle->save();
+                    // Verificar si se encontró una tasa válida
+                    if ($tasa) {
+                        // Buscar o crear un nuevo detalle de entrega
+                        $detalle = Detalles_entregas::firstOrNew(['materiales_id' => $item->id, 'entregas_id' => $entrega->id]);
+                        $detalle->monedas_id = $tasa->monedas_id;
+                        $detalle->cantidad = $item->cantidad;
+                        $detalle->valor = $tasa->cantidad * $item->cantidad;
+                        $detalle->save();
 
-                    // Crear un nuevo registro en la tabla de puntos
-                    $puntos = new Puntos();
-                    $puntos->users_id = $iduser;
-                    $puntos->monedas_id = $tasa->monedas_id;
-                    $puntos->puntos = $tasa->cantidad * $item->cantidad;
-                    $puntos->save();
+                        // Crear un nuevo registro en la tabla de puntos
+                        $puntos = new Puntos();
+                        $puntos->users_id = $iduser;
+                        $puntos->monedas_id = $tasa->monedas_id;
+                        $puntos->puntos = $tasa->cantidad * $item->cantidad;
+                        $puntos->save();
 
-                    $inventarios = Inventarios::firstOrNew([
-                        'materiales_id' => $item->id,
-                        'acopios_id' => $acopio
-                    ]);
+                        $inventarios = Inventarios::firstOrNew([
+                            'materiales_id' => $item->id,
+                            'acopios_id' => $acopio
+                        ]);
 
-                    if ($inventarios->exists) {
-                        // Si el inventario ya existe, sumar la cantidad
-                        $inventarios->cantidad += $item->cantidad;
+                        if ($inventarios->exists) {
+                            // Si el inventario ya existe, sumar la cantidad
+                            $inventarios->cantidad += $item->cantidad;
+                        } else {
+                            // Si el inventario no existe, asignar la nueva cantidad
+                            $inventarios->cantidad = $item->cantidad;
+                        }
+
+                        $inventarios->estado = 1;
+                        $inventarios->save();
+
+
+
                     } else {
-                        // Si el inventario no existe, asignar la nueva cantidad
-                        $inventarios->cantidad = $item->cantidad;
+                        // Manejar el caso donde no se encontró una tasa válida
+                        Log::error('No se encontró una tasa válida para el material ID: ' . $item->id);
                     }
-
-                    $inventarios->estado = 1;
-                    $inventarios->save();
-
-
-
-                } else {
-                    // Manejar el caso donde no se encontró una tasa válida
-                    Log::error('No se encontró una tasa válida para el material ID: ' . $item->id);
                 }
+            } else {
+                // Manejar el caso donde la decodificación JSON falló
+                Log::error('La decodificación JSON falló para materialesData: ' . $request->materialesData);
             }
-        } else {
-            // Manejar el caso donde la decodificación JSON falló
-            Log::error('La decodificación JSON falló para materialesData: ' . $request->materialesData);
-        }
 
+        }
         // Notificar al usuario
         $user = User::find($iduser);
         $user->notify(new EntregaVerificada());

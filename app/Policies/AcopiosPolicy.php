@@ -107,7 +107,7 @@ class AcopiosPolicy
         $permisos = permisosroles::obtenerPermisosRoles($userId);
 
         // Verifica si el usuario tiene el permiso deseado
-        return collect($permisos)->contains('id', $idPermisoDeseado);
+        return collect($permisos)->contains('permisosmodulos_id', $idPermisoDeseado);
     }
     
 }

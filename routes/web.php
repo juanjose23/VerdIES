@@ -9,6 +9,7 @@ use App\Http\Controllers\Catalogos\TasasController;
 use App\Http\Controllers\Facultades\AreasController;
 use App\Http\Controllers\Facultades\CarrerasController;
 use App\Http\Controllers\Page\PageController;
+use App\Http\Controllers\Promociones\CanjearController;
 use App\Http\Controllers\Promociones\PromocionesController;
 use App\Http\Controllers\Reciclaje\AcopiosController;
 use App\Http\Controllers\Reciclaje\EntregasController;
@@ -42,9 +43,12 @@ Route::get('/centros-acopios', [PageController::class, 'acopios'])->name('centro
 Route::get('/recepcion-materiales', [PageController::class, 'recepcion'])->name('recepcion-material');
 Route::get('/recepcion-materia/{centroAcopio}',[PageController::class,'recepcionMaterial'])->name('recepcion-materia')->middleware('auth');
 Route::get('/entrega',[PageController::class,'entrega'])->name('entrega')->middleware('auth');
-Route::post('/realizar', [PageController::class, 'registrarEntrega'])->name('realizar')->middleware('auth');;
+Route::post('/realizar', [PageController::class, 'registrarEntrega'])->name('realizar')->middleware('auth');
 Route::get('/perfil', [PageController::class, 'perfil'])->name('perfil');
-
+Route::get('/canjes', [PageController::class, 'canjes'])->name('canjes');
+Route::get('/puntos', [PageController::class, 'puntos'])->name('puntos')->middleware('auth');
+Route::post('/actualizarperfil', [PageController::class, 'actualizarperfil'])->name('actualizarperfil');
+Route::post('/canjear', [PageController::class, 'canjear'])->name('canjear')->middleware('auth');
 // Gestion de entrega
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
@@ -64,7 +68,10 @@ Route::post('/auth/password/reset/process', [LoginController::class, 'resetPassw
 Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('validarLogin');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/error403',[LoginController::class,'error403'])->name('error403');
-
+Route::get('/inicio',[PageController::class,'inicio'])->name('inicio')->middleware('auth');
+Route::get('/inicios', [LoginController::class, 'inicios'])->name('inicios');
+Route::post('/cerrar-sesion-dispositivo', [LoginController::class, 'closeSessionForDevice'])->name('cerrar_sesion_dispositivo');
+Route::post('/actualizar', [LoginController::class, 'actualizar'])->name('actualizar');
 
 //Gestion de catalogos
 Route::resource('categorias',CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('checkRole:1');
@@ -73,6 +80,7 @@ Route::resource('monedas',MonedasController::class)->parameters(['monedas' => 'm
 Route::resource('tasas',TasasController::class)->parameters(['tasas' => 'tasas'])->names('tasas')->middleware('checkRole:4');
 //Gestion de promociones
 Route::resource('promociones',PromocionesController::class)->parameters(['promociones' => 'promociones'])->names('promociones')->middleware('checkRole:5');
+Route::resource('canje',CanjearController::class)->parameters(['canje' => 'canje'])->names('canje')->middleware('checkRole:6');
 
 //Areas de conocimientos
 Route::resource('areas',AreasController::class)->parameters(['areas' => 'areas'])->names('areas')->middleware('checkRole:7');

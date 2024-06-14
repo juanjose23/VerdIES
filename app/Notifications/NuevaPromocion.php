@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EntregaVerificada extends Notification
+class NuevaPromocion extends Notification
 {
     use Queueable;
 
@@ -35,10 +35,11 @@ class EntregaVerificada extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject('¡Entrega verificada!')
-        ->line('Se ha verificado una nueva entrega en nuestra plataforma.')
-        ->action('Ver verificacion', url('/puntos'))
-        ->line('¡Gracias por utilizar nuestra aplicación!');
+        ->subject('¡Nueva Colaboración en Verdies!')
+        ->line('¡Hola, somo parte del equipo Verdies!')
+        ->line('Nos complace informarte que hay una nueva colaboración disponible en nuestra plataforma.')
+        ->action('Ver Colaboración', url('/promocion'))
+        ->line('¡Gracias por ser parte de la comunidad Verdies!');
     }
 
     /**

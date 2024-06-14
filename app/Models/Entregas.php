@@ -36,4 +36,37 @@ class Entregas extends Model
 
         return $codigo;
     }
+
+    public static function obtenerHistorialEntregasPorUsuario($idUsuario)
+    {
+        $entregas = static::where('users_id', $idUsuario)
+            ->with(['acopios', 'detalles.monedas'])
+            ->get();
+
+        $historial = [];
+
+        foreach ($entregas as $entrega) {
+            $monedasPorEntrega = [];
+
+            foreach ($entrega->detalles as $detalle) {
+                $tipoMoneda = $detalle->monedas->nombre;
+                $cantidad = $detalle->cantidad;
+                $valor = $detalle->valor;
+
+                if (!isset($monedasPorEntrega[$tipoMoneda])) {
+                    $monedasPorEntrega[$tipoMoneda] = 0;
+                }
+
+                $monedasPorEntrega[$tipoMoneda] += $cantidad * $valor;
+            }
+
+            $historial[] = [
+                'acopio' => $entrega->acopios->nombre,
+                'fecha' => $entrega->created_at,
+                'monedas' => $monedasPorEntrega
+            ];
+        }
+
+        return $historial;
+    }
 }

@@ -13,10 +13,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Validator;
-
+use App\Notifications\NuevaPromocion;
+use Illuminate\Support\Facades\Notification;
 class PromocionesController extends Controller
 {
     //
+    public function __construct()
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Promociones')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Promociones')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\Promociones')->only(['destroy']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\Promociones')->except(['index', 'show']);
+    }
     public function index()
     {
         return view('Gestion_Promociones.Promociones.index');
@@ -83,7 +93,9 @@ class PromocionesController extends Controller
 
         // Guardar la promoción en la base de datos
 
+        $usuarios = User::all(); // Obtener todos los usuarios
 
+        Notification::send($usuarios, new NuevaPromocion());
         // Redireccionar a la vista de promociones o hacer cualquier otra acción
         return redirect()->route('promociones.index')->with('success', 'Promoción registrada exitosamente.');
     }

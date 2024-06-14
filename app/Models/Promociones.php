@@ -16,6 +16,10 @@ class Promociones extends Model
     {
         return $this->hasOne('App\Models\DetallesPromociones');
     }
+    public function transciones()
+    {
+        return $this->hasMany('App\Models\Transciones');
+    }
     public function imagenes()
     {
         return $this->morphOne('App\Models\Media', 'imagenable');

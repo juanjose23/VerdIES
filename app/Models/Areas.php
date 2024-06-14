@@ -9,9 +9,9 @@ class Areas extends Model
 {
     use HasFactory;
     protected $table="area_conocimientos";
-    public function materiales()
+    public function carreras()
     {
-        return $this->hasMany('App\Models\Carreras');
+        return $this->hasMany('App\Models\Carreras','area_conocimientos_id');
     }
 
     public function imagenes()

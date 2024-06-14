@@ -104,7 +104,7 @@ class PermisosPolicy
         // Verifica si el usuario tiene el permiso deseado
         foreach ($permisos as $permiso) {
            
-            if ($permiso->id === $idPermisoDeseado) {
+            if ($permiso->permisosmodulos_id === $idPermisoDeseado) {
                 
                 return true;
             }

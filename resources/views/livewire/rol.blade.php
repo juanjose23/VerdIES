@@ -17,7 +17,7 @@
                             <!-- Botones -->
                             <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
                                 <!-- Botón para crear una categoría -->
-                                @can('create', App\Models\Categorias::class)
+                                @can('create', App\Models\Roles::class)
                                     <div class="btn-group me-2 mb-2 mb-md-0">
                                         <a href="{{ route('roles.create') }}" class="btn btn-primary">
                                             <i class="fas fa-plus me-1"></i> Registrar Roles

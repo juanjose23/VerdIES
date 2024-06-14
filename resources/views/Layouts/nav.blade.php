@@ -11,7 +11,7 @@
                 <ul>
                     <li><a class="nav-link scrollto " href="{{route('home')}}">Inicio</a></li>
                     <li><a class="nav-link scrollto" href="{{route('acerca')}}">Acerca</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Promociones</a></li>
+                    <li><a class="nav-link scrollto" href="{{route('canjes')}}">Promociones</a></li>
                     <li><a class="nav-link scrollto " href="{{route('centros-acopios')}}">Centros de Acopios</a></li>
 
                     <li class="dropdown"><a href="#"><span>Paginas</span> <i class="bi bi-chevron-down"></i></a>
@@ -22,13 +22,15 @@
 
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="#contact">Canjear</a></li>
                     @guest
+                
+                   
                         <li><a style="background-color: #2D6244;" class="getstarted scrollto" href="{{ route('login') }}">Login</a></li>
                     @else
+                    <li><a class="nav-link scrollto" href="{{route('puntos')}}">Mis historial</a></li>
                     <div class="dropdown">
                         <button class="btn btn-small dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ Session::get('Foto') }}" class="rounded-circle" alt="Foto de perfil" width="40">
+                            <img src="{{ Session::get('Foto') }}" class="rounded-circle" alt="Foto de perfil" width="50" height="50">
 
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">

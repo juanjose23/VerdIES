@@ -88,6 +88,18 @@ class CarrerasSeeders extends Seeder
                 'descripcion' => '',
                 'estado' => 1
             ],
+            [
+                'area_conocimientos_id' => 4, 
+                'nombre' => 'Personal administrativo',
+                'descripcion' => '',
+                'estado' => 1
+            ],
+            [
+                'area_conocimientos_id' => 4, 
+                'nombre' => 'Docente',
+                'descripcion' => '',
+                'estado' => 1
+            ],
         ];
         foreach ($carreras as $carrera) {
             Carreras::create($carrera);

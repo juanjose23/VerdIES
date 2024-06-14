@@ -12,10 +12,17 @@ class Monedas extends Model
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
     }
-
+    public function transciones()
+    {
+        return $this->hasMany('App\Models\Transciones');
+    }
     public function tasas()
     {
         return $this->hasMany('App\Models\Tasas');
+    }
+    public function puntos()
+    {
+        return $this->hasMany('App\Models\Puntos');
     }
     public function detalles()
     {

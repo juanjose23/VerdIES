@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('transciones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('puntos_id')->references('id')->on('puntos')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('monedas_id')->references('id')->on('monedas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('users_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('promociones_id')->references('id')->on('promociones')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('cantidad');
+            $table->integer('puntos');
             $table->integer('estado');
             $table->timestamps();
         });
