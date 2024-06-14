@@ -196,6 +196,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
 
+       
+
     ],
 
     /*

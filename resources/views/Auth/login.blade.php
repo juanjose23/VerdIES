@@ -46,7 +46,7 @@
 <body>
     <!-- Content -->
 
-    <div class="container-xxl">
+    <div class="container-xxl" style="background-image: url('https://res.cloudinary.com/dxtlbsa62/image/upload/v1718176508/Verdies/Page/x0kzhegn7nmmw5gp0r1p.jpg');">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
                 <!-- Register -->
@@ -101,13 +101,13 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Iniciar sesión</button>
+                                <button style="background-color:rgb(0, 179, 131);" class="btn btn-primary d-grid w-100" type="submit">Iniciar sesión</button>
                             </div>
                         </form>
 
                         <p class="text-center">
                             <span>¿Nuevo en nuestra plataforma?</span>
-                            <a href="auth-register-basic.html">
+                            <a href="{{route('registro')}}">
                                 <span>Crear una cuenta</span>
                             </a>
                         </p>

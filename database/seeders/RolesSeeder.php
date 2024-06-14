@@ -43,6 +43,11 @@ class RolesSeeder extends Seeder
                 'descripcion' => 'Responsable de interactuar con los clientes y realizar ventas.',
                 'estado' => 1,
             ],
+            [
+                'nombre' => 'Aliados',
+                'descripcion' => 'Aliados.',
+                'estado' => 1,
+            ],
           
         ];
 

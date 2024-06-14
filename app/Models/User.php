@@ -52,6 +52,19 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\session', 'user_id');
     }
+
+    public function promociones()
+    {
+        return $this->hasMany('App\Models\Promociones');
+    }
+    public function material()
+    {
+        return $this->hasMany('App\Models\EntregaMaterial');
+    }
+    public function entregas()
+    {
+        return $this->hasMany('App\Models\Entregas');
+    }
     /**
      * Genera un nombre de usuario único combinando el nombre y el apellido de una persona.
      *
@@ -202,7 +215,16 @@ class User extends Authenticatable
         return $url;
     }
 
+    public static function ObternerAlidados()
+    {
+        $usuarios = RolesUsuarios::join('users', 'rolesusuarios.users_id', '=', 'users.id')
+        ->select('users.id', 'users.email', 'users.name')
+        ->where('rolesusuarios.roles_id', 6)
+        ->where('rolesusuarios.estado', 1)
+        ->get();
 
+    return $usuarios;
+    }
 
 
 
@@ -216,5 +238,15 @@ class User extends Authenticatable
     public function setRememberToken($value)
     {
         $this->remember_token = $value;
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \Illuminate\Auth\Notifications\VerifyEmail);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \Illuminate\Auth\Notifications\ResetPassword($token));
     }
 }

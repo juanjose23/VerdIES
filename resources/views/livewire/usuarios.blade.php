@@ -24,23 +24,7 @@
                                         </a>
                                     </div>
                                 @endcan
-                                <!-- Botón de exportación -->
-                                <div class="btn-group me-2 mb-2 mb-md-0">
-                                    <div class="dropdown">
-                                        <button class="btn btn-info dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Exportaciones
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="{{ route('categorias.index') }}" class="dropdown-item">
-                                                    <i class="fas fa-file-excel text-success me-1"></i>
-                                                    Exportar a Excel
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                             
 
                                 <!-- Selector de cantidad de registros -->
                                 <div>

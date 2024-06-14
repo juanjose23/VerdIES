@@ -18,7 +18,7 @@
                                 <select style="width: 100%" id="materiales" name="materiales"
                                     class="buscador form-select @error('materiales') is-invalid @enderror">
                                     <option>Seleccionar Material</option>
-                                    {{var_dump($materiales);}}
+                                  
                                     @foreach ($materiales as $material => $sub)
                                     <optgroup label="{{ $material }}">
                                         @foreach ($sub as $subs)

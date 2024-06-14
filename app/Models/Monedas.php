@@ -17,4 +17,8 @@ class Monedas extends Model
     {
         return $this->hasMany('App\Models\Tasas');
     }
+    public function detalles()
+    {
+        return $this->hasMany('App\Models\Detalles_entregas');
+    }
 }

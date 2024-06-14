@@ -105,6 +105,18 @@ class PrivilegiosSeeders extends Seeder
                 "estado" => 1
 
             ], 
+            [
+                "roles_id" => 2,
+                "submodulos_id" => 16,
+                "estado" => 1
+
+            ], 
+            [
+                "roles_id" => 2,
+                "submodulos_id" => 17,
+                "estado" => 1
+
+            ], 
           
            
 

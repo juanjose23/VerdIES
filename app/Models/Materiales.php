@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Materiales extends Model
@@ -20,6 +21,20 @@ class Materiales extends Model
     public function imagenes()
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
+    }
+
+    public function detalles()
+    {
+        return $this->hasMany('App\Models\Detalles_entregas');
+    }
+
+    public function inventarios()
+    {
+        return $this->hasMany('App\Models\Inventarios');
+    }
+    public function material()
+    {
+        return $this->hasMany('App\Models\EntregaMaterial');
     }
 
     /**
@@ -77,4 +92,65 @@ class Materiales extends Model
         return $resultados;
     }
 
+    public static function ObtenerCategorias()
+    {
+        $materialesEnTasas = Tasas::pluck('materiales_id')->toArray();
+
+        // Obtener las categorías con materiales filtrados que no existen en Tasas
+        $categorias = Categorias::where('estado', 1)
+            ->with([
+                'materiales' => function ($query) use ($materialesEnTasas) {
+                    $query->whereIn('id', $materialesEnTasas);
+                }
+            ])
+            ->get();
+
+
+        $resultados = [];
+
+        foreach ($categorias as $categoria) {
+            $nombreCategoria = $categoria->nombre;
+
+            if ($categoria->materiales !== null && $categoria->materiales->count() > 0) {
+                foreach ($categoria->materiales as $material) {
+                    $resultados[$nombreCategoria][] = [
+                        'id' => $material->id,
+                        'nombre' => $material->nombre
+                    ];
+                }
+            }
+        }
+
+        return $resultados;
+    }
+
+    public static function ObtenerInventario()
+    {
+        // Obtener los inventarios agrupados por acopio, categoría y material, y sumar las cantidades
+        $inventarios = Inventarios::select('id','acopios_id', 'materiales_id', 'cantidad as total_cantidad')
+            ->where('estado', 1)
+            ->where('cantidad', '>', 0)
+            ->with(['acopios', 'materiales.categorias'])
+            ->get();
+    
+        $resultados = [];
+    
+        // Agrupar los resultados
+        foreach ($inventarios as $inventario) {
+            $acopioNombre = $inventario->acopios->nombre;
+            $categoriaNombre = $inventario->materiales->categorias->nombre;
+            $materialNombre = $inventario->materiales->nombre;
+    
+            $resultados[$acopioNombre][$categoriaNombre][] = [
+                'acopio'=> $inventario->acopios_id,
+                'id' => $inventario->id,
+                'id_materiales'=> $inventario->materiales->id,
+                'nombre' => $materialNombre,
+                'cantidad' => $inventario->total_cantidad,
+            ];
+        }
+    
+        return $resultados;
+    }
+    
 }

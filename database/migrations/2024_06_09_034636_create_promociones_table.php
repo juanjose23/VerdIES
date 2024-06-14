@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('promociones', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->string('nombre');
+            $table->text('descripcion')->nullable();
+            $table->dateTime('fecha_vencimiento')->nullable();
+            $table->integer('estado');
             $table->timestamps();
         });
     }

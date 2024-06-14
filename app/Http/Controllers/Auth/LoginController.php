@@ -1,18 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Http\Requests\ForgetPasswordRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRegister;
 use Illuminate\Http\Request;
 use App\Models\Privilegios;
 use App\Models\RolesUsuarios;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
-
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\PageController;
 
 class LoginController extends Controller
 {
@@ -50,7 +55,7 @@ class LoginController extends Controller
                 ->exists();
 
 
-            $redirectRoute = $validarRol ? 'categorias.index' : '/';
+            $redirectRoute = $validarRol ? 'categorias.index' : 'home';
             $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!';
 
             // Crear las sesiones
@@ -107,6 +112,92 @@ class LoginController extends Controller
 
         // Redirigir al usuario a la página de inicio
         return redirect('/');
+    }
+    public function registro()
+    {
+
+        return view("Auth.register");
+    }
+    public function register(StoreRegister $request)
+    {
+        try {
+          
+        
+            $user = new User();
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            $user->sendEmailVerificationNotification();
+
+
+           return redirect()->route('login')->with('success','Se ha enviado un correo de verificacion');
+        } catch (ValidationException $e) {
+            Log::error($e->getMessage());
+
+            return response()->json(['errors' => $e->validator->errors()], 422);
+        }
+
+    }
+
+    //Verficacion de correos
+    public function verify(Request $request, $id, $hash)
+    {
+        $user = User::findOrFail($id);
+    
+        if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+            return redirect()->route('login')->with('error', 'El enlace de verificación es inválido.');
+        }
+    
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->route('login')->with('info', 'La cuenta ya ha sido verificada anteriormente.');
+        }
+    
+        $user->markEmailAsVerified();
+        return redirect()->route('login')->with('success', '¡Tu cuenta ha sido verificada con éxito!');
+    }
+    
+
+    //
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::sendResetLink([
+            'email' => $request->email
+        ]);
+
+        return $status === Password::RESET_LINK_SENT
+            ? response()->json(['message' => 'Correo electrónico de restablecimiento de contraseña enviado'])
+            : response()->json(['error' => 'No se pudo enviar el correo electrónico de restablecimiento de contraseña'], 500);
+    }
+    public function reset(Request $request)
+    {
+        
+    }
+    public function showResetForm($token)
+    {
+        return response()->json(['token' => $token]);
+    }
+
+    public function resetPassword(ForgetPasswordRequest $request)
+    {
+      
+    
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => bcrypt($password)
+                ])->save();
+            }
+        );
+    
+        if ($status == Password::PASSWORD_RESET) {
+            return response()->json(['message' => 'Contraseña restablecida con éxito'],200);
+        } else {
+            return response()->json(['error' => 'No se pudo restablecer la contraseña'], 500);
+        }
     }
     public function error403()
     {

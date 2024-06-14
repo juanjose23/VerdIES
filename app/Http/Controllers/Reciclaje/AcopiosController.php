@@ -33,11 +33,7 @@ class AcopiosController extends Controller
 
     public function store(StoreAcopios $request)
     {
-       /* $table->string('nombre');
-        $table->text('descripcion')->nullable();
-        $table->double('latitude', 15, 8)->nullable();
-        $table->double('longitude', 15, 8)->nullable();
-        $table->integer('estado');*/
+       
         $acopio = new Acopios();
         $acopio->nombre = $request->nombre;
         $acopio->descripcion = $request->descripcion;

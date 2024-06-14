@@ -26,21 +26,21 @@ class submodulos extends Seeder
                 'modulos_id'=>1,
                 'nombre' => 'Materiales',
                 'descripcion' => 'materiales.index',
-                'enlace'=>null,
+                'enlace'=> 'materiales.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>1,
                 'nombre' => 'Monedas',
                 'descripcion' => 'monedas.index',
-                'enlace'=>null,
+                'enlace'=>'monedas.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>1,
                 'nombre' => 'Tasas',
                 'descripcion' => 'tasas.index',
-                'enlace'=>null,
+                'enlace'=>'tasas.index',
                 'estado' => 1
             ],
             [
@@ -61,35 +61,35 @@ class submodulos extends Seeder
                 'modulos_id'=>3,
                 'nombre' => 'Área de conocimientos',
                 'descripcion' => 'areas.index',
-                'enlace'=>null,
+                'enlace'=>'areas.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Carreras',
                 'descripcion' => 'carreras.index',
-                'enlace'=>null,
+                'enlace'=>'carreras.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>4,
                 'nombre' => 'Centros de acopios',
                 'descripcion' => '',
-                'enlace'=>null,
+                'enlace'=>'acopios.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>4,
                 'nombre' => 'Recicladoras',
                 'descripcion' => '',
-                'enlace'=>null,
+                'enlace'=>'Recicladoras.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>4,
                 'nombre' => 'Materiales reciclados',
                 'descripcion' => '',
-                'enlace'=>null,
+                'enlace'=>'material.index',
                 'estado' => 1
             ],
             [
@@ -118,6 +118,20 @@ class submodulos extends Seeder
                 'nombre' => 'Permisos',
                 'descripcion' => '',
                 'enlace'=>'permisos.index',
+                'estado' => 1
+            ],
+            [
+                'modulos_id'=>4,
+                'nombre' => 'Entregas de materiales',
+                'descripcion' => '',
+                'enlace'=>'entregas.index',
+                'estado' => 1
+            ],
+            [
+                'modulos_id'=>4,
+                'nombre' => 'Inventario',
+                'descripcion' => '',
+                'enlace'=>'inventarios.index',
                 'estado' => 1
             ],
         ];
