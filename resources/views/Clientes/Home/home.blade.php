@@ -1,5 +1,5 @@
-@extends('Layouts.layouts')
-@section('title', 'Inicio')
+@extends('Layouts.Cliente.layouts')
+@section('title', 'Inicio_Cliente')
 @section('content')
 
     <div class="row">
