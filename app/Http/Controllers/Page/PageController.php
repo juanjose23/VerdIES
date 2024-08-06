@@ -56,11 +56,11 @@ class PageController extends Controller
     }
     public function index()
     {
-        return view('Page.index');
+        return view('Page.Inicio.index');
     }
     public function acerca()
     {
-        return view('Page.acerca');
+        return view('Page.Acerca.acerca');
     }
     public function educacion()
     {

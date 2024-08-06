@@ -34,8 +34,7 @@ use App\Http\Controllers\UsersController;
 */
 
 //Gestion del sitio web
-Route::get('/', [PageController::class, 'index']);
-Route::get('/home', [PageController::class, 'home'])->name('home');
+Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('/acerca', [PageController::class, 'acerca'])->name('acerca');
 Route::get('/educacion-ambiental', [PageController::class, 'educacion'])->name('educacion-ambiental');
 Route::get('/materiales-aceptamos', [PageController::class, 'materiales'])->name('materiales-aceptamos');
