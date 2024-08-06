@@ -93,7 +93,7 @@ Route::resource('inventarios',InventariosController::class)->parameters(['invent
 Route::resource('material',MaterialController::class)->parameters(['material' => 'material'])->names('material')->middleware('checkRole:11');
 
 //Gestion de la vistas de los cliente
-Route::get('/clientes/home',[HomeController::class,'inicio'])->name('inicio')->middleware('auth');
+Route::get('/clientes/inicio',[HomeController::class,'clientes_home'])->name('clientes.inicio')->middleware('auth');
 
 
 

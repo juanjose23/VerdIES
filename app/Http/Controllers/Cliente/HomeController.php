@@ -31,9 +31,9 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     //
-    public function home()
+    public function clientes_home()
     {
-        return view('Clientes.home');
+        return view('Clientes.Home.home');
     }
     public function perfil()
     {

@@ -139,7 +139,7 @@
          align-content: center;
          border-radius: 1.25rem 1.25rem 0 0;
          transition: .4s;
-         z-index: 1;
+         z-index: 2;
          display: block !important;
      }
  }
@@ -271,3 +271,45 @@ bottom: -.75rem;
          margin-right: auto;
      }
  }
+
+
+    /*=============== Inicio Botón de chatbot  ===============*/
+
+    .chatbot-icon {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: width 0.3s, height 0.3s;
+        z-index: 2;
+    }
+    
+    .chatbot-icon i {
+        font-size: 32px;
+    }
+
+
+    /*=============== Fin Botón de chatbot  ===============*/
+
+
+.layout-menu-toggle{
+    display: none;
+}
+
+    .layout-navbar.navbar-detached{
+        margin-top: -25px;
+    }
+
+    @media (min-width: 1200px) {
+        .layout-navbar.navbar-detached{
+            margin-top: 20px !important;
+        }
+    }
