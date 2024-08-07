@@ -1,4 +1,4 @@
-@extends('Layouts.layout1')
+@extends('Layouts.Page.layout')
 @section('title', 'Inicio')
 @section('seccion', 'Recepción de materiales')
 @section('content') 

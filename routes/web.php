@@ -34,9 +34,9 @@ use App\Http\Controllers\UsersController;
 */
 
 //Gestion del sitio web
-Route::get('/', [PageController::class, 'index']);
-Route::get('/home', [PageController::class, 'home'])->name('home');
+Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('/acerca', [PageController::class, 'acerca'])->name('acerca');
+Route::get('/contacto', [PageController::class, 'contacto'])->name('contacto');
 Route::get('/educacion-ambiental', [PageController::class, 'educacion'])->name('educacion-ambiental');
 Route::get('/materiales-aceptamos', [PageController::class, 'materiales'])->name('materiales-aceptamos');
 Route::get('/centros-acopios', [PageController::class, 'acopios'])->name('centros-acopios');
@@ -49,6 +49,8 @@ Route::get('/canjes', [PageController::class, 'canjes'])->name('canjes');
 Route::get('/puntos', [PageController::class, 'puntos'])->name('puntos')->middleware('auth');
 Route::post('/actualizarperfil', [PageController::class, 'actualizarperfil'])->name('actualizarperfil');
 Route::post('/canjear', [PageController::class, 'canjear'])->name('canjear')->middleware('auth');
+
+
 // Gestion de entrega
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
