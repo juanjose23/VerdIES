@@ -72,7 +72,11 @@ class PageController extends Controller
     }
     public function acopios()
     {
-        return view('Page.acopios');
+        return view('Page.Centros.acopios');
+    }
+    public function contacto()
+    {
+        return view('Page.Contacto.contacto');
     }
 
     public function recepcion()

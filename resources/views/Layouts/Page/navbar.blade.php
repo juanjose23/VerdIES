@@ -21,18 +21,19 @@
                                     <li class="{{ request()->routeIs('acerca') ? 'active' : '' }}">
                                         <a href="{{ route('acerca') }}">Nosotros</a>
                                     </li>
-                                    <li><a href="{{route('home')}}">Promociones</a></li>
-                                    <li><a href="{{route('login')}}">Login</a></li>
-                                    <li><a href="#">Paginas</a>
+                                    <li class="{{ request()->routeIs('contacto') ? 'active' : '' }}">
+                                        <a href="{{ route('contacto') }}">Contacto</a>
+                                    </li>
+                                 
+                                    <li><a href="#">Estrategias</a>
                                         <ul class="submenu">
-                                            <li><a href="{{route('recepcion-material')}}">Aliados</a></li>
-                                            <li><a href="">Blog</a></li>
-                                            <li><a href="">Element</a></li>
+                                            <li><a  class="{{ request()->routeIs('acerca') ? 'active' : '' }}" href="{{route('centros-acopios')}}">Incentivos</a></li>
+                                            <li><a href="">Alianzas</a></li>
+                                            <li><a href="">Plataforma Digital</a></li>
                                         </ul>
                                     </li>
-                                    <li class="{{ request()->routeIs('acerca') ? 'active' : '' }}">
-                                        <a href="{{ route('acerca') }}">Contacto</a>
-                                    </li>
+                                   
+                                    <li><a href="{{route('login')}}">Login</a></li>
                                 </ul>
                             </nav>
                         </div>

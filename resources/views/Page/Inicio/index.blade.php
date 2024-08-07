@@ -381,7 +381,6 @@
                 <div class="offset-xl-1 offset-lg-1 col-xl-5 col-lg-5">
                     <div class="say-something-cap">
                         <h2>Únete al Hub de Colaboración y Reciclaje de VerdIES en Nicaragua</h2>
-
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-3">
