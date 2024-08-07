@@ -21,6 +21,7 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Cliente\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,13 @@ Route::resource('recicladoras',RecicladorasController::class)->parameters(['reci
 Route::resource('entregas',EntregasController::class)->parameters(['entregas' => 'entregas'])->names('entregas')->middleware('checkRole:16');
 Route::resource('inventarios',InventariosController::class)->parameters(['inventarios' => 'inventarios'])->names('inventarios')->middleware('checkRole:17');
 Route::resource('material',MaterialController::class)->parameters(['material' => 'material'])->names('material')->middleware('checkRole:11');
+
+//Gestion de la vistas de los cliente
+Route::get('/clientes/inicio',[HomeController::class,'clientes_home'])->name('clientes.inicio')->middleware('auth');
+
+
+
+
 
 //Gestion de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:12');
