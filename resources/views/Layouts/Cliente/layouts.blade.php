@@ -26,8 +26,15 @@
     <link rel="stylesheet" href="{{ asset('js/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('js/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cliente/home.css') }}">
+    <!-- Empieza estilos modificados en base del template del admin anterior -->
+    <link rel="stylesheet" href="{{ asset('scss/v_cliente/main.css') }}">
+
+    <!-- Estilos personalizados por vista -->
+    @yield('customCSS')
+
     <script src="{{ asset('vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('js/config.js') }}"></script>
+    
 </head>
 
 <body>
@@ -75,7 +82,7 @@
                         <span class="app-brand-logo demo">
                             <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" alt="" width="50">
                         </span>
-                        <span class="app-brand-text demo menu-text fw-bold ms-2">VerdIES</span>
+                        <span class="app-brand-text demo menu-text fw-bold ms-2 ">Verd<span class="span-enphasisWord">IES</span></span>
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -84,10 +91,35 @@
                 </div>
 
                 <div class="menu-inner-shadow"></div>
-
                 <ul class="menu-inner py-1">
+                    <li class="menu-item active">
+                        <a href="app-email.html" class="menu-link">
+                            <i class='bx bx-home-alt nav__icon_desktop'></i>
+                            <div class="text-truncate">Inicio</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="app-chat.html" class="menu-link">
+                            <i class='menu-icon tf-icons fas fa-recycle'></i>
+                            <div class="text-truncate" data-i18n="Chat">Residuos</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="app-chat.html" class="menu-link">
+                            <i class='bx bx-package'></i>
+                            <div class="text-truncate" data-i18n="Chat">Canje</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="app-chat.html" class="menu-link">
+                            <i class='menu-icon tf-icons fas fa-tags'></i>
+                            <div class="text-truncate" data-i18n="Chat">Promociones</div>
+                        </a>
+                    </li>
+
+
                     <!-- Dashboards -->
-                    @foreach (Session::get('privilegios') as $modulo)
+                    <!-- @foreach (Session::get('privilegios') as $modulo)
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons {{ $modulo['icono'] }}"></i>
@@ -118,7 +150,7 @@
                         </ul>
                         @endif
                     </li>
-                    @endforeach
+                    @endforeach -->
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -243,8 +275,8 @@
     </div>
     <!-- / Layout wrapper -->
 
-<!-- Contenedor de Bootstrap -->
-<div class="container">
+    <!-- Contenedor de Bootstrap -->
+    <div class="container">
         <!-- Contenido de tu página -->
 
         <!-- Botón del Chatbot -->

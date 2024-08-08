@@ -1,0 +1,23 @@
+
+
+
+.menu:not(.menu-no-animation) .menu-link> :not(.menu-icon) {
+    margin-right: 15px;
+}
+
+.bg-menu-theme .menu-inner>.menu-item.active:before {
+    background: $primary-color;
+}
+
+.bg-menu-theme .menu-inner>.menu-item.active>.menu-link {
+    color: $primary-color;
+    background-color: $rgba-primary-color !important;
+}
+.menu-vertical .menu-inner {
+    margin-top: 25px;
+}
+
+
+.bg-menu-theme .menu-inner>.menu-item.active>.menu-link {
+    font-weight: bold;
+}

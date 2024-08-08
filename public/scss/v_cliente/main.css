@@ -1,0 +1,68 @@
+@charset "UTF-8";
+span-firstWord {
+  color: #566a7f;
+  font-weight: bold;
+}
+
+span-enphasisWord {
+  color: #7ed957;
+  font-weight: bold;
+}
+
+.menu:not(.menu-no-animation) .menu-link > :not(.menu-icon) {
+  margin-right: 15px;
+}
+
+.bg-menu-theme .menu-inner > .menu-item.active:before {
+  background: #7ed957;
+}
+
+.bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
+  color: #7ed957;
+  background-color: rgba(126, 217, 87, 0.16) !important;
+}
+
+.menu-vertical .menu-inner {
+  margin-top: 25px;
+}
+
+.bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
+  font-weight: bold;
+}
+
+/*=============== Inicio Botón de chatbot  ===============*/
+.chatbot-icon {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: width 0.3s, height 0.3s;
+  z-index: 2;
+}
+
+.chatbot-icon i {
+  font-size: 32px;
+}
+
+/*=============== Fin Botón de chatbot  ===============*/
+.layout-menu-toggle {
+  display: none;
+}
+
+.layout-navbar.navbar-detached {
+  margin-top: -25px;
+}
+
+@media (min-width: 1200px) {
+  .layout-navbar.navbar-detached {
+    margin-top: 20px !important;
+  }
+}/*# sourceMappingURL=main.css.map */
