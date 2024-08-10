@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GithubController;
 use App\Http\Controllers\auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\TwitterController;
@@ -69,6 +70,12 @@ Route::controller(TwitterController::class)->group(function(){
     Route::get('auth/twitter', 'redirectToTwitter')->name('auth.twitter');
     Route::get('auth/twitter/callback', 'handleTwitterCallback')->name('auth.twitter.callback');
 });
+
+Route::controller(GithubController::class)->group(function(){
+    Route::get('auth/github', 'redirect')->name('auth.github');
+    Route::get('auth/github/callback', 'callback')->name('auth.github.callback');
+});
+
 //Registro de usuarios
 Route::get('/registro',[LoginController::class,'registro'])->name('registro');
 Route::post('/auth/register', [LoginController::class, 'register'])->name('auth.register')->middleware('guest');
