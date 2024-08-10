@@ -85,7 +85,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                     
+
                             <div class="mb-2 form-password-toggle">
                                 <label class="form-label" for="password">Contraseña</label>
                                 <div class="input-group input-group-merge">
@@ -119,24 +119,26 @@
 
                         <div class="divider my-6">
                             <div class="divider-text">or</div>
-                          </div>
-                          <div class="d-flex justify-content-center">
-                            <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-facebook me-1_5">
-                              <i class="bx bxl-facebook-circle"></i>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="javascript:;"
+                                class="btn btn-sm btn-icon rounded-circle btn-text-facebook me-1_5">
+                                <i class="bx bxl-facebook-circle"></i>
                             </a>
-                  
-                            <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-twitter me-1_5">
-                              <i class="tf-icons bx bxl-twitter"></i>
+
+                            <a href="{{ route('auth.twitter') }}" class="btn btn-sm btn-icon rounded-circle btn-text-twitter me-1_5">
+                                <i class="tf-icons bx bxl-twitter"></i>
                             </a>
-                  
+
                             <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
-                              <i class="bx bxl-github"></i>
+                                <i class="bx bxl-github"></i>
                             </a>
-                  
-                            <a href="{{ route('auth.google') }}" class="btn btn-sm btn-icon rounded-circle btn-text-google-plus">
-                              <i class="tf-icons bx bxl-google"></i>
+
+                            <a href="{{ route('auth.google') }}"
+                                class="btn btn-sm btn-icon rounded-circle btn-text-google-plus">
+                                <i class="tf-icons bx bxl-google"></i>
                             </a>
-                          </div>
+                        </div>
 
                     </div>
                 </div>

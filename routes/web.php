@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\TwitterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Catalogos\CategoriasController;
 use App\Http\Controllers\Catalogos\MaterialesController;
@@ -63,6 +64,11 @@ Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('va
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
+
+Route::controller(TwitterController::class)->group(function(){
+    Route::get('auth/twitter', 'redirectToTwitter')->name('auth.twitter');
+    Route::get('auth/twitter/callback', 'handleTwitterCallback')->name('auth.twitter.callback');
+});
 //Registro de usuarios
 Route::get('/registro',[LoginController::class,'registro'])->name('registro');
 Route::post('/auth/register', [LoginController::class, 'register'])->name('auth.register')->middleware('guest');
