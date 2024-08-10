@@ -52,7 +52,7 @@ class GoogleController extends Controller
             $googleUser = json_decode((string) $userResponse->getBody(), true);
 
 
-            $user = $this->registroUsuariosService->buscarOcrearUsuario($googleUser);
+            $user = $this->registroUsuariosService->buscarOcrearUsuario($googleUser,'google');
 
             if ($user == false) {
                 return redirect('/login')->with('error', 'Ya existe un usuario con este correo electrónico');

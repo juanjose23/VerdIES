@@ -60,32 +60,65 @@ class RegistroUsuariosService
         }
     }
 
-    public function buscarOcrearUsuario($googleUser)
+    public function buscarOcrearUsuario($providerUser, $provider)
     {
+        switch ($provider) {
+            case 'google':
+                $userId =$providerUser['id'];
+                $userNombre = $providerUser['given_name'];
+                $userApellido = $providerUser['family_name'];
+                $userEmail = $providerUser['email'];
+                $userProfile = $providerUser['picture'];
+        
+                break;
 
-        $googleId = $googleUser['id'];
-        $googleNombre = $googleUser['given_name'];
-        $googleApellido = $googleUser['family_name'];
-        $googleEmail = $googleUser['email'];
-        $googleProfile = $googleUser['picture'];
-        $user = $this->userModel::where('provider', 'google')
-            ->where('provider_id', $googleId)
+            case 'twitter':
+                $userId = $providerUser->getId();
+                $userNombre = $providerUser->getName();
+                $userEmail = $providerUser->getEmail();
+                $userApellido='';
+                $userProfile = $providerUser->getAvatar();
+                break;
+
+            case 'github':
+                $userId = $providerUser->getId();
+                $userNombre = $providerUser->getName();
+                $userEmail = $providerUser->getEmail();
+                $userApellido='';
+                $userProfile = $providerUser->getAvatar();
+                break;
+
+            case 'microsoft':
+                $userId = $providerUser->getId();
+                $userNombre = $providerUser->getName();
+                $userEmail = $providerUser->getEmail();
+                $userApellido='';
+                $userProfile = $providerUser->getAvatar();
+                break;
+
+            default:
+                throw new \Exception('Proveedor no soportado');
+        }
+
+        
+        $user = $this->userModel::where('provider', $provider)
+            ->where('provider_id', $userId)
             ->first();
 
         if (!$user) {
             // Verificar si ya existe un usuario con el mismo correo electrónico
-            $existeUser = User::where('email', $googleEmail)->first();
+            $existeUser = User::where('email', $userEmail)->first();
 
             // Si ya existe un usuario con el mismo correo electrónico, devuelve ese usuario
             if ($existeUser) {
                 return false;
             }
-            return $this->CrearNuevoUsuario($googleUser);
+            return $this->CrearNuevoUsuario($providerUser, $provider);
         }
 
         // Si el usuario ya existe, actualiza sus datos
-        $user->name = $googleNombre . ' ' . $googleApellido;
-        $user->email = $googleEmail;
+        $user->name = $userNombre . ' ' . $userApellido;
+        $user->email = $userEmail;
         $user->save();
 
 
@@ -95,7 +128,7 @@ class RegistroUsuariosService
         }
 
         $imagen = $this->mediaModel->newInstance();
-        $imagen->url = $googleProfile;
+        $imagen->url = $userProfile;
         $imagen->imagenable_id = $user->id;
         $imagen->imagenable_type = get_class($user);
         $imagen->save();
@@ -104,21 +137,53 @@ class RegistroUsuariosService
 
 
     }
-    public function CrearNuevoUsuario($googleUser)
+    public function CrearNuevoUsuario($providerUser, $provider)
     {
-        $googleId = $googleUser['id'];
-        $googleNombre = $googleUser['given_name'];
-        $googleApellido = $googleUser['family_name'];
-        $googleEmail = $googleUser['email'];
-        $googleProfile = $googleUser['picture'];
+        switch ($provider) {
+            case 'google': 
+              
+                $userId = $providerUser['id'];
+                $userNombre = $providerUser['given_name'];
+                $userApellido = $providerUser['family_name'];
+                $userEmail = $providerUser['email'];
+                $userProfile = $providerUser['picture'];
+        
+                break;
 
+            case 'twitter':
+                $userId = $providerUser->getId();
+                $userNombre = $providerUser->getName();
+                $userEmail = $providerUser->getEmail();
+                $userApellido='';
+                $userProfile = $providerUser->getAvatar();
+                break;
+
+            case 'github':
+                $userId = $providerUser->getId();
+                $userNombre = $providerUser->getName();
+                $userEmail = $providerUser->getEmail();
+                $userApellido='';
+                $userProfile = $providerUser->getAvatar();
+                break;
+
+            case 'microsoft':
+                $userId = $providerUser->getId();
+                $userNombre = $providerUser->getName();
+                $userEmail = $providerUser->getEmail();
+                $userApellido='';
+                $userProfile = $providerUser->getAvatar();
+                break;
+
+            default:
+                throw new \Exception('Proveedor no soportado');
+        }
 
 
         $user = $this->userModel->newInstance();
-        $user->name = $googleNombre . ' ' . $googleApellido;
-        $user->provider = 'google';
-        $user->provider_id = $googleId;
-        $user->email = $googleEmail;
+        $user->name = $userNombre . ' ' . $userApellido;
+        $user->provider =$provider;
+        $user->provider_id = $userId;
+        $user->email = $userEmail;
         $user->password = bcrypt(Str::random(24));
         $user->estado = 1;
         $user->save();
@@ -126,7 +191,7 @@ class RegistroUsuariosService
 
 
         $imagen = $this->mediaModel->newInstance();
-        $imagen->url = $googleProfile;
+        $imagen->url = $userProfile;
         $imagen->imagenable_id = $user->id;
         $imagen->imagenable_type = get_class($user);
         $imagen->save();
