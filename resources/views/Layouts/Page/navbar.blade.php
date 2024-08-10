@@ -27,7 +27,7 @@
                                  
                                     <li><a href="#">Estrategias</a>
                                         <ul class="submenu">
-                                            <li><a  class="{{ request()->routeIs('acerca') ? 'active' : '' }}" href="{{route('centros-acopios')}}">Incentivos</a></li>
+                                            <li><a  class="{{ request()->routeIs('acerca') ? 'active' : '' }}" href="{{route('acerca')}}">Incentivos</a></li>
                                             <li><a href="">Alianzas</a></li>
                                             <li><a href="">Plataforma Digital</a></li>
                                         </ul>

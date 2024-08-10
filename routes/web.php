@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Catalogos\CategoriasController;
@@ -34,22 +35,16 @@ use App\Http\Controllers\Cliente\HomeController;
 |
 */
 
-//Gestion del sitio web
+//sitio web
 Route::get('/', [PageController::class, 'index'])->name('home');
-Route::get('/acerca', [PageController::class, 'acerca'])->name('acerca');
-Route::get('/contacto', [PageController::class, 'contacto'])->name('contacto');
-Route::get('/educacion-ambiental', [PageController::class, 'educacion'])->name('educacion-ambiental');
-Route::get('/materiales-aceptamos', [PageController::class, 'materiales'])->name('materiales-aceptamos');
-Route::get('/centros-acopios', [PageController::class, 'acopios'])->name('centros-acopios');
-Route::get('/recepcion-materiales', [PageController::class, 'recepcion'])->name('recepcion-material');
-Route::get('/recepcion-materia/{centroAcopio}',[PageController::class,'recepcionMaterial'])->name('recepcion-materia')->middleware('auth');
-Route::get('/entrega',[PageController::class,'entrega'])->name('entrega')->middleware('auth');
-Route::post('/realizar', [PageController::class, 'registrarEntrega'])->name('realizar')->middleware('auth');
+Route::get('acerca', [PageController::class, 'acerca'])->name('acerca');
+Route::get('contacto', [PageController::class, 'contacto'])->name('contacto');
+
+
+// Perfiles de usuarios
 Route::get('/perfil', [PageController::class, 'perfil'])->name('perfil');
-Route::get('/canjes', [PageController::class, 'canjes'])->name('canjes');
-Route::get('/puntos', [PageController::class, 'puntos'])->name('puntos')->middleware('auth');
 Route::post('/actualizarperfil', [PageController::class, 'actualizarperfil'])->name('actualizarperfil');
-Route::post('/canjear', [PageController::class, 'canjear'])->name('canjear')->middleware('auth');
+
 
 
 // Gestion de entrega
@@ -62,17 +57,35 @@ Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear
 
 //Inicio de session
 Route::get('/login',[LoginController::class,'login'])->name('login');
+Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('validarLogin');
+
+//Inicio con Google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
+//Registro de usuarios
 Route::get('/registro',[LoginController::class,'registro'])->name('registro');
 Route::post('/auth/register', [LoginController::class, 'register'])->name('auth.register')->middleware('guest');
+
+//Verificacion de usuarios
 Route::get('/email/verify/{id}/{hash}', [LoginController::class, 'verify'])->name('verification.verify')->middleware('signed');
 Route::post('/auth/password/reset', [LoginController::class, 'sendResetLinkEmail'])->name('auth.password.reset'); 
+
+//Recuperacion de contrasena
 Route::get('/password/reset/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
 Route::post('/auth/password/reset/process', [LoginController::class, 'resetPassword'])->name('auth.password.reset.process');
-Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('validarLogin');
+
+//Logout
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+//Mensaje de autorizacion
 Route::get('/error403',[LoginController::class,'error403'])->name('error403');
+
+
 Route::get('/inicio',[PageController::class,'inicio'])->name('inicio')->middleware('auth');
+
 Route::get('/inicios', [LoginController::class, 'inicios'])->name('inicios');
+
 Route::post('/cerrar-sesion-dispositivo', [LoginController::class, 'closeSessionForDevice'])->name('cerrar_sesion_dispositivo');
 Route::post('/actualizar', [LoginController::class, 'actualizar'])->name('actualizar');
 

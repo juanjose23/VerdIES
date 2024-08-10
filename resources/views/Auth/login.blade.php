@@ -150,6 +150,14 @@
                     confirmButtonText: 'Aceptar'
                 });
             @endif
+            @if (Session::has('info'))
+                Swal.fire({
+                    icon: 'info',
+                    title: '¡info!',
+                    text: '{{ Session::get('info') }}',
+                    confirmButtonText: 'Aceptar'
+                });
+            @endif
         });
     </script>
 </body>
