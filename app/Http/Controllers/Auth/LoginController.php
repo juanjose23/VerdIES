@@ -5,21 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Requests\ForgetPasswordRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRegister;
+
 use App\Models\Media;
+use App\Services\LoginService;
+use App\Services\RegistroUsuariosService;
 use Illuminate\Http\Request;
-use App\Models\Privilegios;
-use App\Models\RolesUsuarios;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
-use App\Http\Controllers\PageController;
 use App\Models\session as inicio;
 use Jenssegers\Agent\Agent;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -27,94 +22,54 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class LoginController extends Controller
 {
     //
+    protected $loginService;
+    protected $registroUsuariosService;
+    public function __construct(LoginService $loginService, RegistroUsuariosService $registroUsuariosService)
+    {
+        $this->loginService = $loginService;
+        $this->registroUsuariosService = $registroUsuariosService;
+    }
+
+
     public function login()
     {
-
         return view("Auth.login");
     }
     public function validarLogin(Request $request)
     {
-
-        // Validar los datos del formulario
+        // Validar datos del request
         $request->validate([
-            'email' => 'required|string',
+            'email' => 'required|email',
             'password' => 'required',
+            'recordar' => 'boolean',
         ]);
 
-        $usuarios = new User();
-        $user = $usuarios->ValidarUsuario($request->email);
-        if ($user !== null) {
-            $privilegio = new Privilegios();
-            $userId = $user['id'];
-            $InformacionPersonal = $usuarios->ObtenerInformacionUsuario($userId);
-            $privilegios = $privilegio->ObtenerPrivilegiosUsuario($userId);
-            $credenciales = $request->only('email', 'password');
-            if (!Auth::attempt($credenciales, $request->filled('recordar'))) {
-                return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
-            }
+        // Obtener credenciales del request
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $recordar = $request->filled('recordar');
+
+        // Intentar autenticar al usuario
+        $user = $this->loginService->autenticarUsuario($email, $password, $recordar);
+
+        if ($user) {
+            // Autenticación exitosa
             $request->session()->regenerate();
 
-            $validarRol = RolesUsuarios::where('users_id', $userId)
-                ->where('roles_id', '!=', 1)
-                ->where('estado', 1)
-                ->exists();
+            // Gestionar sesión
+            $rol = $this->loginService->gestionarSesion($request);
 
-
-            $redirectRoute = $validarRol ? 'inicio' : 'home';
-            $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!';
-
-            // Crear las sesiones
-            Session::put('IdUser', $userId);
-            Session::put('nombre', $InformacionPersonal['nombre']);
-            Session::put('Foto', $InformacionPersonal['foto']);
-            Session::put('privilegios', $privilegios);
-
-
-            // Obtener los datos de sesión y agregar los datos adicionales al payload
-            $sessionData = [
-                'IdUser' => $userId,
-                'nombre' => $InformacionPersonal['nombre'],
-                'Foto' => $InformacionPersonal['foto'],
-                'privilegios' => $privilegios
-            ];
-            $sessionId = $request->session()->getId();
-            $payload = Crypt::encrypt(json_encode($sessionData));
-
-            // Almacenar los datos en la tabla sessions
-            DB::table('sessions')->insert([
-                'id' => $sessionId,
-                'user_id' => $userId,
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'payload' => $payload,
-                'last_activity' => now()->timestamp,
-                'active' => true,
-            ]);
-            return redirect()->route($redirectRoute)->with('success', $redirectMessage);
+            return redirect()->route($rol ? 'inicio' : 'home')
+                ->with('success', '¡Bienvenido!');
+        } else {
+            // Autenticación fallida
+            return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
         }
-        return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
     }
 
     public function logout(Request $request)
     {
-        // Obtener el identificador único de la sesión actual
-        $sessionId = $request->session()->getId();
-
-
-
-
-        // Cerrar la sesión del usuario
-        Auth::logout();
-        DB::table('sessions')
-            ->where('id', $sessionId)
-            ->delete();
-        // Invalidar la sesión actual
-        $request->session()->invalidate();
-
-        // Regenerar el token de CSRF
-        $request->session()->regenerateToken();
-
-
+        $this->loginService->logout($request);
         // Redirigir al usuario a la página de inicio
         return redirect('/');
     }
@@ -126,46 +81,34 @@ class LoginController extends Controller
     public function register(StoreRegister $request)
     {
         try {
-
-
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            if ($request->password) {
-
-            } else {
-                $user->password = bcrypt($request->password);
-            }
-
-            $user->save();
-            $user->sendEmailVerificationNotification();
-
-
-            return redirect()->route('login')->with('success', 'Se ha enviado un correo de verificacion');
+            $this->registroUsuariosService->register($request->all());
+            return redirect()->route('login')->with('success', 'Se ha enviado un correo de verificación');
         } catch (ValidationException $e) {
             Log::error($e->getMessage());
-
             return response()->json(['errors' => $e->validator->errors()], 422);
         }
-
     }
 
     //Verficacion de correos
     public function verify(Request $request, $id, $hash)
     {
         $user = User::findOrFail($id);
-
+    
+        // Asegúrate de que el hash coincida con el generado en el correo electrónico
         if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
             return redirect()->route('login')->with('error', 'El enlace de verificación es inválido.');
         }
-
+    
+        // Verifica si el usuario ya ha sido verificado
         if ($user->hasVerifiedEmail()) {
             return redirect()->route('login')->with('info', 'La cuenta ya ha sido verificada anteriormente.');
         }
-
+    
+        // Marca el correo electrónico como verificado
         $user->markEmailAsVerified();
         return redirect()->route('login')->with('success', '¡Tu cuenta ha sido verificada con éxito!');
     }
+    
 
 
     //

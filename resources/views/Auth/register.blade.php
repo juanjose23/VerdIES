@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('css/demo.css') }}" />
-
+    <link rel="stylesheet" href="{{ asset('vendor/fonts/boxicons.css') }}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
@@ -117,12 +117,26 @@
                         </form>
 
 
-                        <p class="text-center">
-                            <span>¿Ya tienes una cuenta?</span>
-                            <a href="{{ route('login') }}">
-                                <span>Login</span>
+                        <div class="divider my-6">
+                            <div class="divider-text">or</div>
+                          </div>
+                          <div class="d-flex justify-content-center">
+                            <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-facebook me-1_5">
+                              <i class="bx bxl-facebook-circle"></i>
                             </a>
-                        </p>
+                  
+                            <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-twitter me-1_5">
+                              <i class="tf-icons bx bxl-twitter"></i>
+                            </a>
+                  
+                            <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
+                              <i class="bx bxl-github"></i>
+                            </a>
+                  
+                            <a href="{{ route('auth.google') }}" class="btn btn-sm btn-icon rounded-circle btn-text-google-plus">
+                              <i class="tf-icons bx bxl-google"></i>
+                            </a>
+                          </div>
 
                     </div>
                 </div>
