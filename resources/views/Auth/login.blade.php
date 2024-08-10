@@ -125,7 +125,7 @@
                                 <i class="tf-icons bx bxl-twitter"></i>
                             </a>
 
-                            <a href="javascript:;" class="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
+                            <a href="{{ route('auth.github') }}" class="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
                                 <i class="bx bxl-github"></i>
                             </a>
 
