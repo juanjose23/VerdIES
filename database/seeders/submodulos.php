@@ -82,7 +82,7 @@ class submodulos extends Seeder
                 'modulos_id'=>4,
                 'nombre' => 'Recicladoras',
                 'descripcion' => '',
-                'enlace'=>'Recicladoras.index',
+                'enlace'=>'recicladoras.index',
                 'estado' => 1
             ],
             [

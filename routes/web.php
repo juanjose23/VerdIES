@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\GithubController;
 use App\Http\Controllers\auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\TwitterController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\Catalogos\CategoriasController;
 use App\Http\Controllers\Catalogos\MaterialesController;
 use App\Http\Controllers\Catalogos\MonedasController;
@@ -47,16 +46,6 @@ Route::get('contacto', [PageController::class, 'contacto'])->name('contacto');
 Route::get('/perfil', [PageController::class, 'perfil'])->name('perfil');
 Route::post('/actualizarperfil', [PageController::class, 'actualizarperfil'])->name('actualizarperfil');
 
-
-
-// Gestion de entrega
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
-Route::put('/cart/update/{itemId}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
-Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')->middleware('auth');
-
-
 //Inicio de session
 Route::get('/login',[LoginController::class,'login'])->name('login');
 Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('validarLogin');
@@ -65,12 +54,13 @@ Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('va
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
-
+//Inicio con Twitter
 Route::controller(TwitterController::class)->group(function(){
     Route::get('auth/twitter', 'redirectToTwitter')->name('auth.twitter');
     Route::get('auth/twitter/callback', 'handleTwitterCallback')->name('auth.twitter.callback');
 });
 
+//Inicio con Github
 Route::controller(GithubController::class)->group(function(){
     Route::get('auth/github', 'redirect')->name('auth.github');
     Route::get('auth/github/callback', 'callback')->name('auth.github.callback');
@@ -122,10 +112,6 @@ Route::resource('material',MaterialController::class)->parameters(['material' =>
 
 //Gestion de la vistas de los cliente
 Route::get('/clientes/inicio',[HomeController::class,'clientes_home'])->name('clientes.inicio')->middleware('auth');
-
-
-
-
 
 //Gestion de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:12');

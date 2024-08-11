@@ -16,57 +16,72 @@ class CategoriasSeeder extends Seeder
         //
         $categorias = [
             [
-                'nombre' => 'Plásticos',
-                'descripcion' => 'Botellas de plástico, envases de alimentos y bebidas, bolsas de plástico, plásticos de alta densidad (HDPE)',
+                'nombre' => 'Plásticos PET',
+                'descripcion' => 'Botellas de plástico de bebidas, envases de alimentos, productos de tereftalato de polietileno (PET)',
+                'estado' => 1
+            ],
+            [
+                'nombre' => 'Plásticos HDPE',
+                'descripcion' => 'Envases de productos de limpieza, productos de alta densidad de polietileno (HDPE)',
+                'estado' => 1
+            ],
+            [
+                'nombre' => 'Plásticos LDPE y Otros Plásticos',
+                'descripcion' => 'Bolsas de plástico, films plásticos, productos de baja densidad de polietileno (LDPE) y otros plásticos no PET o HDPE',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Papel y Cartón',
-                'descripcion' => 'Periódicos, revistas, cajas de cartón, papel de oficina',
+                'descripcion' => 'Periódicos, revistas, cajas de cartón, papel de oficina, papeles mixtos',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Vidrio',
-                'descripcion' => 'Botellas de vidrio, frascos de vidrio',
+                'descripcion' => 'Botellas de vidrio, frascos de vidrio, vidrio transparente y de color',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Metales',
-                'descripcion' => 'Latas de aluminio, latas de acero, chatarra metálica',
+                'nombre' => 'Metales Ferrosos',
+                'descripcion' => 'Latas de acero, chatarra metálica que contiene hierro',
+                'estado' => 1
+            ],
+            [
+                'nombre' => 'Metales No Ferrosos',
+                'descripcion' => 'Latas de aluminio, chatarra metálica de aluminio, cobre, bronce y otros metales no ferrosos',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Tetra Pak',
-                'descripcion' => 'Envases de cartón para bebidas (leche, jugos)',
+                'descripcion' => 'Envases de cartón para bebidas como leche, jugos, que combinan capas de cartón, plástico y aluminio',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Orgánicos',
-                'descripcion' => 'Residuos de alimentos, desechos de jardín',
+                'nombre' => 'Residuos Orgánicos',
+                'descripcion' => 'Residuos de alimentos, desechos de jardín, compostables',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Electrónicos',
-                'descripcion' => 'Aparatos electrónicos pequeños, baterías, teléfonos móviles',
+                'nombre' => 'Residuos Electrónicos',
+                'descripcion' => 'Aparatos electrónicos pequeños, teléfonos móviles, cargadores, pequeños electrodomésticos',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Textiles',
-                'descripcion' => 'Ropa, zapatos, telas',
+                'descripcion' => 'Ropa, zapatos, telas, productos de algodón y otros tejidos',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Aceite usado',
-                'descripcion' => 'Aceite de cocina usado',
+                'nombre' => 'Aceite Usado',
+                'descripcion' => 'Aceite de cocina usado, aceites industriales, lubricantes',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Residuos peligrosos',
-                'descripcion' => 'Pilas y baterías, productos químicos domésticos, pinturas y solventes',
+                'nombre' => 'Residuos Peligrosos',
+                'descripcion' => 'Pilas y baterías, productos químicos domésticos, pinturas, solventes, lámparas fluorescentes',
                 'estado' => 1
             ]
         ];
-
+        
 
         foreach ($categorias as $categoria) {
             Categorias::create($categoria);
