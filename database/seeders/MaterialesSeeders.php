@@ -7,12 +7,18 @@ use App\Models\Materiales;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
+Use App\Services\MaterialService;
 class MaterialesSeeders extends Seeder
 {
     /**
      * Run the database seeds.
      */
+    protected $MaterialesService;
+    protected $categoriaService;
+    public function __construct(MaterialService $MaterialesService)
+    {
+        $this->MaterialesService = $MaterialesService;
+    }
     public function run(): void
     {
         //
@@ -202,7 +208,7 @@ class MaterialesSeeders extends Seeder
         
         foreach ($productos as $producto) {
             $categoria = Categorias::find($producto['categorias_id']);
-            $producto['codigo'] = Materiales::generarCodigoMaterial($categoria);
+            $producto['codigo'] = $this->MaterialesService->generarCodigoMaterial($categoria);
 
             DB::table('materiales')->insert($producto);
         }
