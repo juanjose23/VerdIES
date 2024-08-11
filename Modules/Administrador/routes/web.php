@@ -17,3 +17,6 @@ use Modules\Administrador\Http\Controllers\AdministradorController;
 Route::group([], function () {
     Route::resource('administrador', AdministradorController::class)->names('administrador');
 });
+
+
+Route::get('/inicio_admin', [AdministradorController::class,'index']) -> name('inicio');

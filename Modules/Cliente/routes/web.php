@@ -18,5 +18,5 @@ Route::group([], function () {
     Route::resource('cliente', ClienteController::class)->names('cliente');
 });
 
-Route::get('/home', [ClienteController::class,'index']) -> name('inicio');
+Route::get('/inicio_cliente', [ClienteController::class,'index']) -> name('inicio');
 
