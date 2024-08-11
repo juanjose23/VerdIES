@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">
                     <div class="card-body pb-0 px-0 px-md-6">
-                        <img src="../../assets/img/illustrations/man-with-laptop.png" height="175" class="scaleX-n1-rtl" alt="View Badge User">
+                        <img src="{{ asset('Cliente/assets/img/illustrations/man-with-laptop.png') }}" height="175" class="scaleX-n1-rtl" alt="View Badge User">
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between mb-4">
                             <div class="avatar flex-shrink-0">
-                                <img src="../../assets/img/icons/unicons/wallet-info.png" alt="wallet info" class="rounded">
+                                <img src="{{ asset('Cliente/assets/img/icons/unicons/wallet-info.png') }}" alt="wallet info" class="rounded">
                             </div>
                             <div class="dropdown">
                                 <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -145,7 +145,7 @@
                     <div class="card-body">
                         <div class="card-title d-flex align-items-start justify-content-between mb-4">
                             <div class="avatar flex-shrink-0">
-                                <img src="../../assets/img/icons/unicons/paypal.png" alt="paypal" class="rounded">
+                                <img src="{{ asset('Cliente/assets/img/icons/unicons/paypal.png') }}" alt="paypal" class="rounded">
                             </div>
                             <div class="dropdown">
                                 <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -306,7 +306,7 @@
                     <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
                         <div class="d-flex mb-6">
                             <div class="avatar flex-shrink-0 me-3">
-                                <img src="../../assets/img/icons/unicons/wallet-primary.png" alt="User">
+                                <img src="{{ asset('Cliente/assets/img/icons/unicons/wallet-primary.png') }}" alt="User">
                             </div>
                             <div>
                                 <p class="mb-0">Total Balance</p>
@@ -356,7 +356,7 @@
                 <ul class="p-0 m-0">
                     <li class="d-flex align-items-center mb-6">
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src="../../assets/img/icons/unicons/paypal.png" alt="User" class="rounded">
+                            <img src="{{ asset('Cliente/assets/img/icons/unicons/paypal.png') }}" alt="User" class="rounded">
                         </div>
                         <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -370,7 +370,7 @@
                     </li>
                     <li class="d-flex align-items-center mb-6">
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src="../../assets/img/icons/unicons/wallet.png" alt="User" class="rounded">
+                            <img src="{{ asset('Cliente/assets/img/icons/unicons/wallet.png') }}" alt="User" class="rounded">
                         </div>
                         <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -384,7 +384,7 @@
                     </li>
                     <li class="d-flex align-items-center mb-6">
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src="../../assets/img/icons/unicons/chart.png" alt="User" class="rounded">
+                            <img src="{{ asset('Cliente/assets/img/icons/unicons/chart.png') }}" alt="User" class="rounded">
                         </div>
                         <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -398,7 +398,7 @@
                     </li>
                     <li class="d-flex align-items-center mb-6">
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src="../../assets/img/icons/unicons/cc-primary.png" alt="User" class="rounded">
+                            <img src="{{ asset('Cliente/assets/img/icons/unicons/cc-primary.png') }}" alt="User" class="rounded">
                         </div>
                         <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -412,7 +412,7 @@
                     </li>
                     <li class="d-flex align-items-center mb-6">
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src="../../assets/img/icons/unicons/wallet.png" alt="User" class="rounded">
+                            <img src="{{ asset('Cliente/assets/img/icons/unicons/wallet.png') }}" alt="User" class="rounded">
                         </div>
                         <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -426,7 +426,7 @@
                     </li>
                     <li class="d-flex align-items-center">
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src="../../assets/img/icons/unicons/cc-warning.png" alt="User" class="rounded">
+                            <img src="{{ asset('Cliente/assets/img/icons/unicons/cc-warning.png') }}" alt="User" class="rounded">
                         </div>
                         <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
@@ -473,7 +473,7 @@
                             </p>
                             <div class="d-flex align-items-center mb-1">
                                 <div class="badge bg-lighter rounded-2">
-                                    <img src="../../assets/img/icons/misc/pdf.png" alt="img" width="15" class="me-2">
+                                    <img src="{{ asset('Cliente/assets/img/icons/misc/pdf.png') }}" alt="img" width="15" class="me-2">
                                     <span class="h6 mb-0 text-body">invoices.pdf</span>
                                 </div>
                             </div>
@@ -492,7 +492,7 @@
                             <div class="d-flex justify-content-between flex-wrap gap-2">
                                 <div class="d-flex flex-wrap align-items-center">
                                     <div class="avatar avatar-sm me-2">
-                                        <img src="../../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle">
+                                        <img src="{{ asset('Cliente/assets/img/avatars/1.png') }}" alt="Avatar" class="rounded-circle">
                                     </div>
                                     <div>
                                         <p class="mb-0 small fw-medium">Lester McCarthy (Client)</p>
@@ -517,13 +517,13 @@
                                     <div class="d-flex flex-wrap align-items-center">
                                         <ul class="list-unstyled users-list d-flex align-items-center avatar-group m-0 me-2">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Vinnie Mostowy" class="avatar pull-up">
-                                                <img class="rounded-circle" src="../../assets/img/avatars/5.png" alt="Avatar">
+                                                <img class="rounded-circle" src="{{ asset('Cliente/assets/img/avatars/5.png') }}" alt="Avatar">
                                             </li>
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Allen Rieske" class="avatar pull-up">
-                                                <img class="rounded-circle" src="../../assets/img/avatars/12.png" alt="Avatar">
+                                                <img class="rounded-circle" src="{{ asset('Cliente/assets/img/avatars/12.png') }}" alt="Avatar">
                                             </li>
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Julee Rossignol" class="avatar pull-up">
-                                                <img class="rounded-circle" src="../../assets/img/avatars/6.png" alt="Avatar">
+                                                <img class="rounded-circle" src="{{ asset('Cliente/assets/img/avatars/6.png') }}" alt="Avatar">
                                             </li>
                                             <li class="avatar">
                                                 <span class="avatar-initial rounded-circle pull-up text-heading" data-bs-toggle="tooltip" data-bs-placement="bottom" title="3 more">+3</span>
@@ -572,7 +572,7 @@
                                     <td>1</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/chrome.png" alt="Chrome" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/chrome.png') }}" alt="Chrome" height="24" class="me-3">
                                             <span class="text-heading">Chrome</span>
                                         </div>
                                     </td>
@@ -590,7 +590,7 @@
                                     <td>2</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/safari.png" alt="Safari" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/safari.png') }}" alt="Safari" height="24" class="me-3">
                                             <span class="text-heading">Safari</span>
                                         </div>
                                     </td>
@@ -608,7 +608,7 @@
                                     <td>3</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/firefox.png" alt="Firefox" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/firefox.png') }}" alt="Firefox" height="24" class="me-3">
                                             <span class="text-heading">Firefox</span>
                                         </div>
                                     </td>
@@ -626,7 +626,7 @@
                                     <td>4</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/edge.png" alt="Edge" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/edge.png') }}" alt="Edge" height="24" class="me-3">
                                             <span class="text-heading">Edge</span>
                                         </div>
                                     </td>
@@ -644,7 +644,7 @@
                                     <td>5</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/opera.png" alt="Opera" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/opera.png') }}" alt="Opera" height="24" class="me-3">
                                             <span class="text-heading">Opera</span>
                                         </div>
                                     </td>
@@ -662,7 +662,7 @@
                                     <td>6</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/uc.png" alt="uc" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/uc.png') }}" alt="uc" height="24" class="me-3">
                                             <span class="text-heading">UC Browser</span>
                                         </div>
                                     </td>
@@ -696,7 +696,7 @@
                                     <td>1</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/windows.png" alt="Windows" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/windows.png') }}" alt="Windows" height="24" class="me-3">
                                             <span class="text-heading">Windows</span>
                                         </div>
                                     </td>
@@ -714,7 +714,7 @@
                                     <td>2</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/mac.png" alt="Mac" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/mac.png') }}" alt="Mac" height="24" class="me-3">
                                             <span class="text-heading">Mac</span>
                                         </div>
                                     </td>
@@ -732,7 +732,7 @@
                                     <td>3</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/ubuntu.png" alt="Ubuntu" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/ubuntu.png') }}" alt="Ubuntu" height="24" class="me-3">
                                             <span class="text-heading">Ubuntu</span>
                                         </div>
                                     </td>
@@ -750,7 +750,7 @@
                                     <td>4</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/chrome.png" alt="Chrome" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/chrome.png') }}" alt="Chrome" height="24" class="me-3">
                                             <span class="text-heading">Chrome</span>
                                         </div>
                                     </td>
@@ -768,7 +768,7 @@
                                     <td>5</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/cent.png" alt="Cent" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/cent.png') }}" alt="Cent" height="24" class="me-3">
                                             <span class="text-heading">Cent</span>
                                         </div>
                                     </td>
@@ -786,7 +786,7 @@
                                     <td>6</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../assets/img/icons/brands/linux.png" alt="linux" height="24" class="me-3">
+                                            <img src="{{ asset('Cliente/assets/img/icons/brands/linux.png') }}" alt="linux" height="24" class="me-3">
                                             <span class="text-heading">Linux</span>
                                         </div>
                                     </td>

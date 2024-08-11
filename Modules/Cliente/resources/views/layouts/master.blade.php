@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+
+
+<!-- =========================================================
+* sneat - Bootstrap Dashboard PRO | v2.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/item/sneat-dashboard-pro-bootstrap/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+
+
 <html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template" data-style="light">
 
 <head>
@@ -34,12 +50,13 @@
     <!-- End Google Tag Manager -->
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{{ asset('Cliente/assets/img/favicon/favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="../../../css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="{{ asset('Cliente/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap') }}" rel="stylesheet">
+
 
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/fonts/boxicons.css') }}">
@@ -47,12 +64,10 @@
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/fonts/flag-icons.css') }}">
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/rtl/core.css') }}">
-    <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/rtl/theme-default.css') }}">
+    <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css">
+    <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/rtl/theme-default.css') }}" class="template-customizer-theme-css">
     <link rel="stylesheet" href="{{ asset('Cliente/assets/css/demo.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/rtl/core-dark.css') }}">
-    <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/rtl/theme-default-dark.css') }}">
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
@@ -72,7 +87,7 @@
 
 </head>
 
-<body>
+<body class="{{ session('theme', 'light') }}">>
 
 
 
@@ -1488,7 +1503,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="../../assets/img/avatars/1.png" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Cliente/assets/img/avatars/1.png') }}" alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -1524,7 +1539,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="../../assets/img/avatars/2.png" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Cliente/assets/img/avatars/2.png') }}" alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -1560,7 +1575,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="../../assets/img/avatars/9.png" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Cliente/assets/img/avatars/9.png') }}" alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -1596,7 +1611,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="../../assets/img/avatars/5.png" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Cliente/assets/img/avatars/5.png') }}" alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -1614,7 +1629,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="../../assets/img/avatars/6.png" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Cliente/assets/img/avatars/6.png') }}" alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -1662,7 +1677,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="../../assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                        <img src="{{ asset('Cliente/assets/img/avatars/1.png') }}" alt="" class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -1671,7 +1686,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="../../assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                                        <img src="{{ asset('Cliente/assets/img/avatars/1.png') }}" alt="" class="w-px-40 h-auto rounded-circle">
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -1830,14 +1845,16 @@
         <!-- endbuild -->
 
         <!-- Vendors JS -->
-         <script src="{{ asset('Cliente/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+        <script src="{{ asset('Cliente/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
         <!-- Main JS -->
-        <script src="{{ asset('Cliente/assets/vendor/js/main.js') }}"></script>
+        <script src="{{ asset('Cliente/assets/js/main.js') }}"></script>
 
 
         <!-- Page JS -->
         <script src="{{ asset('Cliente/assets/js/dashboards-analytics.js') }}"></script>
+
+       
 
 </body>
 
