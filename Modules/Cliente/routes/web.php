@@ -17,3 +17,6 @@ use Modules\Cliente\Http\Controllers\ClienteController;
 Route::group([], function () {
     Route::resource('cliente', ClienteController::class)->names('cliente');
 });
+
+Route::get('/home', [ClienteController::class,'index']) -> name('inicio');
+
