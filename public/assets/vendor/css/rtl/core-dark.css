@@ -39238,3 +39238,44 @@ a.bg-vimeo:hover,a.bg-vimeo:focus {
 .footer.bg-lighter hr {
     border-color: rgba(178,178,196,.15)
 }
+
+/* Empiza los widgets CUSTOM */
+
+#loader {
+    background: var(--bs-body-bg)
+}
+
+.blog-slider {
+
+    background: var(--bs-body-bg) !important;
+    background-color: #2b2c40 !important;
+    color: #fff !important;
+}
+
+.blog-slider__title{
+    color: #d5d5e2 !important;
+}
+
+.blog-slider__text{
+    color: #d5d5e2 !important;
+}
+
+
+.nav__menu {
+    background: var(--bs-body-bg) !important;
+    background-color: #2b2c40 !important;
+    color: #fff !important;
+}
+
+.nav__link{
+    color: #d5d5e2 !important;
+}
+
+.active-link{
+    color: #7ed957 !important;
+}
+
+
+.chatbot-icon{
+    background-color: #2b2c40 !important;
+}

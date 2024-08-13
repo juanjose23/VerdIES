@@ -1644,3 +1644,9 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item.open>.men
 .bg-footer-theme hr {
     border-color: rgba(105,108,255,.06)
 }
+
+
+
+#loader {
+    background-color: rgba(255, 255, 255); /* Fondo blanco semi-transparente */
+}

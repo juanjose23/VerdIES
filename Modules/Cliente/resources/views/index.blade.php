@@ -3,7 +3,62 @@
 @section('title', 'Inicio')
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ asset('Cliente/assets/scss/home/home.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.css">
 <div class="row">
+<div class="title">
+    <h2 style="font-weight: 900;" class="mb-20">Bienvenido<span style="color: #6ab218;">{{Session::get('nombre') }}!</span> </h2>
+</div>
+
+<div class="container-consejos">
+    <div class="blog-slider mt-5">
+        <div class="blog-slider__wrp swiper-wrapper">
+
+            <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+                    <img src="https://www.comercialaviles.com/wp-content/uploads/2019/06/8-bolsas-ecologicas-1.jpg" alt="">
+                </div>
+                <div class="blog-slider__content">
+                    <div class="blog-slider__title">Usa Bolsas Reutilizables:</div>
+                    <div class="blog-slider__text">
+                        Lleva siempre tus propias bolsas reutilizables cuando vayas de compras para reducir el uso de plástico.
+                    </div>
+                    <a href="#" class="blog-slider__button">Preguntale a EcoChat</a>
+                </div>
+            </div>
+
+            <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+                    <img src="https://ecoinventos.com/wp-content/uploads/2019/04/cascara-huevo-compost.jpg" alt="">
+                </div>
+                <div class="blog-slider__content">
+                    <div class="blog-slider__title">Composta los Residuos Orgánicos:</div>
+                    <div class="blog-slider__text">
+                        Transforma los restos de comida y residuos de jardín en abono natural para tus plantas.
+                    </div>
+                    <a href="#" class="blog-slider__button">Preguntale a EcoChat</a>
+                </div>
+            </div>
+
+            <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+                    <img src="https://energiahoy.com/wp-content/uploads/2023/01/agua.jpg" alt="">
+                </div>
+                <div class="blog-slider__content">
+                    <div class="blog-slider__title">Ahorra Agua y Energía</div>
+                    <div class="blog-slider__text">
+                        Cierra los grifos cuando no los uses y apaga las luces y dispositivos electrónicos para conservar recursos.
+                    </div>
+                    <a href="#" class="blog-slider__button">Preguntale a EcoChat</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="blog-slider__pagination"></div>
+    </div>
+
+</div>
     <div class="col-xxl-8 mb-6 order-0">
         <div class="card">
             <div class="d-flex align-items-start row">
@@ -936,4 +991,6 @@
 
 </div>
 <!-- / Content -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>
+<script src="{{ asset('Cliente/assets/js/home/index.js') }}"></script>
 @endsection
