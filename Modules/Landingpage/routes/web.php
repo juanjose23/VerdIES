@@ -17,3 +17,5 @@ use Modules\Landingpage\Http\Controllers\LandingpageController;
 Route::group([], function () {
     Route::resource('landingpage', LandingpageController::class)->names('landingpage');
 });
+
+Route::get('/pruebita', [LandingpageController::class,'index']) -> name('inicio');

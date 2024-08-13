@@ -11,8 +11,6 @@ Route::middleware('web')
         include base_path('Modules/Cliente/Routes/web.php');
     });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 

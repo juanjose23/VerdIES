@@ -1,29 +1,61 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Landingpage Module - {{ config('app.name', 'Laravel') }}</title>
+    <title>VerdIES @yield('titulo')</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-    <meta name="description" content="{{ $description ?? '' }}">
-    <meta name="keywords" content="{{ $keywords ?? '' }}">
-    <meta name="author" content="{{ $author ?? '' }}">
+    <link href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
+        rel="icon">
+    <link href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
+        rel="apple-touch-icon">
+    <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/themify-icons.css') }}">
+    @stack('styles')
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    {{-- Vite CSS --}}
-    {{-- {{ module_vite('build-landingpage', 'resources/assets/sass/app.scss') }} --}}
 </head>
 
 <body>
-    @yield('content')
+    @include('landingpage::layouts.navbar')
+    <main>
+        @yield('content')
+    </main>
 
-    {{-- Vite JS --}}
-    {{-- {{ module_vite('build-landingpage', 'resources/assets/js/app.js') }} --}}
+    @include('landingpage::layouts.footer')
+    <script src="{{ asset('assets/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    @stack('scripts')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (Session::has('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: '{{ Session::get('success') }}',
+                    confirmButtonText: 'Aceptar'
+                });
+            @endif
+            @if (Session::has('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: '{{ Session::get('error') }}',
+                    confirmButtonText: 'Aceptar'
+                });
+            @endif
+        });
+    </script>
+
+
 </body>
+
+</html>
