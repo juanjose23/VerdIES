@@ -9,7 +9,10 @@ class CategoriaService
     {
         $this->CategoriaModel = $CategoriaModel;
     }
-
+    public function ObtenerCategoriasActivas()
+    {
+        return Categorias::where('estado', 1)->get();
+    }
     public function crearCategoria($data)
     {
         
@@ -62,4 +65,6 @@ class CategoriaService
 
         return $categoria;
     }
+
+
 }

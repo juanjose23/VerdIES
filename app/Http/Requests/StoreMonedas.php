@@ -24,7 +24,7 @@ class StoreMonedas extends FormRequest
         return [
             'nombre' => 'required|string|max:255|unique:monedas', 
             'estado' => 'required|in:0,1',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'descripcion' => 'nullable|string|max:500',
         ];
     }

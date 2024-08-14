@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Monedas extends Model
 {
     use HasFactory;
-    public function imagenes()
+    public function imagenes():MorphOne
     {
-        return $this->morphOne('App\Models\Media', 'imagenable');
+        return $this->morphOne(Media::class, 'imagenable');
     }
     public function transciones()
     {

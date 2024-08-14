@@ -10,11 +10,30 @@ use App\Models\Materiales;
 use App\Models\Monedas;
 use App\Models\Tasas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use App\Services\MaterialService;
+use App\Services\MonedaService;
+use App\Services\TasaService;
 
 class TasasController extends Controller
 {
     //
+    protected $MaterialesService;
+    protected $MonedaServices;
+    protected $TasaServices;
+
+    public function __construct(MaterialService $MaterialesService, MonedaService $MonedaServices, TasaService $TasaServices)
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Categorias')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Categorias')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\Categorias')->only(['destroy']);
+        $this->MaterialesService = $MaterialesService;
+        $this->MonedaServices = $MonedaServices;
+        $this->TasaServices = $TasaServices;
+
+    }
     public function index()
     {
         return view('Gestion_Catalogos.Tasas.index');
@@ -22,28 +41,24 @@ class TasasController extends Controller
 
     public function create()
     {
-        $materiales = Materiales::ObtenerCategoriasConMateriales();
-        $monedas = Monedas::where('estado', 1)->get();
+        $materiales = $this->MaterialesService->ObtenerCategoriasConMateriales();
+        $monedas = $this->MonedaServices->ObtenerMonedasActivas();
 
         return view('Gestion_Catalogos.Tasas.create', compact('materiales', 'monedas'));
     }
 
     public function store(StoreTasas $request)
     {
-        $tasas = new Tasas();
-        $tasas->materiales_id = $request->materiales;
-        $tasas->monedas_id = $request->monedas;
-        $tasas->cantidad = $request->cantidad;
-        $tasas->estado = $request->estado;
-        $tasas->save();
 
+        $this->TasaServices->crearTasa($request->all());
         Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('tasas.index');
     }
     public function edit($tasas)
     {
-        $materiales = Materiales::With(['categorias'])->find($tasas);
-        $monedas = Monedas::where('estado', 1)->get();
+        $materiales = $this->MaterialesService->encontrarMaterialConCategorias($tasas);
+        $monedas = $this->MonedaServices->ObtenerMonedasActivas();
+
         return view('Gestion_Catalogos.Tasas.edit', compact('materiales', 'monedas'));
     }
     public function show($tasas)
@@ -56,39 +71,18 @@ class TasasController extends Controller
     //
     public function update(UpdateTasas $request, $materiales)
     {
-        $material = Tasas::where('materiales_id', $materiales)
-            ->where('monedas_id', $request->monedas)
-            ->first(); 
+        try {
+            // Llamar al método del servicio para cambiar la tasa
+            $this->TasaServices->cambiarTasa($request->all());
 
-        if ($material) { 
-            $material->estado = 0; 
-            $material->save(); 
+            return redirect()->route('tasas.index')->with('success', 'Tasa guardada o actualizada correctamente.');
+        } catch (\Exception $e) {
+            Log::error('Error en el controlador de tasas: ' . $e->getMessage());
+            return redirect()->route('tasas.index')->withErrors('Ocurrió un error al guardar o actualizar la tasa.');
         }
 
-        $tasas = new Tasas();
-        $tasas->materiales_id = $materiales;
-        $tasas->monedas_id = $request->monedas;
-        $tasas->cantidad = $request->cantidad;
-        $tasas->estado = $request->estado;
-        $tasas->save();
-        Session::flash('success', 'El proceso se ha completado exitosamente.');
-
-
-        return redirect()->back();
 
     }
     //
-    public function destroy($materiales)
-    {
-        // Encuentra el cargo por su ID
-        $material = Tasas::findOrFail($materiales);
-
-        // Cambia el estado del cargo
-        $material->estado = $material->estado == 1 ? 0 : 1;
-        $material->save();
-        // Redirige de vuelta a la página de índice con un mensaje flash
-        Session::flash('success', 'El estado de la tasa ha sido cambiado exitosamente.');
-
-        return redirect()->route('tasas.index');
-    }
+    
 }

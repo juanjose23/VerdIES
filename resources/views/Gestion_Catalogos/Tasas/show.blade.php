@@ -33,7 +33,7 @@
                             </div>
                         </div>
 
-
+<input type="hidde" value="{{$materiales->id}}" name="materiales_id" hidden>
 
                         <div class="col-md-6">
                             <div class="form-group">

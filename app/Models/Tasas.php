@@ -4,20 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tasas extends Model
 {
     use HasFactory;
     protected $table="tasa_cambios";
-
-    public function materiales()
+    protected $fillable = [
+        'materiales_id',
+        'monedas_id',
+        'cantidad',
+        'estado',
+    ];
+    public function materiales():BelongsTo
     {
-        return $this->belongsTo('App\Models\Materiales');
+        return $this->belongsTo(Materiales::class);
     }
 
-    public function monedas()
+    public function monedas():BelongsTo
     {
-        return $this->belongsTo('App\Models\Monedas');
+        return $this->belongsTo(Monedas::class);
     }
 
     public static function calcularPuntosAcumulados($materialId, $cantidadRecolectada)

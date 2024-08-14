@@ -17,34 +17,35 @@ class modulos extends Seeder
             [
                 'nombre' => 'Gestión de Catalogos',
                 'descripcion' => '',
-                'icono'=>'fas fa-shopping-bag',
+                'icono' => 'bx bx-folder', // Boxicons para "shopping bag"
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de promociones',
                 'descripcion' => '',
-                'icono'=>'fas fa-tags',
+                'icono' => 'bx bx-gift', // Boxicons para "tags"
                 'estado' => 1
             ],
             [
                 'nombre' => 'Áreas de conocimiento',
                 'descripcion' => '',
-                'icono'=>'fas fa-graduation-cap',
+                'icono' => 'bx bx-book', // Boxicons para "graduation cap" (no hay ícono exacto, "book" es una opción)
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de reciclaje',
                 'descripcion' => '',
-                'icono'=>'fas fa-recycle',
+                'icono' => 'bx bx-recycle', // Boxicons para "recycle"
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de usuarios',
                 'descripcion' => '',
-                'icono'=>'fas fa-users',
+                'icono' => 'bx bx-user', // Boxicons para "users"
                 'estado' => 1
             ],
         ];
+        
 
         // Crear los modelos utilizando el array
         foreach ($modulos as $modulo) {

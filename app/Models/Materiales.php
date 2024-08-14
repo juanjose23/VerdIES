@@ -4,23 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+
+
 
 class Materiales extends Model
 {
     use HasFactory;
-    public function categorias()
+    public function categorias():BelongsTo
     {
-        return $this->belongsTo('App\Models\Categorias');
+        return $this->belongsTo(Categorias::class);
     }
-    public function tasas()
+    public function tasas():HasMany
     {
-        return $this->hasMany('App\Models\Tasas');
+        return $this->hasMany(Tasas::class);
     }
-    public function imagenes()
+    public function imagenes():MorphOne
     {
-        return $this->morphOne('App\Models\Media', 'imagenable');
+        return $this->morphOne(Media::class, 'imagenable');
     }
 
     public function detalles()
@@ -37,23 +40,6 @@ class Materiales extends Model
         return $this->hasMany('App\Models\EntregaMaterial');
     }
 
-    /**
-     * Genera el código de un producto basado en la categoría.
-     *
-     * @param  \App\Models\Categorias  $categoria
-     * @return string
-     */
-    public static function generarCodigoMaterial(Categorias $categoria)
-    {
-        // Obtener el prefijo del nombre de la categoría y convertirlo a slug
-        $prefijo = Str::slug($categoria->nombre, '-');
-
-        $ultimoProducto = self::where('categorias_id', $categoria->id)->orderBy('id', 'desc')->first();
-        $siguienteId = $ultimoProducto ? $ultimoProducto->id + 1 : 1;
-
-        // Generar el código del producto concatenando el prefijo y el ID
-        return $prefijo . '-' . str_pad($siguienteId, 5, '0', STR_PAD_LEFT);
-    }
 
 
 
