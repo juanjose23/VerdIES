@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Cliente\Http\Controllers\ClienteController;
+use Modules\Cliente\Http\Controllers\PromocionesController;
+use Modules\Cliente\Http\Controllers\ResiduosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +20,9 @@ Route::group([], function () {
     Route::resource('cliente', ClienteController::class)->names('cliente');
 });
 
-Route::get('/inicio_cliente', [ClienteController::class,'index']) -> name('inicio');
+Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('inicio');
+
+Route::get('/clientes/promociones', [PromocionesController::class,'promociones']) -> name('promociones');
+
+Route::get('/clientes/residuos', [ResiduosController::class,'residuos']) -> name('residuos');
 

@@ -104,18 +104,8 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar  ">
         <div class="layout-container">
-
-
-
-
-
-
-
             <!-- Menu -->
-
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
-
                 <div class="app-brand demo ">
                     <a href="index.html" class="app-brand-link">
                         <span class="app-brand-logo demo">
@@ -137,13 +127,13 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboards -->
                     <li class="menu-item active">
-                        <a href="app-email.html" class="menu-link">
+                        <a href="/clientes/inicio" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-home"></i>
                             <div class="text-truncate" data-i18n="Inicio">Inicio</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="app-chat.html" class="menu-link">
+                        <a href="/clientes/residuos" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-recycle"></i>
                             <div class="text-truncate" data-i18n="Residuos">Residuos</div>
                         </a>
@@ -155,7 +145,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="app-kanban.html" class="menu-link">
+                        <a href="/clientes/promociones" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-purchase-tag-alt"></i>
                             <div class="text-truncate" data-i18n="Promociones">Promociones</div>
                         </a>
@@ -545,14 +535,14 @@
                     <div class="nav__menu" id="nav-menu">
                         <ul class="nav__list">
                             <li class="nav__item">
-                                <a href="#home" class="nav__link active-link">
+                                <a href="/clientes/inicio" class="nav__link active-link">
                                     <i class='bx bxs-home nav__icon'></i>
                                     <span class="nav__name">Inicio</span>
                                 </a>
                             </li>
 
                             <li class="nav__item">
-                                <a href="#about" class="nav__link">
+                                <a href="/clientes/residuos" class="nav__link">
                                     <i class='bx bx-recycle nav__icon'></i>
                                     <span class="nav__name">Residuos</span>
                                 </a>
@@ -566,7 +556,7 @@
                             </li>
 
                             <li class="nav__item">
-                                <a href="#contactme" class="nav__link">
+                                <a href="/clientes/promociones" class="nav__link">
                                     <i class='menu-icon tf-icons bx bx-purchase-tag-alt'></i>
                                     <span class="nav__name">Promociones</span>
                                 </a>
@@ -727,4 +717,47 @@
     // window.addEventListener('load', function() {
     //     hideLoader();
     // });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Obtener la URL actual
+    const currentUrl = window.location.pathname;
+
+    // Seleccionar todos los elementos de menú en la primera navbar
+    const menuItems1 = document.querySelectorAll(".menu-item");
+
+    // Recorrer todos los elementos de menú de la primera navbar
+    menuItems1.forEach(item => {
+        // Obtener el enlace dentro del elemento de menú
+        const link = item.querySelector("a");
+
+        // Verificar si la URL del enlace coincide con la URL actual
+        if (link.getAttribute("href") === currentUrl) {
+            // Agregar la clase "active" al elemento de menú
+            item.classList.add("active");
+        } else {
+            // Asegurarse de que los demás elementos no tengan la clase "active"
+            item.classList.remove("active");
+        }
+    });
+
+    // Seleccionar todos los elementos de menú en la segunda navbar
+    const menuItems2 = document.querySelectorAll(".nav__item");
+
+    // Recorrer todos los elementos de menú de la segunda navbar
+    menuItems2.forEach(item => {
+        // Obtener el enlace dentro del elemento de menú
+        const link = item.querySelector("a");
+
+        // Verificar si la URL del enlace coincide con la URL actual
+        if (link.getAttribute("href") === currentUrl) {
+            // Agregar la clase "active-link" al enlace
+            link.classList.add("active-link");
+        } else {
+            // Asegurarse de que los demás enlaces no tengan la clase "active-link"
+            link.classList.remove("active-link");
+        }
+    });
+});
 </script>
+
