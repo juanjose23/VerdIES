@@ -9,10 +9,12 @@ class modulos extends Model
 {
     use HasFactory;
 
-    public function submodulos(){
+    public function submodulos()
+    {
         return $this->hasMany('App\Models\submodulos');
     }
-    public function permisosm(){
+    public function permisosm()
+    {
         return $this->hasMany('App\Models\permisosmodulos');
     }
 }

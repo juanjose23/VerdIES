@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\Reciclaje;
 
 use App\Http\Controllers\Controller;
-use App\Models\Acopios;
-use App\Models\Detalles_entregas;
-use App\Models\Entregas;
-use App\Models\Inventarios;
-use App\Models\Materiales;
-use App\Models\Puntos;
-use App\Models\Tasas;
-use App\Models\User;
+use App\Http\Requests\StoreEntregaMaterial;
 use App\Notifications\EntregaVerificada;
+use App\Services\EntregaMaterialService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-
+use App\Services\MaterialService;
+use App\Services\UserService;
+use App\Services\CentroAcopioService;
 class EntregasController extends Controller
 {
     //
-    public function __construct()
+    protected $MaterialService;
+    protected $UserService;
+    protected $CentroAcopioService;
+    protected $EntregaMaterialService;
+    public function __construct(MaterialService $MaterialService, UserService $UserService, CentroAcopioService $CentroAcopioService, EntregaMaterialService $EntregaMaterialService)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\Acopios')->only(['create', 'store']);
@@ -27,6 +27,10 @@ class EntregasController extends Controller
         $this->middleware('can:delete,App\Models\Acopios')->only(['destroy']);
         // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
         $this->middleware('can:viewAny,App\Models\Acopios')->except(['index', 'show']);
+        $this->MaterialService = $MaterialService;
+        $this->UserService = $UserService;
+        $this->CentroAcopioService = $CentroAcopioService;
+        $this->EntregaMaterialService = $EntregaMaterialService;
     }
     /**
      * Display a listing of the resource.
@@ -44,80 +48,35 @@ class EntregasController extends Controller
     public function create()
     {
         //
-        $materiale = new Materiales();
-        $materiales = $materiale->ObtenerCategorias();
-        $usuarios = User::where('estado', 1)->get();
-        $acopios = Acopios::where('estado', 1)->get();
+        $materiales = $this->MaterialService->obtenerMaterialesConCategoriasEnTasas();
+        $usuarios = $this->UserService->ObtenerUsuariosActivos();
+        $acopios = $this->CentroAcopioService->ObtenerAcopioActivos();
         return view('Gestion_Reciclaje.Entregas.create', compact('materiales', 'usuarios', 'acopios'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEntregaMaterial $request)
     {
-        //
-        $entregas = new Entregas();
-        $codigo = $entregas->generarCodigoUnico();
-        $entregas->users_id = $request->user;
-        $entregas->acopios_id = $request->acopios;
-        $entregas->codigo = $codigo;
-        $entregas->nota = "";
-        $entregas->estado = 2;
-        $entregas->save();
-        $materialesData = json_decode($request->materialesData);
 
-        // Verificar si la decodificación fue exitosa
+        $entrega = $this->EntregaMaterialService->CrearEntrega([
+            'user_id' => $request->user,
+            'acopios_id' => $request->acopios
+        ]);
+
+        $materialesData = json_decode($request->materialesData, true);
+      
         if ($materialesData !== null) {
-            // Iterar sobre los datos de materiales
-            foreach ($materialesData as $item) {
-                // Acceder a las propiedades de cada artículo del carrito
-                $tasa = Tasas::where('materiales_id', $item->id)->where('estado', 1)->first();
-
-                // Verificar si se encontró una tasa válida
-                if ($tasa) {
-                    // Crear un nuevo detalle de entrega
-                    $detalle = new Detalles_entregas();
-                    $detalle->entregas_id = $entregas->id;
-                    $detalle->materiales_id = $item->id;
-                    $detalle->monedas_id = $tasa->monedas_id;
-                    $detalle->cantidad = $item->cantidad;
-                    $detalle->valor = $tasa->cantidad * $item->cantidad;
-                    $detalle->save();
-                    $punto = new Puntos();
-
-                    $punto->users_id = $request->user;
-                    $punto->monedas_id = $tasa->monedas_id;
-                    $punto->puntos = $tasa->cantidad * $item->cantidad;
-                    $punto->save();
-
-                    $inventarios = Inventarios::firstOrNew([
-                        'materiales_id' => $item->id,
-                        'acopios_id' => $request->acopios
-                    ]);
-
-                    if ($inventarios->exists) {
-                        // Si el inventario ya existe, sumar la cantidad
-                        $inventarios->cantidad += $item->cantidad;
-                    } else {
-                        // Si el inventario no existe, asignar la nueva cantidad
-                        $inventarios->cantidad = $item->cantidad;
-                    }
-
-                    $inventarios->estado = 1;
-                    $inventarios->save();
-
-                } else {
-                    // Manejar el caso donde no se encontró una tasa válida (opcional)
-                }
-            }
+            $this->EntregaMaterialService->procesarMateriales($entrega, $materialesData);
         } else {
             // Manejar el caso donde la decodificación JSON falló
         }
-        $user = User::find($request->user);
+        $user = $this->UserService->ObtenerUsuario($request->user);
         $user->notify(new EntregaVerificada());
         // inventario
         Session::flash('success', 'Se ha registado correctamente la operación');
+        Session::flash('Limpiar', 'Se ha limpiado el localstorage');
         return redirect()->route('entregas.index');
     }
 

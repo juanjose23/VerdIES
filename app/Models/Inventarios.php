@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Inventarios extends Model
 {
@@ -14,14 +15,14 @@ class Inventarios extends Model
         'cantidad',
         'estado',
     ];
-    public function acopios()
+    public function acopios():BelongsTo
     {
-        return $this->belongsTo('App\Models\Acopios');
+        return $this->belongsTo(ACopios::class);
     }
 
-    public function materiales()
+    public function materiales():BelongsTo
     {
-        return $this->belongsTo('App\Models\Materiales');
+        return $this->belongsTo(Materiales::class);
     }
     
 }

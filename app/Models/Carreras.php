@@ -4,22 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Carreras extends Model
 {
     use HasFactory;
-    public function areas()
+    public function areas():BelongsTo
     {
-        return $this->belongsTo('App\Models\Areas','area_conocimientos_id');
+        return $this->belongsTo(Areas::class,'area_conocimientos_id');
     }
     
-    public function user_carrera()
+    public function user_carrera():HasMany
     {
-        return $this->hasMany('App\Models\User_carreras', 'carreras_id');
+        return $this->hasMany(User_carreras::class, 'carreras_id');
     }
-    public function imagenes()
+    public function imagenes():MorphOne
     {
-        return $this->morphOne('App\Models\Media', 'imagenable');
+        return $this->morphOne(Media::class, 'imagenable');
     }
     public static function ObtenerCarrera()
     {

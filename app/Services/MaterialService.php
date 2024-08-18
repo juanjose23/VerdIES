@@ -193,6 +193,43 @@ class MaterialService
 
         return $resultados;
     }
+/**
+ * Obtiene los materiales cuyas categorías existen en Tasas.
+ *
+ * @return array
+ */
+public function obtenerMaterialesConCategoriasEnTasas()
+{
+    // Obtener los IDs de materiales de Tasas
+    $materialesEnTasas = $this->TasasModel::pluck('materiales_id')->toArray();
+
+    // Obtener las categorías relacionadas con los materiales en Tasas
+    $categoriasConMaterialesEnTasas = $this->CategoriasModel::whereHas('materiales', function ($query) use ($materialesEnTasas) {
+        $query->whereIn('id', $materialesEnTasas);
+    })
+    ->where('estado', 1)
+    ->with(['materiales' => function ($query) use ($materialesEnTasas) {
+        $query->whereIn('id', $materialesEnTasas);
+    }])
+    ->get();
+
+    $resultados = [];
+
+    foreach ($categoriasConMaterialesEnTasas as $categoria) {
+        $nombreCategoria = $categoria->nombre;
+
+        if ($categoria->materiales && $categoria->materiales->count() > 0) {
+            foreach ($categoria->materiales as $material) {
+                $resultados[$nombreCategoria][] = [
+                    'id' => $material->id,
+                    'nombre' => $material->nombre
+                ];
+            }
+        }
+    }
+
+    return $resultados;
+}
 
     /**
      * Encuentra un material por su ID e incluye sus categorías.

@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Cache;
 class UserService
 {
     protected $userModel;
@@ -13,21 +13,28 @@ class UserService
     {
         $this->userModel = $userModel;
     }
-
+    public function ObtenerUsuario($usuario)
+    {
+        return $this->userModel->findOrFail($usuario);
+    }
+    public function ObtenerUsuariosActivos()
+    {
+        return $this->userModel->where("estado",1)->get();
+    }
     public function hasPrivilege($userId, $privilegeId): bool
     {
-        // Ejecuta la consulta para verificar si el usuario tiene el privilegio deseado
-        $result = DB::table('privilegiosroles as pr')
-            ->select('m.id AS id_modulo')
-            ->join('submodulos AS sm', 'sm.id', '=', 'pr.submodulos_id')
-            ->join('modulos AS m', 'm.id', '=', 'sm.modulos_id')
-            ->leftJoin('rolesusuarios AS rt', 'rt.roles_id', '=', 'pr.roles_id')
-            ->leftJoin('users AS u', 'rt.users_id', '=', 'u.id')
-            ->where('rt.users_id', '=', $userId)
-            ->where('rt.estado', '=', 1)
-            ->where('pr.submodulos_id', '=', $privilegeId)
-            ->exists();
-        
-        return $result;
+        // Genera una clave única para la caché basada en el ID del usuario y el ID del privilegio
+        $cacheKey = "user_{$userId}_privileges_{$privilegeId}";
+
+        // Utiliza Cache::remember para almacenar en caché el resultado de la consulta
+        return Cache::remember($cacheKey, 60, function () use ($userId, $privilegeId) {
+            // Optimiza la consulta para verificar si el usuario tiene el privilegio deseado
+            return DB::table('privilegiosroles as pr')
+                ->join('rolesusuarios as ru', 'ru.roles_id', '=', 'pr.roles_id')
+                ->where('ru.users_id', $userId)
+                ->where('ru.estado', 1)
+                ->where('pr.submodulos_id', $privilegeId)
+                ->exists();
+        });
     }
 }

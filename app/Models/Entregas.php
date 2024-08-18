@@ -4,38 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Entregas extends Model
 {
     use HasFactory;
-    public function users()
+    public function users():BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
-    public function acopios()
+    public function acopios():BelongsTo
     {
-        return $this->belongsTo('App\Models\Acopios');
+        return $this->belongsTo(Acopios::class);
     }
-    public function detalles()
+    public function detalles():HasMany
     {
-        return $this->hasMany('App\Models\Detalles_entregas');
+        return $this->hasMany(Detalles_entregas::class);
     }
-    public function imagenes()
+    public function imagenes():MorphOne
     {
-        return $this->morphOne('App\Models\Media', 'imagenable');
+        return $this->morphOne(Media::class, 'imagenable');
     }
-    public static function generarCodigoUnico()
-    {
-        $codigo = Str::random(8); // Generar un código aleatorio de 8 caracteres
-
-        // Verificar si el código ya existe en el modelo Entrega
-        while (self::where('codigo', $codigo)->exists()) {
-            // Si el código ya existe, generar otro código único
-            $codigo = Str::random(8);
-        }
-
-        return $codigo;
-    }
+    
 
     public static function obtenerHistorialEntregasPorUsuario($idUsuario)
     {

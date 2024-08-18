@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Livewire\Material;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,90 +27,24 @@ class Materiales extends Model
         return $this->morphOne(Media::class, 'imagenable');
     }
 
-    public function detalles()
+    public function detalles():HasMany
     {
-        return $this->hasMany('App\Models\Detalles_entregas');
+        return $this->hasMany(Detalles_entregas::class);
     }
 
-    public function inventarios()
+    public function inventarios():HasMany
     {
-        return $this->hasMany('App\Models\Inventarios');
+        return $this->hasMany(Inventarios::class);
     }
-    public function material()
+    public function material():HasMany
     {
-        return $this->hasMany('App\Models\EntregaMaterial');
-    }
-
-
-
-
-    /**
-     * 
-     */
-    public static function ObtenerCategoriasConMateriales()
-    {
-        $materialesEnTasas = Tasas::pluck('materiales_id')->toArray();
-
-        // Obtener las categorías con materiales filtrados que no existen en Tasas
-        $categorias = Categorias::where('estado', 1)
-            ->with([
-                'materiales' => function ($query) use ($materialesEnTasas) {
-                    $query->whereNotIn('id', $materialesEnTasas);
-                }
-            ])
-            ->get();
-
-
-        $resultados = [];
-
-        foreach ($categorias as $categoria) {
-            $nombreCategoria = $categoria->nombre;
-
-            if ($categoria->materiales !== null && $categoria->materiales->count() > 0) {
-                foreach ($categoria->materiales as $material) {
-                    $resultados[$nombreCategoria][] = [
-                        'id' => $material->id,
-                        'nombre' => $material->nombre
-                    ];
-                }
-            }
-        }
-
-        return $resultados;
+        return $this->hasMany(Material::class);
     }
 
-    public static function ObtenerCategorias()
-    {
-        $materialesEnTasas = Tasas::pluck('materiales_id')->toArray();
-
-        // Obtener las categorías con materiales filtrados que no existen en Tasas
-        $categorias = Categorias::where('estado', 1)
-            ->with([
-                'materiales' => function ($query) use ($materialesEnTasas) {
-                    $query->whereIn('id', $materialesEnTasas);
-                }
-            ])
-            ->get();
 
 
-        $resultados = [];
 
-        foreach ($categorias as $categoria) {
-            $nombreCategoria = $categoria->nombre;
-
-            if ($categoria->materiales !== null && $categoria->materiales->count() > 0) {
-                foreach ($categoria->materiales as $material) {
-                    $resultados[$nombreCategoria][] = [
-                        'id' => $material->id,
-                        'nombre' => $material->nombre
-                    ];
-                }
-            }
-        }
-
-        return $resultados;
-    }
-
+  
     public static function ObtenerInventario()
     {
         // Obtener los inventarios agrupados por acopio, categoría y material, y sumar las cantidades

@@ -93,11 +93,12 @@
                                 <!-- Botones para agregar materiales -->
                                 <div class="col-md-6 mb-3">
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                                    <button type="button" id="addMaterial" class="btn btn-warning mb-2">Agregar
-                                        Material</button>
-                              
-                                  
-                                        <a href="{{ route('entregas.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
+                                        <button type="button" id="addMaterial" class="btn btn-warning mb-2">Agregar
+                                            Material</button>
+
+
+                                        <a href="{{ route('entregas.index') }}"
+                                           id="cancelarBtn" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
                                         <button type="submit" class="btn btn-primary mb-2">Registrar</button>
                                     </div>
                                 </div>
@@ -109,7 +110,7 @@
                 <!-- Input oculto para almacenar datos -->
                 <input type="hidden" id="materialesData" name="materialesData">
 
-             
+
                 <!-- Botones de Acción -->
 
             </form>
@@ -140,67 +141,137 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            var counter = 0;
+            //Eliminar todo el localstorage
+            $('#cancelarBtn').on('click', function() {
+                localStorage.clear(); 
+            });
 
-            $('#addMaterial').on('click', function() {
-                var materialId = $('#materiales').val();
-                var materialNombre = $('#materiales option:selected').text();
-                var cantidad = $('#cantidad').val();
+            let counter = 0;
+            const $materialesTable = $('#materialesTable tbody');
+            const materialesDataKey = 'materialesData';
+            const $registrarBtn = $('.btn-primary'); // Selecciona el botón de "Registrar"
+
+            // Función para mostrar/ocultar el botón de registrar según haya datos o no en localStorage
+            const toggleRegistrarBtn = () => {
+                const materialesData = JSON.parse(localStorage.getItem(materialesDataKey)) || [];
+                if (materialesData.length > 0) {
+                    $registrarBtn.show();
+                } else {
+                    $registrarBtn.hide();
+                }
+            };
+
+            // Función para añadir un material a la tabla
+            const agregarMaterial = (materialId, materialNombre, cantidad) => {
+                const existingRow = $materialesTable.find(`tr[data-material-id="${materialId}"]`);
+                if (existingRow.length > 0) {
+                    // Si el material ya existe, actualiza la cantidad
+                    const currentCantidad = parseInt(existingRow.find('.cantidad').data('cantidad'));
+                    const nuevaCantidad = currentCantidad + parseInt(cantidad);
+                    existingRow.find('.cantidad').text(nuevaCantidad).data('cantidad', nuevaCantidad);
+                } else {
+                    // Si el material no existe, lo agrega como una nueva fila
+                    counter++;
+                    $materialesTable.append(`
+                        <tr data-material-id="${materialId}">
+                            <td>${counter}</td>
+                            <td class="material-nombre" data-nombre="${materialNombre}">${materialNombre}</td>
+                            <td class="cantidad" data-cantidad="${cantidad}">${cantidad}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning btn-edit" data-id="${materialId}" data-cantidad="${cantidad}">Editar</button>
+                                <button type="button" class="btn btn-danger btn-delete" data-id="${materialId}">Eliminar</button>
+                            </td>
+                        </tr>
+                    `);
+                }
+            };
+
+            // Función para actualizar los datos en localStorage y el input oculto
+            const actualizarMaterialesData = () => {
+                const materialesData = $materialesTable.find('tr[data-material-id]').map(function() {
+                    const $this = $(this);
+                    return {
+                        id: $this.data('material-id'),
+                        nombre: $this.find('.material-nombre').data('nombre'),
+                        cantidad: $this.find('.cantidad').data('cantidad')
+                    };
+                }).get();
+
+                localStorage.setItem(materialesDataKey, JSON.stringify(materialesData));
+                $('#materialesData').val(JSON.stringify(materialesData));
+                toggleRegistrarBtn(); // Actualiza la visibilidad del botón después de cada cambio
+            };
+
+            // Función para cargar los datos del localStorage
+            const cargarMaterialesData = () => {
+                const materialesData = JSON.parse(localStorage.getItem(materialesDataKey)) || [];
+                materialesData.forEach(({
+                    id,
+                    nombre,
+                    cantidad
+                }) => {
+                    agregarMaterial(id, nombre, cantidad);
+                });
+                toggleRegistrarBtn(); // Actualiza la visibilidad del botón al cargar la página
+            };
+
+            // Evento para añadir material
+            $('#addMaterial').on('click', () => {
+                const materialId = $('#materiales').val();
+                const materialNombre = $('#materiales option:selected').text();
+                const cantidad = $('#cantidad').val();
+
+                // Validación: Verificar si el ID del material es válido
+                if ($('#materiales option[value="' + materialId + '"]').length === 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'El material seleccionado no es válido.',
+                    });
+                    return;
+                }
 
                 if (materialId && cantidad) {
-                    counter++;
-                    $('#materialesTable tbody').append(`
-                    <tr data-material-id="${materialId}">
-                        <td>${counter}</td>
-                        <td class="material-nombre">${materialNombre}</td>
-                        <td class="cantidad" data-cantidad="${cantidad}">${cantidad}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-edit" data-id="${materialId}" data-cantidad="${cantidad}">Editar</button>
-                            <button type="button" class="btn btn-danger btn-delete" data-id="${materialId}">Eliminar</button>
-                        </td>
-                    </tr>
-                `);
-                    updateMaterialesData();
+                    agregarMaterial(materialId, materialNombre, cantidad);
+                    actualizarMaterialesData();
                 }
             });
 
-            // Editar cantidad de material
+            // Evento para editar material
             $(document).on('click', '.btn-edit', function() {
-                var materialId = $(this).data('id');
-                var currentCantidad = $(this).data('cantidad');
+                const $button = $(this);
+                const materialId = $button.data('id');
+                const cantidadActual = $button.data('cantidad');
 
                 Swal.fire({
                     title: 'Editar Cantidad',
                     input: 'number',
-                    inputValue: currentCantidad,
+                    inputValue: cantidadActual,
                     showCancelButton: true,
                     confirmButtonText: 'Guardar',
                     cancelButtonText: 'Cancelar',
                     inputValidator: (value) => {
-                        if (!value) {
-                            return '¡Necesitas ingresar una cantidad!';
-                        }
+                        return value ? null : '¡Necesitas ingresar una cantidad!';
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        var newCantidad = result.value;
-
-                        // Actualiza la cantidad en la tabla
-                        var row = $('tr[data-material-id="' + materialId + '"]');
-                        row.find('.cantidad').text(newCantidad).data('cantidad', newCantidad);
-
-                        // Actualiza el input oculto con los datos modificados
-                        updateMaterialesData();
+                        const nuevaCantidad = result.value;
+                        const $row = $materialesTable.find(`tr[data-material-id="${materialId}"]`);
+                        $row.find('.cantidad').text(nuevaCantidad).data('cantidad', nuevaCantidad);
+                        $button.data('cantidad', nuevaCantidad);
+                        actualizarMaterialesData();
                     }
                 });
             });
 
-            // Eliminar material de la tabla
+            // Evento para eliminar material
             $(document).on('click', '.btn-delete', function() {
-                var materialId = $(this).data('id');
+                const $row = $(this).closest('tr');
+                const materialId = $row.data('material-id');
 
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -211,26 +282,16 @@
                     cancelButtonText: 'Cancelar'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $('tr[data-material-id="' + materialId + '"]').remove();
-                        updateMaterialesData();
+                        $row.remove();
+                        actualizarMaterialesData();
                     }
                 });
             });
 
-            function updateMaterialesData() {
-                var materialesData = [];
-
-                $('tr[data-material-id]').each(function() {
-                    var materialId = $(this).data('material-id');
-                    var cantidad = $(this).find('.cantidad').data('cantidad');
-                    materialesData.push({
-                        id: materialId,
-                        cantidad: cantidad
-                    });
-                });
-
-                $('#materialesData').val(JSON.stringify(materialesData));
-            }
+            // Cargar datos al iniciar la página
+            cargarMaterialesData();
         });
     </script>
+
+
 @endsection

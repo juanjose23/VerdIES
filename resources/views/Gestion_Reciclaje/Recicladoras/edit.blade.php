@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label for="contacto_telefono" class="form-label text-dark">Teléfono del contacto *</label>
                                 <input type="tel" id="contacto_telefono" name="contacto_telefono" placeholder="Escribe el teléfono del contacto"
-                                    class="form-control @error('contacto_telefono') is-invalid @enderror" value="{{ old('contacto_telefono', $recicladora->contacto_telefono) }}">
+                                    class="form-control @error('contacto_telefono') is-invalid @enderror" value="{{ old('contacto_telefono', $recicladora->telefono_contacto) }}">
                                 @error('contacto_telefono')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
