@@ -66,11 +66,11 @@ class EntregasController extends Controller
         ]);
 
         $materialesData = json_decode($request->materialesData, true);
-      
-        if ($materialesData !== null) {
+
+        if (is_array($materialesData)) {
             $this->EntregaMaterialService->procesarMateriales($entrega, $materialesData);
         } else {
-            // Manejar el caso donde la decodificación JSON falló
+            echo "Hola";
         }
         $user = $this->UserService->ObtenerUsuario($request->user);
         $user->notify(new EntregaVerificada());
@@ -85,9 +85,6 @@ class EntregasController extends Controller
      */
     public function show(string $id)
     {
-        //
-
-
     }
 
     /**
@@ -96,9 +93,9 @@ class EntregasController extends Controller
     public function edit($entregas)
     {
         //
-        $entrega = Entregas::findOrFail($entregas);
-        $entrega->load('imagenes', 'acopios', 'users');
-        $materiales = Detalles_entregas::where('entregas_id', $entregas)->get();
+        $entrega = $this->EntregaMaterialService->ObtenerEntrega($entregas);
+        $materiales = $this->EntregaMaterialService->ObtenerDetalleEntrega($entrega);
+
         return view('Gestion_Reciclaje.Entregas.edit', compact('entrega', 'materiales'));
     }
 
@@ -107,73 +104,30 @@ class EntregasController extends Controller
      */
     public function update(Request $request, $entregas)
     {
-        // Buscar la entrega correspondiente
-        $entrega = Entregas::findOrFail($entregas);
+        // Actualizar la entrega
 
-        // Actualizar la nota y el estado de la entrega
-        $entrega->nota = $request->nota;
-        $iduser = $entrega->users_id;
-        $acopio = $entrega->acopios_id;
-        $entrega->estado = $request->estado;
-        $entrega->save();
-
+        $entrega = $this->EntregaMaterialService->ActualizarEntrega($entregas, $request->all());
+        if (!$entrega) {
+            // Maneja el caso donde la entrega no existe
+            Session::flash('error', 'La entrega no se encontró.');
+            return redirect()->route('entregas.index');
+        }
         if ($request->estado == 2) {
             // Decodificar la cadena JSON en un array asociativo
-            $materialesData = json_decode($request->materialesData);
-            // Verificar si la decodificación fue exitosa
-            if ($materialesData !== null) {
-                // Iterar sobre los datos de materiales
-                foreach ($materialesData as $item) {
-                    // Buscar la tasa correspondiente al material
-                    $tasa = Tasas::where('materiales_id', $item->id)->where('estado', 1)->first();
-
-                    // Verificar si se encontró una tasa válida
-                    if ($tasa) {
-                        // Buscar o crear un nuevo detalle de entrega
-                        $detalle = Detalles_entregas::firstOrNew(['materiales_id' => $item->id, 'entregas_id' => $entrega->id]);
-                        $detalle->monedas_id = $tasa->monedas_id;
-                        $detalle->cantidad = $item->cantidad;
-                        $detalle->valor = $tasa->cantidad * $item->cantidad;
-                        $detalle->save();
-
-                        // Crear un nuevo registro en la tabla de puntos
-                        $puntos = new Puntos();
-                        $puntos->users_id = $iduser;
-                        $puntos->monedas_id = $tasa->monedas_id;
-                        $puntos->puntos = $tasa->cantidad * $item->cantidad;
-                        $puntos->save();
-
-                        $inventarios = Inventarios::firstOrNew([
-                            'materiales_id' => $item->id,
-                            'acopios_id' => $acopio
-                        ]);
-
-                        if ($inventarios->exists) {
-                            // Si el inventario ya existe, sumar la cantidad
-                            $inventarios->cantidad += $item->cantidad;
-                        } else {
-                            // Si el inventario no existe, asignar la nueva cantidad
-                            $inventarios->cantidad = $item->cantidad;
-                        }
-
-                        $inventarios->estado = 1;
-                        $inventarios->save();
+            $materialesDatas = json_decode($request->materialesData, true);
 
 
-
-                    } else {
-                        // Manejar el caso donde no se encontró una tasa válida
-                        Log::error('No se encontró una tasa válida para el material ID: ' . $item->id);
-                    }
-                }
+            if (is_array($materialesDatas)) {
+                // Procesar los materiales utilizando el servicio
+                $this->EntregaMaterialService->ActualizarMateriales($entrega, $materialesDatas);
             } else {
                 // Manejar el caso donde la decodificación JSON falló
                 Log::error('La decodificación JSON falló para materialesData: ' . $request->materialesData);
             }
-
         }
-        // Notificar al usuario
-        $user = User::find($iduser);
+
+        // Obtener usuario y enviar notificación
+        $user = $this->UserService->ObtenerUsuario($request->user);
         $user->notify(new EntregaVerificada());
 
         // Redirigir y mostrar mensaje de éxito
@@ -182,16 +136,13 @@ class EntregasController extends Controller
     }
 
 
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request, $entregas)
     {
-
-        $acopio = Entregas::findOrFail($entregas);
-        // Cambia el estado del cargo
-        $acopio->estado = $request->estado;
-        $acopio->save();
+        $entrega = $this->EntregaMaterialService->CambiarEstado($entregas);
         Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('entregas.index');
     }

@@ -60,20 +60,32 @@ class EntregaMaterialService
             // Verificar si $item es un array u objeto
             $materialId = is_array($item) ? $item['id'] : $item->id;
             $cantidad = is_array($item) ? $item['cantidad'] : $item->cantidad;
-
             // Obtener la tasa válida
             $tasa = $this->ObtenerTasaValida($materialId);
-
-
-
-
             if ($tasa) {
                 $this->CrearDetalleEntrega($entrega, $materialId, $cantidad, $tasa);
                 $this->ActualizarInventario($materialId, $cantidad, $entrega->acopios_id);
-              $this->AcumularPuntos($entrega->users_id, $tasa, $cantidad);
-            
+                $this->AcumularPuntos($entrega->users_id, $tasa, $cantidad);
+
             } else {
                 Log::info('No se Encontro una Tasa Valida');
+            }
+        }
+    }
+    public function ActualizarMateriales($entrega, array $materialesInfo)
+    {
+        foreach ($materialesInfo as $item) {
+            // Verificar si $item es un array u objeto
+            $materialId = is_array($item) ? $item['id'] : $item->id;
+            $cantidad = is_array($item) ? $item['cantidad'] : $item->cantidad;
+            // Obtener la tasa válida
+            $tasa = $this->ObtenerTasaValida($materialId);
+            if ($tasa) {
+                $this->ActualizarDetalleEntrega($entrega->id, $materialId, $cantidad, $tasa);
+                $this->ActualizarInventario($materialId, $cantidad, $entrega->acopios_id);
+                $this->AcumularPuntos($entrega->users_id, $tasa, $cantidad);
+            } else {
+                Log::info('No se Encontro ');
             }
         }
     }
@@ -98,7 +110,23 @@ class EntregaMaterialService
         $detalle->valor = $tasa->cantidad * $cantidad;
         $detalle->save();
     }
+    protected function ActualizarDetalleEntrega($entregaId, $materialId, $nuevaCantidad, $tasa)
+    {
+        // Buscar el detalle de entrega existente
+        $detalle = $this->DetalleEntregasModel->where('entregas_id', $entregaId)
+            ->where('materiales_id', $materialId)
+            ->first();
 
+        if ($detalle) {
+            // Si se encuentra el detalle, actualiza la cantidad y el valor
+            $detalle->cantidad = $nuevaCantidad;
+            $detalle->valor = $tasa->cantidad * $nuevaCantidad;
+            $detalle->save();
+        } else {
+            // Si no se encuentra el detalle, crear uno nuevo
+            $this->CrearDetalleEntrega($entregaId, $materialId, $nuevaCantidad, $tasa);
+        }
+    }
     protected function ActualizarInventario($materialId, $cantidad, $acopiosId)
     {
         $inventario = Inventarios::firstOrNew([
@@ -118,7 +146,7 @@ class EntregaMaterialService
 
     protected function AcumularPuntos($userId, $tasa, $cantidad)
     {
-        
+
         $punto = $this->PuntosModel->newInstance();
         $punto->users_id = $userId;
         $punto->monedas_id = $tasa->monedas_id;
@@ -126,7 +154,35 @@ class EntregaMaterialService
         $punto->save();
     }
 
+  
 
+    public function ObtenerDetalleEntrega($Entrega)
+    {
 
+        return $this->DetalleEntregasModel->where('entregas_id', $Entrega->id)->get();
+    }
+
+    public function ActualizarEntrega($EntregaId, $data)
+    {
+        $entrega = $this->ObtenerEntrega($EntregaId);
+        $entrega->nota = $data['nota'] ?? $entrega->nota;
+        $entrega->estado = $data['estado'] ?? $entrega->estado;
+        $entrega->save();
+        return $entrega;
+    }
+
+    public function ObtenerEntrega($Entrega)
+    {
+        $entrega = $this->EntregaModel->findorfail($Entrega);
+        $entrega->load('imagenes', 'acopios', 'users');
+        return $entrega;
+    }
+
+    public function CambiarEstado($EntregasId)
+    {
+        $entrega=$this->ObtenerEntrega($EntregasId);
+        $entrega->estado = $entrega->estado == 1 ? 2 : 1;
+        $entrega->save();
+    }
 
 }

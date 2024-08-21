@@ -2,39 +2,55 @@
 
 namespace App\Livewire;
 
-use App\Models\Inventarios;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Services\InventarioService;
+
 class Inventario extends Component
 {
     use WithPagination;
+
     public $buscar = '';
     public $perPage = 10;
-    public function render()
+    public $estado = '';
+    public $categoria = '';
+    public $categorias = [];
+    public $acopios=[];
+    public $acopio;
+
+    public function mount(InventarioService $inventarioService)
     {
-         // Realizar la búsqueda en todos los atributos del modelo
-         $inventarios = Inventarios::with(['acopios','materiales','materiales.categorias'])->where(function ($query) {
-            $query->where('cantidad', 'like', '%' . $this->buscar . '%')
-                ->orWhereHas('acopios', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->buscar . '%');
-
-                })
-                ->orWhereHas('materiales', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->buscar . '%');
-
-                })
-                ->orWhereHas('materiales.categorias', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->buscar . '%');
-
-                });
-        })->paginate($this->perPage);
-
-        
-        return view('livewire.inventario',compact('inventarios'));
+        $this->categorias = $inventarioService->obtenerCategoriasDisponibles();
+        $this->acopios=$inventarioService->obtenerCentrosAcopiosDisponibles();
     }
+
+    public function render(InventarioService $inventarioService)
+    {
+        // Obtener los inventarios en el render
+        $inventarios = $inventarioService->obtenerInventarios(
+            $this->buscar,
+            $this->estado,
+            $this->categoria,
+            $this->acopio,
+            $this->perPage
+        );
+
+        return view('livewire.inventario', [
+            'inventarios' => $inventarios,
+            'categorias' => $this->categorias,
+        ]);
+    }
+
     public function setPerPage($perPage)
     {
         $this->perPage = $perPage;
-        $this->gotoPage(1); // Reiniciar el paginado a la página 1
+        $this->resetPage(); // Reiniciar el paginado a la página 1
+    }
+
+    public function updated($propertyName, InventarioService $inventarioService)
+    {
+        if (in_array($propertyName, ['buscar', 'estado', 'categoria','acopio'])) {
+            $this->resetPage(); // Reiniciar la página cuando cambian los filtros
+        }
     }
 }

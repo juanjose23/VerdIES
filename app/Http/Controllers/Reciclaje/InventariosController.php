@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Session;
 
 class InventariosController extends Controller
 {
+    public function __construct()
+    {
+         // Aplica el middleware de autorización solo a los métodos "create" y "store"
+         $this->middleware('can:create,App\Models\Acopios')->only(['create', 'store']);
+         $this->middleware('can:update,App\Models\Acopios')->only(['edit', 'update']);
+         $this->middleware('can:delete,App\Models\Acopios')->only(['destroy']);
+         // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+         $this->middleware('can:viewAny,App\Models\Acopios')->except(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      */
