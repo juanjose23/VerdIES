@@ -31,6 +31,15 @@
   font-weight: bold;
 }
 
+.menu-vertical .app-brand {
+  padding-right: 2rem;
+  padding-left: 1.2rem;
+}
+
+.bx-menu:before {
+  display: none;
+}
+
 /*=============== GOOGLE FONTS ===============*/
 /*=============== VARIABLES CSS ===============*/
 :root {
