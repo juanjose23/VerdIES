@@ -1,5 +1,6 @@
 {
     "Landingpage": true,
     "Administrador": true,
-    "Cliente": true
+    "Cliente": true,
+    "Auth": true
 }

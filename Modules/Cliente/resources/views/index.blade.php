@@ -13,7 +13,7 @@
 
 <div class="row">
     <div class="title">
-        <h2 style="font-weight: 900;" class="mb-20">Bienvenido<span style="color: #6ab218;">{{Session::get('nombre') }}!</span> </h2>
+        <h2 style="font-weight: 900;" class="mb-20">Bienvenido<span style="color: #6ab218;"> {{Session::get('nombre') }}!</span> </h2>
     </div>
 
     <div class="container-consejos">

@@ -12,7 +12,9 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "nwidart/laravel-modules": "^11.0",
-        "wikimedia/composer-merge-plugin": "*"
+        "wikimedia/composer-merge-plugin": "*",
+        "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.15"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
