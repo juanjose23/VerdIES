@@ -19,4 +19,4 @@ Route::group([], function () {
 });
 
 
-Route::get('/inicio_admin', [AdministradorController::class,'index']) -> name('inicio');
+Route::get('/admin/inicio', [AdministradorController::class,'index']) -> name('inicio');
