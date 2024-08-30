@@ -86,7 +86,7 @@
     <script src="{{ asset('Administrador/assets/js/config.js') }}"></script>
 
     <!-- customCSS -->
-    <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/custom_layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('Administrador/assets/scss/custom_layout.css') }}">
 
 </head>
 
@@ -250,7 +250,7 @@
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class='menu-icon tf-icons bx bx-user'></i>
-                            <div class="text-truncate" data-i18n="Áreas de conocimiento">Gestión de usuarios</div>
+                            <div class="text-truncate" data-i18n="Gestión de usuarios">Gestión de usuarios</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
