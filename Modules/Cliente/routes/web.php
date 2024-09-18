@@ -20,7 +20,7 @@ Route::group([], function () {
     Route::resource('cliente', ClienteController::class)->names('cliente');
 });
 
-Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('inicio');
+Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('clientes.inicio');
 
 Route::get('/clientes/promociones', [PromocionesController::class,'promociones']) -> name('promociones');
 

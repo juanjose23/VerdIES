@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Administrador\Http\Controllers\AdministradorController;
+use Modules\GestionDeReciclaje\Http\Controllers\GestionDeReciclajeController;
+use Modules\GestionDeReciclaje\Http\Controllers\InventarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,8 @@ use Modules\Administrador\Http\Controllers\AdministradorController;
 */
 
 Route::group([], function () {
-    Route::resource('administrador', AdministradorController::class)->names('administrador');
+    Route::resource('gestiondereciclaje', GestionDeReciclajeController::class)->names('gestiondereciclaje');
 });
 
 
-Route::get('/admin/inicio', [AdministradorController::class,'index']) -> name('admin.inicio');
+Route::get('/admin/gestiondereciclaje/inventario', [InventarioController::class,'inventario']) -> name('gestiondereciclaje.inventario');

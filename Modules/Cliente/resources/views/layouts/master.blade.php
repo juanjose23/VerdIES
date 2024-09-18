@@ -702,16 +702,14 @@
     function someFunction() {
         showLoader();
 
-        // Simula una operación que toma tiempo (como una solicitud AJAX)
-        setTimeout(function() {
-            // Tu lógica aquí...
-
-            // Luego de la operación, ocultar el loader
+        // Espera a que todas las assets (imágenes, scripts, etc.) se carguen
+        window.onload = function() {
             hideLoader();
-        }, 3000); // Espera 3 segundos antes de ocultar el loader
+        };
     }
 
     someFunction();
+
 
     // Ejemplo de ocultar el loader cuando la página está completamente cargada
     // window.addEventListener('load', function() {
@@ -719,45 +717,44 @@
     // });
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-    // Obtener la URL actual
-    const currentUrl = window.location.pathname;
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener la URL actual
+        const currentUrl = window.location.pathname;
 
-    // Seleccionar todos los elementos de menú en la primera navbar
-    const menuItems1 = document.querySelectorAll(".menu-item");
+        // Seleccionar todos los elementos de menú en la primera navbar
+        const menuItems1 = document.querySelectorAll(".menu-item");
 
-    // Recorrer todos los elementos de menú de la primera navbar
-    menuItems1.forEach(item => {
-        // Obtener el enlace dentro del elemento de menú
-        const link = item.querySelector("a");
+        // Recorrer todos los elementos de menú de la primera navbar
+        menuItems1.forEach(item => {
+            // Obtener el enlace dentro del elemento de menú
+            const link = item.querySelector("a");
 
-        // Verificar si la URL del enlace coincide con la URL actual
-        if (link.getAttribute("href") === currentUrl) {
-            // Agregar la clase "active" al elemento de menú
-            item.classList.add("active");
-        } else {
-            // Asegurarse de que los demás elementos no tengan la clase "active"
-            item.classList.remove("active");
-        }
+            // Verificar si la URL del enlace coincide con la URL actual
+            if (link.getAttribute("href") === currentUrl) {
+                // Agregar la clase "active" al elemento de menú
+                item.classList.add("active");
+            } else {
+                // Asegurarse de que los demás elementos no tengan la clase "active"
+                item.classList.remove("active");
+            }
+        });
+
+        // Seleccionar todos los elementos de menú en la segunda navbar
+        const menuItems2 = document.querySelectorAll(".nav__item");
+
+        // Recorrer todos los elementos de menú de la segunda navbar
+        menuItems2.forEach(item => {
+            // Obtener el enlace dentro del elemento de menú
+            const link = item.querySelector("a");
+
+            // Verificar si la URL del enlace coincide con la URL actual
+            if (link.getAttribute("href") === currentUrl) {
+                // Agregar la clase "active-link" al enlace
+                link.classList.add("active-link");
+            } else {
+                // Asegurarse de que los demás enlaces no tengan la clase "active-link"
+                link.classList.remove("active-link");
+            }
+        });
     });
-
-    // Seleccionar todos los elementos de menú en la segunda navbar
-    const menuItems2 = document.querySelectorAll(".nav__item");
-
-    // Recorrer todos los elementos de menú de la segunda navbar
-    menuItems2.forEach(item => {
-        // Obtener el enlace dentro del elemento de menú
-        const link = item.querySelector("a");
-
-        // Verificar si la URL del enlace coincide con la URL actual
-        if (link.getAttribute("href") === currentUrl) {
-            // Agregar la clase "active-link" al enlace
-            link.classList.add("active-link");
-        } else {
-            // Asegurarse de que los demás enlaces no tengan la clase "active-link"
-            link.classList.remove("active-link");
-        }
-    });
-});
 </script>
-

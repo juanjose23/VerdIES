@@ -115,7 +115,7 @@
 
 
                 <div class="app-brand demo ">
-                    <a href="index.html" class="app-brand-link">
+                    <a href="/admin/inicio" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" alt="" width="50">
 
@@ -240,7 +240,7 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
+                                <a href="/admin/gestiondereciclaje/inventario" class="menu-link">
                                     <div class="text-truncate" data-i18n="Inventario">Inventario</div>
                                 </a>
                             </li>

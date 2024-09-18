@@ -1,0 +1,11 @@
+{
+    "name": "GestionDeReciclaje",
+    "alias": "gestiondereciclaje",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GestionDeReciclaje\\Providers\\GestionDeReciclajeServiceProvider"
+    ],
+    "files": []
+}

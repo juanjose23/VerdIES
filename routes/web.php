@@ -10,6 +10,7 @@ Route::middleware('web')
         include base_path('Modules/Landingpage/Routes/web.php');
         include base_path('Modules/Administrador/Routes/web.php');
         include base_path('Modules/Cliente/Routes/web.php');
+        include base_path('Modules/GestionDeReciclaje/Routes/web.php');
     });
 
 
