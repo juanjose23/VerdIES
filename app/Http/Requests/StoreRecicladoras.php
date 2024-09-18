@@ -25,10 +25,10 @@ class StoreRecicladoras extends FormRequest
             //
             'nombre' => 'required|string|max:255|unique:recicladoras,nombre',
             'direccion' => 'nullable|string',
-            'telefono' => 'nullable|integer|max:20',
+            'telefono' => 'nullable|integer',
             'email' => 'nullable|email|unique:recicladoras,email',
             'nombre_contacto' => 'nullable|string|max:255',
-            'telefono_contacto' => 'nullable|integer|max:20',
+            'telefono_contacto' => 'nullable|integer',
             'email_contacto' => 'nullable|email',
             'horario' => 'nullable|string|max:255',
             'capacidad' => 'nullable|integer',

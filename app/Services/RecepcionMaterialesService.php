@@ -9,7 +9,7 @@ use App\Models\Inventarios;
 use App\Models\Puntos;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
-class EntregaMaterialService
+class RecepcionMaterialesService
 {
     protected $EntregaModel;
     protected $DetalleEntregasModel;
@@ -183,6 +183,7 @@ class EntregaMaterialService
         $entrega=$this->ObtenerEntrega($EntregasId);
         $entrega->estado = $entrega->estado == 1 ? 2 : 1;
         $entrega->save();
+        return $entrega;
     }
 
 }

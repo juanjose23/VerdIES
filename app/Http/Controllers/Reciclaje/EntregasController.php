@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Reciclaje;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEntregaMaterial;
 use App\Notifications\EntregaVerificada;
-use App\Services\EntregaMaterialService;
+use App\Services\RecepcionMaterialesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -18,8 +18,8 @@ class EntregasController extends Controller
     protected $MaterialService;
     protected $UserService;
     protected $CentroAcopioService;
-    protected $EntregaMaterialService;
-    public function __construct(MaterialService $MaterialService, UserService $UserService, CentroAcopioService $CentroAcopioService, EntregaMaterialService $EntregaMaterialService)
+    protected $RecepcionMaterialesService;
+    public function __construct(MaterialService $MaterialService, UserService $UserService, CentroAcopioService $CentroAcopioService, RecepcionMaterialesService $RecepcionMaterialesService)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\Acopios')->only(['create', 'store']);
@@ -30,7 +30,7 @@ class EntregasController extends Controller
         $this->MaterialService = $MaterialService;
         $this->UserService = $UserService;
         $this->CentroAcopioService = $CentroAcopioService;
-        $this->EntregaMaterialService = $EntregaMaterialService;
+        $this->RecepcionMaterialesService = $RecepcionMaterialesService;
     }
     /**
      * Display a listing of the resource.
@@ -60,7 +60,7 @@ class EntregasController extends Controller
     public function store(StoreEntregaMaterial $request)
     {
 
-        $entrega = $this->EntregaMaterialService->CrearEntrega([
+        $entrega = $this->RecepcionMaterialesService->CrearEntrega([
             'user_id' => $request->user,
             'acopios_id' => $request->acopios
         ]);
@@ -68,7 +68,7 @@ class EntregasController extends Controller
         $materialesData = json_decode($request->materialesData, true);
 
         if (is_array($materialesData)) {
-            $this->EntregaMaterialService->procesarMateriales($entrega, $materialesData);
+            $this->RecepcionMaterialesService->procesarMateriales($entrega, $materialesData);
         } else {
             echo "Hola";
         }
@@ -93,8 +93,8 @@ class EntregasController extends Controller
     public function edit($entregas)
     {
         //
-        $entrega = $this->EntregaMaterialService->ObtenerEntrega($entregas);
-        $materiales = $this->EntregaMaterialService->ObtenerDetalleEntrega($entrega);
+        $entrega = $this->RecepcionMaterialesService->ObtenerEntrega($entregas);
+        $materiales = $this->RecepcionMaterialesService->ObtenerDetalleEntrega($entrega);
 
         return view('Gestion_Reciclaje.Entregas.edit', compact('entrega', 'materiales'));
     }
@@ -106,7 +106,7 @@ class EntregasController extends Controller
     {
         // Actualizar la entrega
 
-        $entrega = $this->EntregaMaterialService->ActualizarEntrega($entregas, $request->all());
+        $entrega = $this->RecepcionMaterialesService->ActualizarEntrega($entregas, $request->all());
         if (!$entrega) {
             // Maneja el caso donde la entrega no existe
             Session::flash('error', 'La entrega no se encontró.');
@@ -119,7 +119,7 @@ class EntregasController extends Controller
 
             if (is_array($materialesDatas)) {
                 // Procesar los materiales utilizando el servicio
-                $this->EntregaMaterialService->ActualizarMateriales($entrega, $materialesDatas);
+                $this->RecepcionMaterialesService->ActualizarMateriales($entrega, $materialesDatas);
             } else {
                 // Manejar el caso donde la decodificación JSON falló
                 Log::error('La decodificación JSON falló para materialesData: ' . $request->materialesData);
@@ -142,7 +142,7 @@ class EntregasController extends Controller
      */
     public function destroy(Request $request, $entregas)
     {
-        $entrega = $this->EntregaMaterialService->CambiarEstado($entregas);
+        $entrega = $this->RecepcionMaterialesService->CambiarEstado($entregas);
         Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('entregas.index');
     }

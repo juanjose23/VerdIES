@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('entrega_materiales_id')->references('id')->on('entrega_material')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('materiales_id')->references('id')->on('materiales')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('cantidad');
             $table->decimal('peso');
             $table->decimal('precio');
             $table->timestamps();
