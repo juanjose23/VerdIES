@@ -3,5 +3,6 @@
     "Administrador": true,
     "Cliente": true,
     "Auth": true,
-    "GestionDeReciclaje": true
+    "GestionDeReciclaje": true,
+    "GestionCatalogos":true
 }

@@ -1,20 +1,4 @@
 <!DOCTYPE html>
-
-
-<!-- =========================================================
-* sneat - Bootstrap Dashboard PRO | v2.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/item/sneat-dashboard-pro-bootstrap/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
-
-
 <html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template" data-style="light">
 
 <head>
@@ -133,160 +117,39 @@
 
 
                 <ul class="menu-inner py-1">
-                    <!-- Dashboards -->
-
-                    <!-- Layouts -->
-                    <li class="menu-item active open">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="enu-icon tf-icons bx bx-folder"></i>
-                            <div class="text-truncate" data-i18n="Gestión de catalogos">Gestión de catalogos</div>
-                        </a>
-
-                        <ul class="menu-sub">
-
-                            <li class="menu-item">
-                                <a href="layouts-collapsed-menu.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Categorias">Categorias</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="layouts-content-navbar.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Materiales">Materiales</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="layouts-content-navbar-with-sidebar.html" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Monedas">Monedas</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../horizontal-menu-template" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Tasas">Tasas</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Front Pages -->
+                    
+                    @foreach (Session::get('privilegios') as $modulo)
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class='menu-icon tf-icons bx bx-gift'></i>
-                            <div class="text-truncate" data-i18n="Gestión de promociones">Gestión de promociones</div>
+                            <i class="menu-icon tf-icons {{ $modulo['icono'] }}"></i>
+                            <div data-i18n="{{ $modulo['nombre'] }}">{{ $modulo['nombre'] }}</div>
+
                         </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="../front-pages/landing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Promociones">Promociones</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Canje de promociones">Canje de promociones</div>
-                                </a>
-                            </li>
-                        </ul>
+                        @if (!empty($modulo['submodulos']))
+                            <ul class="menu-sub">
+                                @foreach ($modulo['submodulos'] as $submodulo)
+                                    <li class="menu-item">
+                                        @if ($submodulo['enlace'])
+                                            <a href="{{ route($submodulo['enlace']) }}" target=""
+                                                class="menu-link">
+                                                <div data-i18n="{{ $submodulo['nombre'] }}">
+                                                    {{ $submodulo['nombre'] }}</div>
+
+                                            </a>
+                                        @else
+                                            <a href="" target="" class="menu-link">
+                                                <div data-i18n="{{ $submodulo['nombre'] }}">
+                                                    {{ $submodulo['nombre'] }}</div>
+
+                                            </a>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </li>
+                @endforeach
 
-
-                    <!-- Front Pages -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class='menu-icon tf-icons bx bx-book'></i>
-                            <div class="text-truncate" data-i18n="Áreas de conocimiento">Áreas de conocimiento</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="../front-pages/landing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Área de conocimiento">Área de conocimiento</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Carreras">Carreras</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class='menu-icon tf-icons bx bx-recycle'></i>
-                            <div class="text-truncate" data-i18n="Gestión de reciclaje">Gestión de reciclaje</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="../front-pages/landing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Área de conocimiento">Área de conocimiento</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Centros de acopio">Centros de acopio</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Recicladoras">Recicladoras</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Materiales reciclados">Materiales reciclados</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Entregas de materiales">Entregas de materiales</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="/admin/gestiondereciclaje/inventario" class="menu-link">
-                                    <div class="text-truncate" data-i18n="Inventario">Inventario</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class='menu-icon tf-icons bx bx-user'></i>
-                            <div class="text-truncate" data-i18n="Gestión de usuarios">Gestión de usuarios</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="../front-pages/landing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Roles">Roles</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Usuarios">Usuarios</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Privilegios">Privilegios</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="../front-pages/pricing-page.html" class="menu-link" target="_blank">
-                                    <div class="text-truncate" data-i18n="Permisos">Permisos</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-                    <!-- Apps & Pages -->
-                    <!-- <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text" data-i18n="Apps & Pages">Apps &amp; Pages</span>
-                    </li>
-                    <li class="menu-item">
-                        <a href="app-email.html" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-envelope"></i>
-                            <div class="text-truncate" data-i18n="Email">Email</div>
-                        </a>
-                    </li> -->
 
                 </ul>
 

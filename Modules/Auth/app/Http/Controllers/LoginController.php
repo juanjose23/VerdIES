@@ -13,7 +13,7 @@ use Modules\Auth\Services\LoginService;
 use Modules\Auth\Services\RegistroUsuariosService;
 use Illuminate\Http\Request;  // Esta probablemente está bien como está, ya que `Request` pertenece a Laravel.
 use Modules\Auth\Models\User;
-
+use DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
@@ -61,7 +61,7 @@ class LoginController extends Controller
             // Gestionar sesión
             $rol = $this->loginService->gestionarSesion($request);
 
-            return redirect()->route($rol ? 'inicio' : 'home')
+            return redirect()->route($rol ? 'admin.inicio' : 'home')
                 ->with('success', '¡Bienvenido!');
         } else {
             // Autenticación fallida

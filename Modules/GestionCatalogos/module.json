@@ -1,0 +1,11 @@
+{
+    "name": "GestionCatalogos",
+    "alias": "gestioncatalogos",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GestionCatalogos\\Providers\\GestionCatalogosServiceProvider"
+    ],
+    "files": []
+}
