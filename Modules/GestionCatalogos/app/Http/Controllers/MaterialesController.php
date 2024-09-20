@@ -1,8 +1,7 @@
 <?php
+namespace Modules\GestionCatalogos\Http\Controllers;
 
-namespace App\Http\Controllers\Catalogos;
-
-use App\Http\Controllers\Controller;
+use Modules\GestionCatalogos\Http\Controllers\Controller;
 use App\Http\Requests\StoreMateriales;
 use App\Http\Requests\UpdateMateriales;
 use App\Models\Materiales;

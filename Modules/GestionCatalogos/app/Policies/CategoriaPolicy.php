@@ -35,14 +35,13 @@ class CategoriaPolicy
         $idPermisoDeseado = 1;
       
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
-           echo $user;
+          
             return true;
 
         }
 
-        var_dump($user) ;
-        exit();
-        //return false;
+     
+        return false;
     }
 
     /**
@@ -104,10 +103,10 @@ class CategoriaPolicy
     {
         $userId = $user->id;
         $permisos = permisosroles::obtenerPermisosRoles($userId);
-        var_dump($permisos);
-return $userId;
+    
+
         // Verifica si el usuario tiene el permiso deseado
-        //return collect($permisos)->contains('permisosmodulos_id', $idPermisoDeseado);
+        return collect($permisos)->contains('permisosmodulos_id', $idPermisoDeseado);
     }
 
 }

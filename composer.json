@@ -14,7 +14,11 @@
         "nwidart/laravel-modules": "^11.0",
         "wikimedia/composer-merge-plugin": "*",
         "laravel/sanctum": "^4.0",
-        "laravel/socialite": "^5.15"
+        "laravel/socialite": "^5.15",
+        "cloudinary-labs/cloudinary-laravel": "^2.0",
+        "cloudinary/cloudinary_php": "^2.12",
+        "livewire/livewire": "^3.5",
+        "mhmiton/laravel-modules-livewire": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -22,7 +26,8 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
-        "phpunit/phpunit": "^11.0.1"
+        "phpunit/phpunit": "^11.0.1",
+        "laravel-lang/lang": "^15.7"
     },
     "autoload": {
         "psr-4": {

@@ -24,39 +24,7 @@ class CategoriasController extends Controller
        return view('gestioncatalogos::Categorias.index');
     }
 
-    public function create()
-    {
-       
-
-        // Verificar la autorización para el usuario autenticado
-      //  Gate::authorize('create', $this->CategoriasServices);
-        return view('gestioncatalogos::Categorias.create');
-    }
-
-    public function store(CategoriaStore $request)
-    {
-         $this->CategoriasServices->crearCategoria($request->all());
-        
-        return redirect()->route('categorias.index');
-    }
-    public function edit($id)
-    {
-        $categorias = $this->CategoriasServices->obtenerCategoriaPorId($id);
-        return view('gestioncatalogos::Categorias.edit', compact('categorias'));
-    }
-    //
-    public function update(UpdateCategorias $request, $categorias)
-    {
-        $this->CategoriasServices->actualizarCategoria($categorias, $request->all());
-        return redirect()->route('categorias.index');
-    }
-    //
-    public function destroy($categorias)
-    {
-        $this->CategoriasServices->cambiarEstadoCategoria($categorias);
-        return redirect()->route('categorias.index');
-    }
-   
+    
 
   
 }

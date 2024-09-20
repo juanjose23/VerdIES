@@ -62,7 +62,6 @@ class CategoriaService
 
         // Mostrar mensaje flash
         Session::flash('success', 'El estado de la categoría ha sido cambiado exitosamente.');
-
         return $categoria;
     }
 
