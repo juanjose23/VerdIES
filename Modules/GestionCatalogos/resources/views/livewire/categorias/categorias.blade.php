@@ -14,13 +14,14 @@
                     <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
                         <!-- Botón para crear una categoría -->
                         @can('create', Modules\GestionCatalogos\Models\Categoria::class)
-                            <livewire:gestioncatalogos::categorias.crear-categorias />
+                            <div class="btn-group me-2 mb-2 mb-md-0">
+                                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                    <i class="fas fa-plus me-1"></i> Registrar categoría
+                                </button>
+                            </div>
                         @endcan
-                        <!-- Botón de exportación -->
 
-
-
-                        <!-- Selector de cantidad de registros -->
                         <div>
                             <select name="buscador" id="buscador" wire:model.live="perPage"
                                 class="form-select mt-2 mt-md-0">
@@ -59,8 +60,7 @@
                                 <td>{{ $item->nombre }}</td>
 
                                 <td class="text-wrap">{{ wordwrap($item->descripcion, 50, "\n", true) }}</td>
-                                <td><span
-                                        class=" badge bg-label-{{ $item->estado == 1 ? 'primary' : 'danger' }} me-1">
+                                <td><span class=" badge bg-label-{{ $item->estado == 1 ? 'primary' : 'danger' }} me-1">
                                         {{ $item->estado == 1 ? 'Activo' : 'Inactivo' }}
                                     </span>
                                 </td>
@@ -71,27 +71,26 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-
-                                            <!-- Botón para editar la categoría -->
-                                            <a class="dropdown-item" wire:click="edit({{ $item->id }})"
-                                                type="button" data-bs-toggle="offcanvas"
-                                                data-bs-target="#offcanvasRightedit" aria-controls="offcanvasRightedit">
-                                                <i class="bx bx-edit-alt me-1"></i> Editar
-                                            </a>
-                                            <a class="dropdown-item"  wire:click="toggleStatus({{$item->id}})">
-                                                <i
-                                                    class="bx bx-{{ $item->estado == 1 ? 'trash-alt' : 'revision' }}"></i>
-                                                {{ $item->estado == 1 ? 'Eliminar' : 'Activar' }}
-                                            </a>
+                                            @can('update', Modules\GestionCatalogos\Models\Categoria::class)
+                                                <!-- Botón para editar la categoría -->
+                                                <a class="dropdown-item" wire:click="edit({{ $item->id }})"
+                                                    type="button" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#offcanvasRightedit" aria-controls="offcanvasRightedit">
+                                                    <i class="bx bx-edit-alt me-1"></i> Editar
+                                                </a>
+                                            @endcan
+                                            @can('delete', Modules\GestionCatalogos\Models\Categoria::class)
+                                                <a class="dropdown-item" wire:click="toggleStatus({{ $item->id }})">
+                                                    <i
+                                                        class="bx bx-{{ $item->estado == 1 ? 'trash-alt' : 'revision' }}"></i>
+                                                    {{ $item->estado == 1 ? 'Eliminar' : 'Activar' }}
+                                                </a>
+                                            @endcan
                                         </div>
-
                                     </div>
-
-
                                 </td>
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>
@@ -178,18 +177,73 @@
             </form>
         </div>
     </div>
+    <div wire:ignore.self class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+        aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Crear Nueva Categoría</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+            <form wire:submit.prevent="submitForm">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" wire:model="nombre">
+                    @error('nombre')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" wire:model="descripcion"></textarea>
+                    @error('descripcion')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-control" id="estado" wire:model="estado">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                    @error('estado')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
 </div>
+
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var offcanvasElement = document.getElementById('offcanvasRightedit');
+    document.addEventListener('DOMContentLoaded', function() {
+    
+        // Función para manejar la lógica del offcanvas
+        function handleOffcanvas(offcanvasId) {
+            var offcanvasElement = document.getElementById(offcanvasId);
 
-        offcanvasElement.addEventListener('hidden.bs.offcanvas', function () {
-            @this.call('resetForm');
-        });
+            if (offcanvasElement) {
+                offcanvasElement.addEventListener('hidden.bs.offcanvas', function() {
+                    @this.call('resetForm');
+                });
 
-        window.addEventListener('close-offcanvas', event => {
-            var offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-            offcanvas.hide();
-        });
+                window.addEventListener('close-offcanvas', function() {
+                    var offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+                    if (offcanvas) {
+                        offcanvas.hide();
+                    }
+                });
+            }
+        }
+
+        // Aplica la función a ambos offcanvas
+        handleOffcanvas('offcanvasRight');
+        handleOffcanvas('offcanvasRightedit');
     });
 </script>

@@ -1,14 +1,10 @@
 <?php
 namespace Modules\GestionCatalogos\Http\Controllers;
 
-use Modules\GestionCatalogos\Http\Controllers\Controller;
-use App\Http\Requests\StoreMateriales;
-use App\Http\Requests\UpdateMateriales;
-use App\Models\Materiales;
-use Illuminate\Support\Facades\Session;
-
-use App\Services\MaterialService;
-use App\Services\CategoriaService;
+use App\Http\Controllers\Controller;
+use Modules\GestionCatalogos\Models\Materiales;
+use Modules\GestionCatalogos\Services\MaterialService;
+use Modules\GestionCatalogos\Services\CategoriaService;
 
 class MaterialesController extends Controller
 {
@@ -17,22 +13,22 @@ class MaterialesController extends Controller
     public function __construct(MaterialService $MaterialesService, CategoriaService $categoriaService)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
-        $this->middleware('can:create,App\Models\Categorias')->only(['create', 'store']);
-        $this->middleware('can:update,App\Models\Categorias')->only(['edit', 'update']);
-        $this->middleware('can:delete,App\Models\Categorias')->only(['destroy']);
+     //   $this->middleware('can:create,Modules\GestionCatalogos\Models\Categorias')->only(['create', 'store']);
+      //  $this->middleware('can:update,Modules\GestionCatalogos\Models\Categorias')->only(['edit', 'update']);
+       // $this->middleware('can:delete,Modules\GestionCatalogos\Models\Categorias')->only(['destroy']);
         $this->MaterialesService = $MaterialesService;
         $this->categoriaService = $categoriaService;
 
     }
     public function index()
     {
-        return view('Gestion_Catalogos.Materiales.index');
+        return view('gestioncatalogos::Materiales.index');
     }
 
     public function create()
     {
         $categorias = $this->categoriaService->ObtenerCategoriasActivas();
-        return view('Gestion_Catalogos.Materiales.create', compact('categorias'));
+        return view('gestioncatalogos::Materiales.create', compact('categorias'));
     }
 
     public function store(StoreMateriales $request)
@@ -42,9 +38,10 @@ class MaterialesController extends Controller
     }
     public function edit($materiales)
     {
+       
         $material = $this->MaterialesService->obtenerMaterialPorId($materiales);
         $categorias = $this->categoriaService->ObtenerCategoriasActivas();
-        return view('Gestion_Catalogos.Materiales.edit', compact('material', 'categorias'));
+        return view('gestioncatalogos::Materiales.create',compact('categorias'));
     }
     //
     public function update(UpdateMateriales $request, $materiales)
@@ -53,10 +50,10 @@ class MaterialesController extends Controller
         return redirect()->route('materiales.index');
     }
     //
-    public function destroy($materiales)
+    public function destroy(Materiales $materiales)
     {
         try {
-            $success = $this->MaterialesService->cambiarEstadoMaterial($materiales);
+            $success = $this->MaterialesService->cambiarEstadoMaterial($materiales->id);
             if ($success) {
                 Session::flash('success', 'El estado del material ha sido cambiado exitosamente.');
             }

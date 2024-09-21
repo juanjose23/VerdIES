@@ -6,17 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
     <title>VerdIES @yield('title')</title>
-
-
     <meta name="description"
         content="Most Powerful &amp; Comprehensive Bootstrap 5 Admin Dashboard built for developers!">
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/">
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- ? PROD Only: Google Tag Manager (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
     <script>
         (function(w, d, s, l, i) {
@@ -83,7 +80,7 @@
 
 </head>
 
-<body class="{{ session('theme', 'light') }}">>
+<body class="{{ session('theme', 'light') }}">
 
 
 
@@ -131,28 +128,27 @@
                 <ul class="menu-inner py-1">
 
                     @foreach (Session::get('privilegios') as $modulo)
-                        <li class="menu-item">
+                        <li class="menu-item {{ isModuleActive($modulo['submodulos']) ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons {{ $modulo['icono'] }}"></i>
                                 <div data-i18n="{{ $modulo['nombre'] }}">{{ $modulo['nombre'] }}</div>
-
                             </a>
                             @if (!empty($modulo['submodulos']))
-                                <ul class="menu-sub">
+                                <ul class="menu-sub"
+                                    {{ isModuleActive($modulo['submodulos']) ? 'style=display:block;' : '' }}>
                                     @foreach ($modulo['submodulos'] as $submodulo)
-                                        <li class="menu-item">
+                                        <li
+                                            class="menu-item {{ isActiveRoute($submodulo['enlace']) ? 'active' : '' }}">
                                             @if ($submodulo['enlace'])
-                                                <a href="{{ route($submodulo['enlace']) }}" target=""
-                                                    class="menu-link">
+                                                <a href="{{ route($submodulo['enlace']) }}"
+                                                    class="menu-link {{ isActiveRoute($submodulo['enlace']) ? 'active' : '' }}">
                                                     <div data-i18n="{{ $submodulo['nombre'] }}">
                                                         {{ $submodulo['nombre'] }}</div>
-
                                                 </a>
                                             @else
-                                                <a href="" target="" class="menu-link">
+                                                <a href="javascript:void(0);" class="menu-link">
                                                     <div data-i18n="{{ $submodulo['nombre'] }}">
                                                         {{ $submodulo['nombre'] }}</div>
-
                                                 </a>
                                             @endif
                                         </li>
@@ -174,41 +170,14 @@
 
             <!-- Layout container -->
             <div class="layout-page">
-
-
-
-
-
-                <!-- Navbar -->
-
-
-
-
                 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                     id="layout-navbar">
-
-
-
-
-
-
-
-
-
-
-
                     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0   d-xl-none ">
                         <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
                             <i class="bx bx-menu bx-md"></i>
                         </a>
                     </div>
-
-
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-
-
-
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item navbar-search-wrapper mb-0">
@@ -220,15 +189,7 @@
                             </div>
                         </div>
                         <!-- /Search -->
-
-
-
-
-
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
-
-
-
                             <!-- Notification -->
                             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
@@ -495,11 +456,6 @@
                             </li>
                             <!--/ Notification -->
 
-
-
-
-
-
                             <!-- Style Switcher -->
                             <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
@@ -525,18 +481,13 @@
                                 </ul>
                             </li>
                             <!-- / Style Switcher-->
-
-
-
-
-
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ Session::get('Foto') }}"
-                                            alt="" class="w-px-40 h-auto rounded-circle">
+                                        <img src="{{ Session::get('Foto') }}" alt=""
+                                            class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -545,8 +496,8 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ Session::get('Foto') }}"
-                                                            alt="" class="w-px-40 h-auto rounded-circle">
+                                                        <img src="{{ Session::get('Foto') }}" alt=""
+                                                            class="w-px-40 h-auto rounded-circle">
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -595,7 +546,7 @@
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item"  >
+                                        <a class="dropdown-item">
                                             <form action="{{ route('logout') }}" method="post">
                                                 @csrf
                                                 <button class="btn btn-link" type="submit">
@@ -614,12 +565,9 @@
                         <i class="bx bx-x bx-md search-toggler cursor-pointer"></i>
                     </div>
                 </nav>
-
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-
                         @yield('content')
-                        
                         <footer class="content-footer footer bg-footer-theme">
                             <div class="container-xxl">
                                 <div
@@ -643,15 +591,12 @@
 
 
                                         <a href="https://themeselection.com/support/" target="_blank"
-                                            class="footer-link d-none d-sm-inline-block">Support</a>
-
+                                          class="footer-link d-none d-sm-inline-block">Support</a>
                                     </div>
                                 </div>
                             </div>
                         </footer>
                         <!-- / Footer -->
-
-
                         <div class="content-backdrop fade"></div>
                     </div>
                     <!-- Content wrapper -->
@@ -663,20 +608,54 @@
             <!-- Drag Target Area To SlideIn Menu On Small Screens -->
             <div class="drag-target"></div>
         </div>
-        <script src="{{ asset('Administrador/assets/vendor/libs/jquery/jquery.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/libs/popper/popper.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/js/bootstrap.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/libs/hammer/hammer.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/libs/i18n/i18n.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
-        <script src="{{ asset('Administrador/assets/vendor/js/menu.js') }}"></script>
-        <!-- Vendors JS -->
-        <script src="{{ asset('Administrador/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-        <!-- Main JS -->
-        <script src="{{ asset('Administrador/assets/js/main.js') }}"></script>
-        <!-- Page JS -->
-        <script src="{{ asset('Administrador/assets/js/dashboards-analytics.js') }}"></script>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('confirmToggleStatus', function(event) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Realmente deseas cambiar el estado de esta categoría?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, cambiar estado',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    const swalData = event.detail[0];
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('toggleStatusConfirmed', {
+                            id: swalData.id
+                        });
+                    }
+                });
+            });
+
+            window.addEventListener('swal', function(event) {
+                const swalData = event.detail[0];
+
+                Swal.fire({
+                    title: swalData.title,
+                    text: swalData.text,
+                    icon: swalData.icon,
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+        });
+    </script>
+
+    <script src="{{ asset('Administrador/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/libs/hammer/hammer.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/libs/i18n/i18n.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+    <script src="{{ asset('Administrador/assets/vendor/js/menu.js') }}"></script>
+    <!-- Vendors JS -->
+    <script src="{{ asset('Administrador/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('Administrador/assets/js/main.js') }}"></script>
+    <!-- Page JS -->
+    <script src="{{ asset('Administrador/assets/js/dashboards-analytics.js') }}"></script>
 </body>
 
 </html>

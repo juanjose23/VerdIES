@@ -8,22 +8,25 @@ use Modules\GestionCatalogos\Services\CategoriaService;
 use Illuminate\Validation\Rule;
 use Modules\GestionCatalogos\Models\Categoria;
 use Illuminate\Support\Facades\App;
+use Livewire\Attributes\On;
 class Categorias extends Component
 {
     use WithPagination;
 
-    public $nombre, $descripcion, $estado;
+    use WithPagination;
+
+    public $nombre, $descripcion, $estado = 1;
     public $buscar = '';
     public $perPage = 10;
     public $categoriaId = null;
     public $editing = false;
+
     protected $CategoriasServices;
 
     public function __construct()
     {
-        $this-> CategoriasServices= App::make(CategoriaService::class);
+        $this->CategoriasServices = App::make(CategoriaService::class);
     }
-   
 
     public function rules()
     {
@@ -37,15 +40,12 @@ class Categorias extends Component
             'descripcion' => 'nullable|max:500',
         ];
     }
+
     public function resetForm()
     {
-        $this->nombre = '';
-        $this->descripcion = '';
-        $this->estado = 1; // O el valor predeterminado que desees
-        $this->categoriaId = null;
-        $this->editing = false;
+        $this->reset(['nombre', 'descripcion', 'estado', 'categoriaId', 'editing']);
     }
-    
+
     public function edit($id)
     {
         $categoria = $this->CategoriasServices->obtenerCategoriaPorId($id);
@@ -67,30 +67,58 @@ class Categorias extends Component
             'estado' => $this->estado,
         ];
 
-        $this->CategoriasServices->actualizarCategoria($this->categoriaId, $data);
+        if ($this->editing) {
+            $this->CategoriasServices->actualizarCategoria($this->categoriaId, $data);
 
-        session()->flash('message', 'Categoría actualizada con éxito.');
-        $this->reset(); // Reiniciar campos
+        } else {
+            $this->CategoriasServices->crearCategoria($data);
+
+        }
+
+        $this->resetForm();
+        $this->dispatch('swal', [
+            'title' => 'Operación Exitosa',
+            'text' => 'Categoría guardada correctamente.',
+            'icon' => 'success'
+        ]);
+        $this->dispatch('close-offcanvas');
     }
 
     public function toggleStatus($id)
     {
-     
+        // Emitir un evento para mostrar la alerta de confirmación
+        $this->dispatch('confirmToggleStatus', ['id' => $id]);
+    }
+
+    #[On('toggleStatusConfirmed')]
+    public function toggleStatusConfirmed($id)
+    {
+   
         $this->CategoriasServices->cambiarEstadoCategoria($id);
-        session()->flash('message', 'Estado de la categoría actualizado con éxito.');
+
+        // Obtener el estado actual de la categoría para el mensaje
+        $categoria = $this->CategoriasServices->obtenerCategoriaPorId($id);
+        $nuevoEstado = $categoria->estado == 1 ? 'activada' : 'desactivada';
+
+        // Enviar la alerta de éxito
+        $this->dispatch('swal', [
+            'title' => 'Operación Exitosa',
+            'text' => "La categoría ha sido $nuevoEstado correctamente.",
+            'icon' => 'success'
+        ]);
     }
 
     public function setPerPage($perPage)
     {
         $this->perPage = $perPage;
-        $this->gotoPage(1); // Reiniciar el paginado a la página 1
+        $this->gotoPage(1);
     }
 
     public function render()
     {
         $Categorias = Categoria::where(function ($query) {
             $query->where('nombre', 'like', '%' . $this->buscar . '%')
-                  ->orWhere('descripcion', 'like', '%' . $this->buscar . '%');
+                ->orWhere('descripcion', 'like', '%' . $this->buscar . '%');
         })->paginate($this->perPage);
 
         return view('gestioncatalogos::livewire.categorias.categorias', compact('Categorias'));

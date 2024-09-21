@@ -3,11 +3,7 @@
 namespace Modules\GestionCatalogos\Http\Controllers;
 
 use Modules\GestionCatalogos\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\UpdateCategorias;
 use Modules\GestionCatalogos\Services\CategoriaService;
-use Modules\GestionCatalogos\Http\Requests\CategoriaStore;
-use Gate;
 class CategoriasController extends Controller
 {
     //

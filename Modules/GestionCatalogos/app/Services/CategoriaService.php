@@ -22,7 +22,7 @@ class CategoriaService
         $categoria->descripcion = $data['descripcion'];
         $categoria->estado = $data['estado'];
         $categoria->save();
-        Session::flash('success', 'Se ha registado correctamente la operación');
+        
         return $categoria;
     }
     public function obtenerCategoriaPorId($id)
