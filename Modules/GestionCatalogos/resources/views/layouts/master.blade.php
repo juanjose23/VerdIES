@@ -52,9 +52,9 @@
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/css/rtl/core.css') }}"
-        class="template-customizer-core-css">
+        class="">
     <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/css/rtl/theme-default.css') }}"
-        class="template-customizer-theme-css">
+        class="">
     <link rel="stylesheet" href="{{ asset('Administrador/assets/css/demo.css') }}">
 
 
