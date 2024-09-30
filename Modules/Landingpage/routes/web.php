@@ -18,4 +18,4 @@ Route::group([], function () {
     Route::resource('landingpage', LandingpageController::class)->names('landingpage');
 });
 
-Route::get('/pruebita', [LandingpageController::class,'index']) -> name('inicio');
+Route::get('/', [LandingpageController::class,'index']) -> name('inicio');
