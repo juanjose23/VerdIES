@@ -1071,6 +1071,8 @@
         <!--/ pill table -->
     </div>
 
+    @include('cliente::layouts.ecochat')
+
 </div>
 <!-- / Content -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>

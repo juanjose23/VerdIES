@@ -88,6 +88,11 @@
     <!-- customCSS -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/custom_layout.css') }}">
 
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+
 </head>
 
 <body class="{{ session('theme', 'light') }}">>
@@ -633,18 +638,12 @@
 
     </div>
 
-    <!-- Contenedor de Bootstrap -->
-    <div class="container">
-        <!-- Contenido de tu página -->
+    
 
-        <!-- Botón del Chatbot -->
-        <div class="chatbot-icon">
-            <i class='bx bx-leaf' style='color:#6ab218'></i>
-        </div>
+
     </div>
 
-    <!-- Chatbot -->
-    </div>
+
 
 
 
