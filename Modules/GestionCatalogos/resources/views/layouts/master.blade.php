@@ -576,22 +576,21 @@
                                         ©
                                         <script>
                                             document.write(new Date().getFullYear())
-                                        </script>, made with ❤️ by <a href="https://themeselection.com"
-                                            target="_blank" class="footer-link">ThemeSelection</a>
+                                        </script>,Elaborado ❤️ por <a href=""
+                                            target="" class="footer-link">Equipo de VerdIES</a>
                                     </div>
                                     <div class="d-none d-lg-inline-block">
 
-                                        <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                            target="_blank">License</a>
-                                        <a href="https://themeselection.com/" target="_blank"
-                                            class="footer-link me-4">More Themes</a>
+                                        <a href="" class="footer-link me-4"
+                                            target="">License</a>
+                                       
 
-                                        <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                            target="_blank" class="footer-link me-4">Documentation</a>
+                                        <a href=""
+                                            target="_blank" class="footer-link me-4">Documentacion</a>
 
 
-                                        <a href="https://themeselection.com/support/" target="_blank"
-                                          class="footer-link d-none d-sm-inline-block">Support</a>
+                                        <a href="" target="_blank"
+                                          class="footer-link d-none d-sm-inline-block">Soporte</a>
                                     </div>
                                 </div>
                             </div>
@@ -614,7 +613,7 @@
             window.addEventListener('confirmToggleStatus', function(event) {
                 Swal.fire({
                     title: '¿Estás seguro?',
-                    text: "¿Realmente deseas cambiar el estado de esta categoría?",
+                    text: "¿Realmente deseas cambiar el estado ?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Sí, cambiar estado',

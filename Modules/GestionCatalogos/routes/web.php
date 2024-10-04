@@ -1,5 +1,6 @@
 <?php
 
+use Modules\GestionCatalogos\Http\Controllers\MonedasController;
 use Illuminate\Support\Facades\Route;
 use Modules\GestionCatalogos\Http\Controllers\CategoriasController;
 use Modules\GestionCatalogos\Http\Controllers\GestionCatalogosController;
@@ -21,18 +22,18 @@ Route::group([], function () {
 
 });
 
-Route::resource('admin/categorias', CategoriasController::class)->names('categorias');
-Route::resource('admin/materiales', MaterialesController::class)->names('materiales');
-Route::resource('admin/monedas', CategoriasController::class)->names('monedas');
-Route::resource('admin/tasas', CategoriasController::class)->names('tasas');
-Route::resource('admin/areas', CategoriasController::class)->names('areas');
-Route::resource('admin/carreras', CategoriasController::class)->names('carreras');
-Route::resource('admin/acopios', CategoriasController::class)->names('acopios');
-Route::resource('admin/recicladoras', CategoriasController::class)->names('recicladoras');
-Route::resource('admin/material', CategoriasController::class)->names('material');
-Route::resource('admin/entregas', CategoriasController::class)->names('entregas');
-Route::resource('admin/inventarios', CategoriasController::class)->names('inventarios');
-Route::resource('admin/roles', CategoriasController::class)->names('roles');
-Route::resource('admin/usuarios', CategoriasController::class)->names('usuarios');
-Route::resource('admin/privilegios', CategoriasController::class)->names('privilegios');
-Route::resource('admin/permisos', CategoriasController::class)->names('permisos');
+Route::resource('admin/categorias', CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('auth');
+Route::resource('admin/materiales', MaterialesController::class)->parameters(['materiales' => 'materiales'])->names('materiales')->middleware('auth');
+Route::resource('admin/monedas', MonedasController::class)->parameters(['monedas' => 'monedas'])->names('monedas')->middleware('auth');
+Route::resource('admin/tasas', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('tasas')->middleware('auth');
+Route::resource('admin/areas', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('areas')->middleware('auth');
+Route::resource('admin/carreras', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('carreras')->middleware('auth');
+Route::resource('admin/acopios', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('acopios')->middleware('auth');
+Route::resource('admin/recicladoras', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('recicladoras')->middleware('auth');
+Route::resource('admin/material', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('material')->middleware('auth');
+Route::resource('admin/entregas', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('entregas')->middleware('auth');
+Route::resource('admin/inventarios', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('inventarios')->middleware('auth');
+Route::resource('admin/roles', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('roles')->middleware('auth');
+Route::resource('admin/usuarios', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('usuarios')->middleware('auth');
+Route::resource('admin/privilegios', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('privilegios')->middleware('auth');
+Route::resource('admin/permisos', CategoriasController::class)->parameters(['marcas' => 'marcas'])->names('permisos')->middleware('auth');

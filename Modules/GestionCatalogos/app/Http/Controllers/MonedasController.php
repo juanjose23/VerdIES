@@ -1,76 +1,39 @@
 <?php
 
-namespace App\Http\Controllers\Catalogos;
+namespace Modules\GestionCatalogos\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreMonedas;
-use App\Http\Requests\UpdateMonedas;
-use App\Models\Media;
-use App\Models\Monedas;
+use Modules\GestionCatalogos\Http\Controllers\Controller;
+use Modules\GestionCatalogos\Services\MonedasService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-Use App\Services\MonedaService;
 class MonedasController extends Controller
 {
-    protected $monedaService;
-    public function __construct(MonedaService $monedaService)
+  
+    protected $MonedasServices;
+    public function __construct(MonedasService $MonedasServices)
     {
-        // Aplica el middleware de autorización solo a los métodos "create" y "store"
-        $this->middleware('can:create,App\Models\Categorias')->only(['create', 'store']);
-        $this->middleware('can:update,App\Models\Categorias')->only(['edit', 'update']);
-        $this->middleware('can:delete,App\Models\Categorias')->only(['destroy']);
-        $this->monedaService = $monedaService;
+        $this->middleware('can:create,Modules\GestionCatalogos\Models\Categoria')->only(['create', 'store']);
+        $this->middleware('can:update,Modules\GestionCatalogos\Models\Categoria')->only(['edit', 'update']);
+        $this->middleware('can:delete,Modules\GestionCatalogos\Models\Categoria')->only(['destroy']);
+        $this->MonedasServices = $MonedasServices;
     }
     public function index()
     {
-        return view('Gestion_Catalogos.Monedas.index');
+        return view('gestioncatalogos::Monedas.index');
     }
 
-    public function create()
+    public function edit($Id)
     {
-       
-        return view('Gestion_Catalogos.Monedas.create');
+        $Moneda=$this->MonedasServices->ObtenerMoneda($Id);
+
+        return view('gestioncatalogos::Monedas.edit',compact('Moneda'));
     }
 
-    public function store(StoreMonedas $request)
+    public function update(Request $request,$monedas)
     {
-        $moneda = $this->monedaService->CrearMonedas($request->all());
-        Session::flash('success', 'Se ha registado correctamente la operación');
-        return redirect()->route('monedas.index');
-    }
-    public function edit($monedas)
-    {
-        $moneda = $this->monedaService->ObtenerMoneda($monedas);
-    
-        return view('Gestion_Catalogos.Monedas.edit', compact('moneda'));
-    }
-    //
-    public function update(UpdateMonedas $request, $monedas)
-    {
-        try {
-            $result = $this->monedaService->actualizarMoneda($monedas, $request);
-            Session::flash('success', $result['message']);
-        } catch (\Exception $e) {
-            Session::flash('error', $e->getMessage());
-        }
-
-        Session::flash('success', 'El proceso se ha completado exitosamente.');
-
-
-        return redirect()->route('monedas.index');
-    }
-    //
-    public function destroy($monedas)
-    {
-        
-        try {
-            $result = $this->monedaService->cambiarEstadoMoneda($monedas);
-            Session::flash('success', $result['message']);
-        } catch (\Exception $e) {
-            Session::flash('error', $e->getMessage());
-        }
-        return redirect()->route('monedas.index');
+        $MonedaActualizada = $this->MonedasServices->SubirLogo($monedas, $request);
+     
+        return redirect('admin/monedas')->with('success', 'Moneda actualizada exitosamente.');
     }
 
+   
 }
