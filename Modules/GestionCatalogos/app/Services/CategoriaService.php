@@ -16,7 +16,7 @@ class CategoriaService
     public function crearCategoria($data)
     {
         
-        // Crear una nueva instancia del modelo Categoria
+        
         $categoria = new $this->CategoriaModel;
         $categoria->nombre = $data['nombre'];
         $categoria->descripcion = $data['descripcion'];
@@ -27,7 +27,7 @@ class CategoriaService
     }
     public function obtenerCategoriaPorId($id)
     {
-        // Buscar la categoría por su ID o lanzar una excepción si no se encuentra
+        
         return $this->CategoriaModel->findOrFail($id);
     }
 
@@ -45,7 +45,7 @@ class CategoriaService
             $categoria->estado = $data['estado'];
             $categoria->save();
 
-            // Mostrar mensaje solo si hay cambios
+           
             Session::flash('success', 'El proceso se ha completado exitosamente.');
         }
 
@@ -56,11 +56,11 @@ class CategoriaService
     {
         $categoria = $this->CategoriaModel->findOrFail($id);
 
-        // Cambiar el estado de la categoría
+       
         $categoria->estado = $categoria->estado == 1 ? 0 : 1;
         $categoria->save();
 
-        // Mostrar mensaje flash
+       
         Session::flash('success', 'El estado de la categoría ha sido cambiado exitosamente.');
         return $categoria;
     }
