@@ -2,7 +2,7 @@
 
 
 <!-- Contenedor de Bootstrap -->
-<div class="container">
+<div class="container container-ecochat">
     <!-- Contenido de tu página -->
 
     <!-- Botón del Chatbot -->
@@ -16,6 +16,9 @@
 
 <div class="chatbot">
     <div class="header_ecochat">
+        <div class="chatbot-icon_in_chat">
+            <i class='bx bx-leaf' style='color:#6ab218'></i>
+        </div>
         <h2 class="ml-2">EcoChat</h2>
         <span class="close-btn material-symbols-outlined">close</span>
     </div>

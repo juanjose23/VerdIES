@@ -26,6 +26,27 @@
 }
 
 
+
+.chatbot-icon_in_chat {
+    margin-left: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: width 0.3s, height 0.3s;
+    z-index: 2;
+}
+
+.chatbot-icon_in_chat i {
+    font-size: 22px;
+}
+
 /*=============== Fin Botón de chatbot  ===============*/
 
 
@@ -82,7 +103,7 @@ body.show-chatbot .chatbot-toggler span:last-child {
     position: fixed;
     right: 35px;
     bottom: 25px;
-    width: 420px;
+    width: 365px;
     background: #fff;
     border-radius: 15px;
     overflow: hidden;
@@ -106,6 +127,8 @@ body.show-chatbot .chatbot {
 }
 
 .chatbot .header_ecochat {
+    display: flex;
+    align-items: center;
     padding: 1px 0;
     position: relative;
     text-align: start;
@@ -124,8 +147,9 @@ body.show-chatbot .chatbot {
 
 .header_ecochat h2 {
     margin-bottom: 1px;
-    margin-left: 25px;
+    margin-left: 15px;
     font-size: 1.4rem;
+    font-weight: bold;
 }
 
 .chatbot .chatbox {
@@ -271,15 +295,22 @@ body.show-chatbot .chatbot {
 @media screen and (min-width: 576px) {
     .chatbot{
         bottom: 95px;
+        
     }
+
+
 }
+
+
 
 @media screen and (min-width: 1200px) {
 
     .chatbot{
         bottom: 25px;
+        
+        
     }
-
-
-
 }
+
+
+

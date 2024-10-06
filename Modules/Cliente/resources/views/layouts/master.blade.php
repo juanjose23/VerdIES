@@ -205,7 +205,7 @@
                             <div class="nav-item navbar-search-wrapper mb-0">
                                 <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
                                     <i class="bx bx-search bx-md"></i>
-                                    <span class="d-none d-md-inline-block text-muted fw-normal ms-4">Search (Ctrl+/)</span>
+                                    <span class="d-none d-md-inline-block text-muted fw-normal ms-4">Buscar...</span>
                                 </a>
                             </div>
                         </div>
@@ -427,17 +427,17 @@
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
                                     <li>
                                         <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                                            <span><i class='bx bx-sun bx-md me-3'></i>Light</span>
+                                            <span><i class='bx bx-sun bx-md me-3'></i>Claro</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                                            <span><i class="bx bx-moon bx-md me-3"></i>Dark</span>
+                                            <span><i class="bx bx-moon bx-md me-3"></i>Oscuro</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                                            <span><i class="bx bx-desktop bx-md me-3"></i>System</span>
+                                            <span><i class="bx bx-desktop bx-md me-3"></i>Sistema</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -452,7 +452,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('Cliente/assets/img/avatars/1.png') }}" alt="" class="w-px-40 h-auto rounded-circle">
+                                        <img src="https://ui-avatars.com/api/?name={{Session::get('nombre') }}/?rounded=true" alt="" class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -461,12 +461,12 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('Cliente/assets/img/avatars/1.png') }}" alt="" class="w-px-40 h-auto rounded-circle">
+                                                        <img src="https://ui-avatars.com/api/?name={{Session::get('nombre') }}/?rounded=true" alt="" class="w-px-40 h-auto rounded-circle">
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <h6 class="mb-0">John Doe</h6>
-                                                    <small class="text-muted">Admin</small>
+                                                    <h6 class="mb-0">{{Session::get('nombre') }}</h6>
+                                                    <small class="text-muted">Cliente</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -481,36 +481,16 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="pages-account-settings-account.html">
-                                            <i class="bx bx-cog bx-md me-3"></i><span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="pages-account-settings-billing.html">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i><span class="flex-grow-1 align-middle">Billing Plan</span>
-                                                <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
-                                            </span>
+                                            <i class="bx bx-cog bx-md me-3"></i><span>Configuración</span>
                                         </a>
                                     </li>
                                     <li>
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="pages-pricing.html">
-                                            <i class="bx bx-dollar bx-md me-3"></i><span>Pricing</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="pages-faq.html">
-                                            <i class="bx bx-help-circle bx-md me-3"></i><span>FAQ</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown-divider my-1"></div>
-                                    </li>
+                                   
                                     <li>
                                         <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
-                                            <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
+                                            <i class="bx bx-power-off bx-md me-3"></i><span>Cerrar Sesión</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -587,30 +567,6 @@
 
 
 
-                            <!-- Footer -->
-                            <footer class="content-footer footer bg-footer-theme">
-                                <div class="container-xxl">
-                                    <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
-                                        <div class="text-body">
-                                            © <script>
-                                                document.write(new Date().getFullYear())
-                                            </script>, made with ❤️ by <a href="https://themeselection.com" target="_blank" class="footer-link">ThemeSelection</a>
-                                        </div>
-                                        <div class="d-none d-lg-inline-block">
-
-                                            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                                            <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
-
-
-                                            <a href="https://themeselection.com/support/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </footer>
-                            <!-- / Footer -->
 
 
                             <div class="content-backdrop fade"></div>
@@ -638,7 +594,7 @@
 
     </div>
 
-    
+
 
 
     </div>
