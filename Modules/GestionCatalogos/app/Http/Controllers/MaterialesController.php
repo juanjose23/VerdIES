@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Modules\GestionCatalogos\Models\Materiales;
 use Modules\GestionCatalogos\Services\MaterialService;
 use Modules\GestionCatalogos\Services\CategoriaService;
+use Request;
+use Session;
 
 class MaterialesController extends Controller
 {
@@ -31,7 +33,7 @@ class MaterialesController extends Controller
         return view('gestioncatalogos::Materiales.create', compact('categorias'));
     }
 
-    public function store(StoreMateriales $request)
+    public function store(Request $request)
     {
         $this->MaterialesService->create($request->all());
         return redirect()->route('materiales.index');
@@ -44,7 +46,7 @@ class MaterialesController extends Controller
         return view('gestioncatalogos::Materiales.create',compact('categorias'));
     }
     //
-    public function update(UpdateMateriales $request, $materiales)
+    public function update(Request $request, $materiales)
     {
         $this->MaterialesService->ActualizarMaterial($materiales, $request);
         return redirect()->route('materiales.index');
