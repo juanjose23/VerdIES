@@ -1,0 +1,31 @@
+
+
+.app-brand .layout-menu-toggle {
+    background-color: $primary-color;
+}
+
+.bg-menu-theme .menu-inner>.menu-item.active:before {
+    background: $primary-color;
+}
+
+.bg-menu-theme .menu-inner>.menu-item.active>.menu-link {
+    color: $primary-color;
+    background-color: $rgba-primary-color !important;
+}
+.menu-vertical .menu-inner {
+    margin-top: 25px;
+}
+
+
+.bg-menu-theme .menu-inner>.menu-item.active>.menu-link {
+    font-weight: bold;
+}
+
+.menu-vertical .app-brand {
+    padding-right: 2rem;
+    padding-left: 1.2rem;
+}
+
+.bx-menu:before {
+    display: none;
+}

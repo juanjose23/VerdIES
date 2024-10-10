@@ -21,6 +21,9 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Cliente\ClienteController;
+use App\Http\Controllers\Cliente\ResiduosController;
+use App\Http\Controllers\Cliente\PromocionesClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,3 +100,14 @@ Route::resource('privilegios',PrivilegiosController::class)->parameters(['privil
 Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos')->middleware('checkRole:15');
 Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios')->middleware('checkRole:13');
 Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles')->middleware('checkRole:13');
+
+
+// Gestión de la vista del cliente
+Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('clientes.inicio');
+
+Route::get('/clientes/promociones', [PromocionesClienteController::class,'promociones']) -> name('promociones');
+
+Route::get('/clientes/residuos', [ResiduosController::class,'residuos']) -> name('residuos');
+
+
+
