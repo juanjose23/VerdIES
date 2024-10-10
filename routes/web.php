@@ -24,6 +24,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Cliente\ResiduosController;
 use App\Http\Controllers\Cliente\PromocionesClienteController;
+use App\Http\Controllers\Landingpage\LandingpageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ use App\Http\Controllers\Cliente\PromocionesClienteController;
 */
 
 //Gestion del sitio web
-Route::get('/', [PageController::class, 'index']);
+Route::get('/', [LandingpageController::class,'index']) -> name('inicio');
+Route::get('/landingpage_legacy', [PageController::class, 'index']);
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/acerca', [PageController::class, 'acerca'])->name('acerca');
 Route::get('/educacion-ambiental', [PageController::class, 'educacion'])->name('educacion-ambiental');
