@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
     public function rolesusuarios()
     {
-        return $this->hasMany('App\Models\RolesUsuarios', 'users_id');
+        return $this->hasMany(RolesUsuarios::class, 'users_id');
     }
     public function user_carrera()
     {

@@ -44,7 +44,7 @@
                                                 <!-- Botón para activar/desactivar -->
                                                 <button type="button" class="btn btn-danger d-block" role="button"
                                                     onclick="confirmAction({{ $submodulo['id_permiso_modulo'] }})">
-                                                    <i class="fas fa-trash"></i>
+                                                    <i class="bx bx-trash"></i>
         
                                                 </button>
                                             </div>
@@ -72,4 +72,31 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmAction(rolId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Quieres eliminarle este permiso?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar permiso'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var form = document.getElementById('deleteForm' + rolId);
+
+                // Agregar un campo oculto al formulario para indicar la acción
+                var actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = '_method';
+                actionInput.value = 'DELETE';
+                form.appendChild(actionInput);
+
+                // Enviar el formulario
+                form.submit();
+            }
+        });
+    }
+</script>
 @endsection

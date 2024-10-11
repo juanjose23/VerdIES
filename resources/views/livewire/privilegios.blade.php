@@ -20,7 +20,7 @@
                                 @can('create', App\Models\permisos::class)
                                     <div class="btn-group me-2 mb-2 mb-md-0">
                                         <a href="{{ route('privilegios.create') }}" class="btn btn-primary">
-                                            <i class="fas fa-plus me-1"></i> Registrar privilegios
+                                            <i class="bx bx-plus me-1"></i> Registrar privilegios
                                         </a>
                                     </div>
                                 @endcan
@@ -64,23 +64,25 @@
                                         <td>{{ $rol->roles->nombre }}</td>
                                         <td class="text-center">{{ wordwrap($rol->cantidad, 50, "\n", true) }}</td>
                                         <td>
-                                            <div class="d-flex mb-1 align-items-center">
-                                                @can('update', App\Models\permisos::class)
-                                                    <a href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}"
-                                                        class="btn btn-info" role="button">
-                                                        <i class="fas fa-edit"></i>
-                
-                                                    </a>
-                                                @endcan
-                                                @can('delete', App\Models\permisos::class)
-                                                    <div class="m-1">
-                                                        <a href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}"
-                                                            class="btn btn-secondary" role="button">
-                                                            <i class="fas fa-info"></i>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    @can('update', App\Models\permisos::class)
+                                                        <a class="dropdown-item" href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}">
+                                                            <i class="bx bx-edit-alt me-1"></i> Editar
                                                         </a>
-                                                    </div>
-                                                @endcan
+                                                    @endcan
+                                                    
+                                                    @can('delete', App\Models\permisos::class)
+                                                        <a class="dropdown-item" href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}">
+                                                            <i class="bx bx-info-circle me-1"></i> Ver detalles
+                                                        </a>
+                                                    @endcan
+                                                </div>
                                             </div>
+                                            
                 
                                         </td>
                                     </tr>

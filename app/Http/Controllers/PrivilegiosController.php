@@ -6,12 +6,16 @@ use App\Http\Requests\Storeprivilegios;
 use App\Models\Privilegios;
 use App\Models\RolesModel;
 use App\Models\submodulos;
+use App\Services\PrivilegioServices;
+use App\Services\RolServices;
 use Illuminate\Support\Facades\Session;
 
 class PrivilegiosController extends Controller
 {
     //
-    public function __construct()
+    protected $privilegioServices;
+    protected $rolServices;
+    public function __construct(RolServices $rolServices, PrivilegioServices $privilegioServices)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\permisos')->only(['create', 'store']);
@@ -19,6 +23,8 @@ class PrivilegiosController extends Controller
         $this->middleware('can:delete,App\Models\permisos')->only(['destroy']);
         // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
         $this->middleware('can:viewAny,App\Models\permisos')->except(['index', 'show']);
+        $this->rolServices=$rolServices;
+        $this->privilegioServices= $privilegioServices;
     }
     public function index()
     {
@@ -27,40 +33,34 @@ class PrivilegiosController extends Controller
     }
     public function create()
     {
-        $rolesModel = new RolesModel();
-        $modulos = submodulos::ObtenerModulosConSubmodulos();
-        $Roles = $rolesModel->obtenerRolesSinPrivilegios();
+        
+        $modulos =$this->privilegioServices::ObtenerModulosConSubmodulos();
+        $Roles = $this->rolServices->obtenerRolesSinPrivilegios();
         return view('Gestion_usuarios.Privilegios.create', compact('modulos', 'Roles'));
     }
 
     public function store(Storeprivilegios $request)
     {
-        $submodulo = $request->submodulos;
-        foreach ($submodulo as $submoduloIds) {
-            foreach ($submoduloIds as $id_submodulo) {
-                $privilegios = new Privilegios();
-                $privilegios->roles_id = $request->rol;
-                $privilegios->submodulos_id = $id_submodulo;
-                $privilegios->estado = 1;
-                $privilegios->save();
-            }
-        }
+        $rolId = $request->rol;
+        $submodulos = $request->submodulos;
+
+        // Llamar al servicio para asignar los privilegios
+        $this->privilegioServices->AsignarPrivilegio($rolId, $submodulos);
         Session::flash('success', 'Se ha realizado la operación');
         return redirect()->route('privilegios.index');
     }
 
     public function edit($privilegios)
     {
-        $privilegio = new Privilegios();
-        $rol=RolesModel::findOrFail($privilegios);
-        $modulos= $privilegio->ObtenerModulosConSubmodulosFaltantes($privilegios);
+        
+        $rol=$this->rolServices->ObtenerRol($privilegios);
+        $modulos= $this->privilegioServices	->ObtenerModulosConSubmodulosFaltantes($privilegios);
         return view('Gestion_usuarios.Privilegios.edit',compact('modulos','rol'));
     }
     public function show($privilegios)
     {
-        $rol=RolesModel::findOrFail($privilegios);
-        $privielgio= new Privilegios();
-        $modulos=$privielgio->ObtenerPrivilegiosRol($privilegios);
+        $rol=$this->rolServices->ObtenerRol($privilegios);
+        $modulos=$this->privilegioServices->ObtenerPrivilegiosRol($privilegios);
         return view('Gestion_usuarios.Privilegios.show',compact('modulos','rol'));
       
     }
@@ -68,8 +68,7 @@ class PrivilegiosController extends Controller
     {
         try {
            
-            $privilegio = Privilegios::findOrFail($privilegios); 
-            $privilegio->delete();
+      $this->privilegioServices->EliminarPrivilegio($privilegios);
     
             return redirect()->back()->with('success', 'Privilegio eliminado correctamente');
         } catch (\Exception $e) {

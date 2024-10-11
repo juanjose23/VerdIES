@@ -9,15 +9,19 @@ class RolesModel extends Model
 {
     protected $table = 'roles';
     use HasFactory;
-
+    protected $fillable = [
+        'nombre',        // Asegúrate de agregar este campo
+        'descripcion',   // Agrega otros campos que necesites
+        'estado',
+    ];
     public function privilegios()
     {
-        return $this->hasMany('App\Models\Privilegios');
+        return $this->hasMany(Privilegios::class);
     }
 
     public function permisos()
     {
-        return $this->hasMany('App\Models\permisosroles');
+        return $this->hasMany(permisosroles::class);
     }
     public function rolesusuarios()
     {

@@ -17,14 +17,14 @@
                             <!-- Botones -->
                             <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
                                 <!-- Botón para crear una categoría -->
-                                @can('create', App\Models\Roles::class)
+                                @can('create', App\Models\permisos::class)
                                     <div class="btn-group me-2 mb-2 mb-md-0">
                                         <a href="{{ route('roles.create') }}" class="btn btn-primary">
-                                            <i class="fas fa-plus me-1"></i> Registrar Roles
+                                            <i class="bx bx-plus me-1"></i> Registrar Roles
                                         </a>
                                     </div>
                                 @endcan
-                               
+
 
                                 <!-- Selector de cantidad de registros -->
                                 <div>
@@ -43,16 +43,16 @@
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <caption class="ms-4">
-                               Lista de Roles
+                                Lista de Roles
                             </caption>
                             <thead>
                                 <tr>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">#</span>
                                     </th>
-                
+
                                     <th scope="col" class="px-4 py-3">Rol</th>
-                
+
                                     <th scope="col" class="px-4 py-3">Descripción</th>
                                     <th scope="col" class="px-4 py-3">Estado</th>
                                     <th scope="col" class="px-4 py-3">Acciones</th>
@@ -60,94 +60,106 @@
                             </thead>
                             <tbody>
                                 @foreach ($roles as $rol)
-                                <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
-            
-            
-                                    <td>{{ $rol->nombre }}</td>
-            
-                                    <td class="text-wrap">{{ wordwrap($rol->descripcion, 50, "\n", true) }}</td>
-                                    <td><span class="badge rounded-pill {{ $rol->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $rol->estado == 1 ? 'Activo' : 'Inactivo' }}
-                                        </span>
-                                    </td>
-                                    <td>
-            
-                                        <div class="d-flex mb-1 align-items-center">
-                                            @can('update', App\Models\permisos::class)
-                                                <a href="{{ route('roles.edit', ['roles' => $rol->id]) }}" class="btn btn-info d-block"
-                                                    role="button">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            @endcan
-                                            @can('delete', App\Models\permisos::class)
-                                                <div class="m-1">
-                                                    <!-- Botón para activar/desactivar -->
-                                                    <button type="button"
-                                                        class="btn btn-{{ $rol->estado == 1 ? 'danger' : 'success' }} d-block"
-                                                        role="button" onclick="confirmAction({{ $rol->id }})">
-                                                        <i class="fas fa-{{ $rol->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
-            
-                                                    </button>
-                                                </div>
-                                            @endcan
-                                        </div>
-            
-                                        <form id="deleteForm{{ $rol->id }}"
-                                            action="{{ route('roles.destroy', ['roles' => $rol->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-            
-                                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                            <button id="submitBtn{{ $rol->id }}" type="submit"
-                                                style="display: none;"></button>
-                                        </form>
-            
-                                    </td>
-                                </tr>
-                            @endforeach
-            
+                                    <tr>
+                                        <td>{{ $loop->index + 1 }}</td>
+
+
+                                        <td>{{ $rol->nombre }}</td>
+
+                                        <td class="text-wrap">{{ wordwrap($rol->descripcion, 50, "\n", true) }}</td>
+                                        <td><span
+                                                class="badge rounded-pill {{ $rol->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $rol->estado == 1 ? 'Activo' : 'Inactivo' }}
+                                            </span>
+                                        </td>
+                                        <td>
+
+
+
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    @can('update', App\Models\permisos::class)
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('roles.edit', ['roles' => $rol->id]) }}">
+                                                                <i class="bx bx-edit-alt me-1"></i> Editar
+                                                            </a>
+                                                        </li>
+                                                    @endcan
+                                                    @can('delete', App\Models\permisos::class)
+                                                        <li>
+                                                            <button class="dropdown-item" type="button"
+                                                                onclick="confirmAction({{ $rol->id }})">
+                                                                <i
+                                                                    class="bx bx-{{ $rol->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
+                                                                {{ $rol->estado == 1 ? 'Eliminar' : 'Activar' }}
+                                                            </button>
+                                                        </li>
+                                                    @endcan
+                                                </ul>
+                                            </div>
+
+                                            <form id="deleteForm{{ $rol->id }}"
+                                                action="{{ route('roles.destroy', ['roles' => $rol->id]) }}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button id="submitBtn{{ $rol->id }}" type="submit"
+                                                    style="display: none;"></button>
+                                            </form>
+                                        </td>
+
+
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
-                                <!-- Botón para la página anterior -->
-                                <li class="page-item {{ $roles->onFirstPage() ? 'disabled' : '' }}">
-                                    <button type="button" class="page-link" wire:click="previousPage" {{ $roles->onFirstPage() ? 'disabled' : '' }}>
-                                        Previo
-                                    </button>
-                                </li>
-                    
-                                <!-- Botones para cada página -->
-                                @foreach ($roles->links()->elements as $element)
-                                    @if (is_string($element))
-                                        <li class="page-item disabled"><span class="page-link">{{ $element }}</span></li>
-                                    @endif
-                    
-                                    @if (is_array($element))
-                                        @foreach ($element as $page => $url)
-                                            <li class="page-item {{ $page == $roles->currentPage() ? 'active' : '' }}">
-                                                <button type="button" class="page-link" wire:click="gotoPage({{ $page }})">
-                                                    {{ $page }}
-                                                </button>
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                @endforeach
-                    
-                                <!-- Botón para la página siguiente -->
-                                <li class="page-item {{ $roles->hasMorePages() ? '' : 'disabled' }}">
-                                    <button type="button" class="page-link" wire:click="nextPage" {{ $roles->hasMorePages() ? '' : 'disabled' }}>
-                                        Siguiente
-                                    </button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    
+
                 </div>
+                <div class="mt-4">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <!-- Botón para la página anterior -->
+                            <li class="page-item {{ $roles->onFirstPage() ? 'disabled' : '' }}">
+                                <button type="button" class="page-link" wire:click="previousPage" {{ $roles->onFirstPage() ? 'disabled' : '' }}>
+                                    <i class="bx bx-chevron-left"></i> 
+                                </button>
+                            </li>
+                
+                            <!-- Botones para cada página -->
+                            @foreach ($roles->links()->elements as $element)
+                                @if (is_string($element))
+                                    <li class="page-item disabled"><span class="page-link">{{ $element }}</span></li>
+                                @endif
+                
+                                @if (is_array($element))
+                                    @foreach ($element as $page => $url)
+                                        <li class="page-item {{ $page == $roles->currentPage() ? 'active' : '' }}">
+                                            <button type="button" class="page-link" wire:click="gotoPage({{ $page }})">
+                                                {{ $page }}
+                                            </button>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            @endforeach
+                
+                            <!-- Botón para la página siguiente -->
+                            <li class="page-item {{ $roles->hasMorePages() ? '' : 'disabled' }}">
+                                <button type="button" class="page-link" wire:click="nextPage" {{ $roles->hasMorePages() ? '' : 'disabled' }}>
+                                     <i class="bx bx-chevron-right"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                
+
             </div>
         </div>
     </div>

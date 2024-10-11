@@ -20,11 +20,11 @@
                                 @can('create', App\Models\permisos::class)
                                     <div class="btn-group me-2 mb-2 mb-md-0">
                                         <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
-                                            <i class="fas fa-plus me-1"></i> Registrar usuarios
+                                            <i class="bx bx-plus me-1"></i> Registrar usuarios
                                         </a>
                                     </div>
                                 @endcan
-                             
+
 
                                 <!-- Selector de cantidad de registros -->
                                 <div>
@@ -43,30 +43,28 @@
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <caption class="ms-4">
-                               Lista de Roles
+                                Lista de Roles
                             </caption>
-                           
+
                             <thead>
                                 <tr>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">#</span>
                                     </th>
-                                  
                                     <th scope="col" class="px-4 py-3">Nombre</th>
-                                
                                     <th scope="col" class="px-4 py-3">Usuario</th>
                                     <th scope="col" class="px-4 py-3">Estado</th>
                                     <th scope="col" class="px-4 py-3">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                
-                
+
+
                                 @foreach ($usuarios as $colaborador)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                       
-                                        <td>{{ $colaborador->name}}</td>
+
+                                        <td>{{ $colaborador->name }}</td>
                                         <td>{{ $colaborador->email }}</td>
                                         <td>
                                             <span
@@ -74,88 +72,104 @@
                                                 {{ $colaborador->estado == 1 ? 'Activo' : ($colaborador->estado == 2 ? 'Verificar' : 'Inactivo') }}
                                             </span>
                                         </td>
-                
+
                                         <td>
-                
-                                            <div class="d-flex mb-1 align-items-center">
-                                                @can('update', App\Models\permisos::class)
-                                                    <a href="{{ route('usuarios.edit', ['usuarios' => $colaborador->id]) }}"
-                                                        class="btn btn-info" role="button">
-                                                        <i class="fas fa-edit"></i>
-                
-                                                    </a>
-                                                @endcan
-                
-                                                @can('delete', App\Models\permisos::class)
-                                                <div class="m-1">
-                                                    <!-- Botón para activar/desactivar -->
-                                                    <button type="button"
-                                                        class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }} d-block"
-                                                        role="button" onclick="confirmAction({{ $colaborador->id }})">
-                                                        <i class="fas fa-{{ $colaborador->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
-                
-                                                    </button>
+
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <!-- Opción para editar -->
+                                                    @can('update', App\Models\permisos::class)
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('usuarios.edit', ['usuarios' => $colaborador->id]) }}">
+                                                            <i class="bx bx-edit-alt me-1"></i> Editar
+                                                        </a>
+                                                    @endcan
+                                                    @if ($colaborador->estado == 2)
+                                                        @can('update', App\Models\permisos::class)
+                                                            <!-- Cambia esto según el permiso adecuado -->
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('credenciales', ['id' => $colaborador->id]) }}">
+                                                                <i class="bx bx-file me-1"></i> Verificar
+                                                            </a>
+                                                        @endcan
+                                                    @endif
+
+                                                    <!-- Opción para activar/desactivar -->
+                                                    @can('delete', App\Models\permisos::class)
+                                                        <a class="dropdown-item" href="javascript:void(0);"
+                                                            onclick="confirmAction({{ $colaborador->id }})">
+                                                            <i
+                                                                class="bx bx-{{ $colaborador->estado == 1 ? 'trash-alt' : 'toggle-left' }} me-1"></i>
+                                                            {{ $colaborador->estado == 1 ? 'Desactivar' : 'Activar' }}
+                                                        </a>
+                                                    @endcan
                                                 </div>
-                                                @endcan
                                             </div>
-                
-                
-                
+
                                             <form id="deleteForm{{ $colaborador->id }}"
                                                 action="{{ route('usuarios.destroy', ['usuarios' => $colaborador->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                
+
                                                 <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
                                                 <button id="submitBtn{{ $colaborador->id }}" type="submit"
                                                     style="display: none;"></button>
                                             </form>
-                
+
                                         </td>
                                     </tr>
                                 @endforeach
-                
+
                         </table>
-                       
+
                     </div>
                     <div class="mt-4">
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <!-- Botón para la página anterior -->
                                 <li class="page-item {{ $usuarios->onFirstPage() ? 'disabled' : '' }}">
-                                    <button type="button" class="page-link" wire:click="previousPage" {{ $usuarios->onFirstPage() ? 'disabled' : '' }}>
+                                    <button type="button" class="page-link" wire:click="previousPage"
+                                        {{ $usuarios->onFirstPage() ? 'disabled' : '' }}>
                                         Previo
                                     </button>
                                 </li>
-                    
+
                                 <!-- Botones para cada página -->
                                 @foreach ($usuarios->links()->elements as $element)
                                     @if (is_string($element))
-                                        <li class="page-item disabled"><span class="page-link">{{ $element }}</span></li>
+                                        <li class="page-item disabled"><span
+                                                class="page-link">{{ $element }}</span></li>
                                     @endif
-                    
+
                                     @if (is_array($element))
                                         @foreach ($element as $page => $url)
-                                            <li class="page-item {{ $page == $usuarios->currentPage() ? 'active' : '' }}">
-                                                <button type="button" class="page-link" wire:click="gotoPage({{ $page }})">
+                                            <li
+                                                class="page-item {{ $page == $usuarios->currentPage() ? 'active' : '' }}">
+                                                <button type="button" class="page-link"
+                                                    wire:click="gotoPage({{ $page }})">
                                                     {{ $page }}
                                                 </button>
                                             </li>
                                         @endforeach
                                     @endif
                                 @endforeach
-                    
+
                                 <!-- Botón para la página siguiente -->
                                 <li class="page-item {{ $usuarios->hasMorePages() ? '' : 'disabled' }}">
-                                    <button type="button" class="page-link" wire:click="nextPage" {{ $usuarios->hasMorePages() ? '' : 'disabled' }}>
+                                    <button type="button" class="page-link" wire:click="nextPage"
+                                        {{ $usuarios->hasMorePages() ? '' : 'disabled' }}>
                                         Siguiente
                                     </button>
                                 </li>
                             </ul>
                         </nav>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

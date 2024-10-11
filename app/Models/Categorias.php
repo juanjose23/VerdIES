@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorias extends Model
 {
+    protected $table="categoria";
     use HasFactory;
     public function materiales()
     {

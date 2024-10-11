@@ -9,6 +9,11 @@ class RolesUsuarios extends Model
 {
     use HasFactory;
     protected $table = "rolesusuarios";
+    protected $fillable = [
+        'roles_id',
+        'users_id',
+        'estado',
+    ];
     public function rolesmodel()
     {
         return $this->belongsTo(RolesModel::class, 'roles_id');
@@ -16,7 +21,7 @@ class RolesUsuarios extends Model
 
     public function usuarios()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany(User::class);
     }
 
     

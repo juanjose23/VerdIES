@@ -12,7 +12,12 @@
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/">
-
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.all.min.js
+    "></script>
+    <link href="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.min.css
+    " rel="stylesheet">
 
     <!-- ? PROD Only: Google Tag Manager (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
     <script>
@@ -505,9 +510,10 @@
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
-                                            <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
-                                        </a>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button class="dropdown-item" type="submit">Logout</button>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>
@@ -621,7 +627,27 @@
         <!-- Page JS -->
         <script src="{{ asset('Administrador/assets/js/dashboards-analytics.js') }}"></script>
 
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if (Session::has('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: '{{ Session::get('success') }}',
+                        confirmButtonText: 'Aceptar'
+                    });
+                @endif
+                @if (Session::has('error'))
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: '{{ Session::get('error') }}',
+                        confirmButtonText: 'Aceptar'
+                    });
+                @endif
+            });
+        </script>
+    
 
 </body>
 

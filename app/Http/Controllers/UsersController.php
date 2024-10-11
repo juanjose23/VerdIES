@@ -8,6 +8,8 @@ use App\Models\Empleados;
 use App\Models\RolesModel;
 use App\Models\RolesUsuarios;
 use App\Models\User;
+use App\Services\RolServices;
+use App\Services\UserServices;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +18,9 @@ use Illuminate\Support\Facades\Session;
 class UsersController extends Controller
 {
     //
-    public function __construct()
+    protected $userServices;
+    protected $rolServices;
+    public function __construct(UserServices $userServices, RolServices $rolServices)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\permisos')->only(['create', 'store']);
@@ -24,6 +28,8 @@ class UsersController extends Controller
         $this->middleware('can:delete,App\Models\permisos')->only(['destroy']);
         // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
         $this->middleware('can:viewAny,App\Models\permisos')->except(['index', 'show']);
+        $this->userServices = $userServices;
+        $this->rolServices = $rolServices;
     }
     public function index()
     {
@@ -32,53 +38,23 @@ class UsersController extends Controller
 
     public function create()
     {
-      
-        $rol = new RolesModel();
-        $roles = $rol->SelectRoles();
-
+        $roles = $this->rolServices->ListaRoles();
         return view('Gestion_usuarios.usuarios.create', compact('roles'));
     }
 
     public function store(StoreUsers $request)
     {
-        $user = new User();
-        $user->name = $request->nombre;
-        $usuario = $user->generarNombreUsuario($request->nombre);
-        $contraseña = $user->generarContrasenaSegura();
-        $user->email = $usuario;
-        $user->password =  bcrypt($contraseña);
-        $user->estado = $request->estado;
-        $user->save();
+        $data =
+            [
+                "name" => $request->nombre,
+                "email" => $this->userServices->generarNombreUsuario($request->nombre),
+                "password" => $this->userServices->generarContrasenaSegura(),
+                "estado" => $request->estado
+            ];
 
-        // Obtener el último ID después de guardar el usuario
-        $userId = $user->id;
-
-        $userRol = new RolesUsuarios();
-        $userRol->roles_id = $request->roles;
-        $userRol->users_id = $userId;
-        $userRol->estado = 1;
-        $userRol->save();
-
-        // Carga la vista para generar el PDF
-        $pdf = Pdf::loadView('Report.Credenciales', compact('usuario', 'contraseña'));
-        $pdf->setPaper('A5'); // Establece el tamaño del papel como A5
-
-        // Obtén el contenido del PDF generado
-        $pdfOutput = $pdf->output();
-
-        // Nombre del archivo PDF
-        $fileName = 'credenciales_usuario_' . $userId . '.pdf';
-
-        // Devuelve una respuesta HTTP con el PDF adjunto para descargar
-        $response = response()->make($pdfOutput, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-        ]);
-
-        // Redirige a la ruta usuarios.index después de enviar el PDF adjunto
-        Session::flash('success', 'Se ha registrado con éxito el usuario');
-        Session(['pdf_sent' => true]);
-        return $response->send();
+        $NuevoUser = $this->userServices->CrearUsuario($data);
+        $AsignarRol = $this->userServices->AsignarRol($NuevoUser->id, $request->roles);
+        return redirect()->back()->with('success', 'Se ha realizado la operación correctamente');
     }
 
     public function edit($usuarios)

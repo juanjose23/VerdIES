@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoles;
 use App\Http\Requests\UpdateRoles;
 use App\Models\RolesModel;
+use App\Services\RolServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class RolesController extends Controller
 {
     //
-    public function __construct()
+    protected $rolServices;
+    public function __construct(RolServices $rolServices)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\permisos')->only(['create', 'store']);
@@ -19,6 +21,7 @@ class RolesController extends Controller
         $this->middleware('can:delete,App\Models\permisos')->only(['destroy']);
         // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
         $this->middleware('can:viewAny,App\Models\permisos')->except(['index', 'show']);
+        $this->rolServices=$rolServices;
     }
     public function index()
     {
@@ -33,31 +36,30 @@ class RolesController extends Controller
 
     public function store(StoreRoles $request)
     {
-        $roles = new RolesModel();
-        $roles->nombre = $request->nombre;
-        $roles->descripcion = $request->descripcion;
-        $roles->estado = $request->estado;
-        $roles->save();
+        
+        $data = $request->validated();
+        $role = $this->rolServices->CrearRol($data);
         Session::flash('success', 'Se ha registrado con éxito la operación');
         return redirect()->route('roles.index');
     }
 
     public function edit($roles)
     {
-        $rol=RolesModel::findOrFail($roles);
+        $rol=$this->rolServices->ObtenerRol($roles);
         return view('Gestion_usuarios.Roles.edit',compact('rol'));
     }
 
-    public function update(UpdateRoles $request, RolesModel $roles)
+    public function update(UpdateRoles $request, $roles)
     {
-        $roles=RolesModel::findOrFail($roles->id);
-        $roles->nombre = $request->nombre;
-        $roles->descripcion = $request->descripcion;
-        $roles->estado = $request->estado;
-        $roles->save();
+        $data = $request->validated();
+        
+        // Usa solo argumentos posicionales
+        $role = $this->rolServices->ActualizarRol($roles, $data);
+        
         Session::flash('success', 'Se ha registrado con éxito la operación');
         return redirect()->route('roles.index');
     }
+    
 
    
 
