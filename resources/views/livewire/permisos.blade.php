@@ -20,7 +20,7 @@
                                 @can('create', App\Models\permisos::class)
                                     <div class="btn-group me-2 mb-2 mb-md-0">
                                         <a href="{{ route('permisos.create') }}" class="btn btn-primary">
-                                            <i class="fas fa-plus me-1"></i> Registrar privilegios
+                                            <i class="bx bx-plus me-1"></i> Registrar privilegios
                                         </a>
                                     </div>
                                 @endcan
@@ -67,7 +67,7 @@
                                                 @can('update', App\Models\permisos::class)
                                                     <a href="{{ route('permisos.edit', ['permisos' => $rol->roles->id]) }}"
                                                         class="btn btn-info" role="button">
-                                                        <i class="fas fa-edit"></i>
+                                                        <i class="bx bx-edit"></i>
                 
                                                     </a>
                                                 @endcan
@@ -76,7 +76,7 @@
                                                     <div class="m-1">
                                                         <a href="{{ route('permisos.show', ['permisos' => $rol->roles->id]) }}"
                                                             class="btn btn-secondary" role="button">
-                                                            <i class="fas fa-info"></i>
+                                                            <i class="bx bx-info-circle"></i>
                                                         </a>
                                                     </div>
                                                 @endcan

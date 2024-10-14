@@ -65,21 +65,24 @@
         </div>
     </div>
     <script>
-        var todosSeleccionados = false;
-
+        // Función que alterna la selección de todos los checkboxes dentro de un módulo
         function toggleSeleccionModulo(moduloId) {
             var checkboxes = document.querySelectorAll('input[type="checkbox"][name="submodulos[' + moduloId + '][]"]');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = !todosSeleccionados;
+            var todosSeleccionados = Array.from(checkboxes).every(checkbox => checkbox.checked); // Verifica si todos están seleccionados
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !todosSeleccionados; // Cambia el estado de selección
             });
-            todosSeleccionados = !todosSeleccionados;
-            actualizarBoton(moduloId);
+    
+            actualizarBoton(moduloId); // Actualiza el texto y estilos del botón
         }
-
+    
+        // Función que actualiza el texto y estilo del botón según si todos los checkboxes están seleccionados o no
         function actualizarBoton(moduloId) {
             var boton = document.querySelector('button[data-modulo="' + moduloId + '"]');
             var todosSeleccionadosEnModulo = todosLosCheckboxesSeleccionadosEnModulo(moduloId);
-
+    
+            // Cambia el texto y las clases del botón según el estado de los checkboxes
             if (todosSeleccionadosEnModulo) {
                 boton.textContent = 'Deseleccionar Todo';
                 boton.classList.remove('btn-success');
@@ -90,15 +93,14 @@
                 boton.classList.add('btn-success');
             }
         }
-
+    
+        // Función que verifica si todos los checkboxes de un módulo están seleccionados
         function todosLosCheckboxesSeleccionadosEnModulo(moduloId) {
             var checkboxes = document.querySelectorAll('input[type="checkbox"][name="submodulos[' + moduloId + '][]"]');
-            return Array.from(checkboxes).every(function(checkbox) {
-                return checkbox.checked;
-            });
+            return Array.from(checkboxes).every(checkbox => checkbox.checked);
         }
-
-        // Event listeners for button clicks
+    
+        // Agrega los event listeners a los botones para que respondan a los clics
         document.querySelectorAll('.seleccionar-todo').forEach(function(boton) {
             boton.addEventListener('click', function() {
                 var moduloId = this.getAttribute('data-modulo');
@@ -106,5 +108,6 @@
             });
         });
     </script>
+    
 
 @endsection

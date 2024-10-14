@@ -87,7 +87,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $categoria->id }})">
                                                         <i
-                                                            class="fas fa-{{ $categoria->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $categoria->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $categoria->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

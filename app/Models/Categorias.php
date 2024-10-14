@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorias extends Model
 {
+    protected $table="categoria";
     use HasFactory;
     public function materiales()
     {
-        return $this->hasMany('App\Models\Materiales');
+        return $this->hasMany(Materiales::class);
     }
 }

@@ -9,7 +9,7 @@
                 <small class="text-muted float-end">Campos requeridos *</small>
             </div>
             <div class="card-body">
-                <form action="{{ route('tasas.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('monedas.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                        

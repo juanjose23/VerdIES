@@ -9,12 +9,30 @@ use App\Http\Requests\UpdateTasas;
 use App\Models\Materiales;
 use App\Models\Monedas;
 use App\Models\Tasas;
+use App\Services\MaterialService;
+use App\Services\MonedaService;
+use App\Services\TasaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class TasasController extends Controller
 {
     //
+    protected $tasaService;
+    protected $materialService;
+    protected $monedaService;
+    public function __construct(TasaService $tasaService, MaterialService $materialService, MonedaService $monedaService)
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Categorias')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Categorias')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\Categorias')->only(['destroy']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\Categorias')->except(['index', 'show']);
+        $this->tasaService = $tasaService;
+        $this->materialService = $materialService;
+        $this->monedaService =$monedaService;
+    }
     public function index()
     {
         return view('Gestion_Catalogos.Tasas.index');
@@ -22,35 +40,30 @@ class TasasController extends Controller
 
     public function create()
     {
-        $materiales = Materiales::ObtenerCategoriasConMateriales();
-        $monedas = Monedas::where('estado', 1)->get();
+        $materiales = $this->materialService->obtenerCategoriasConMateriales();
+        $monedas = $this->monedaService->ObtenerMonedasActivas();
 
         return view('Gestion_Catalogos.Tasas.create', compact('materiales', 'monedas'));
     }
 
     public function store(StoreTasas $request)
     {
-        $tasas = new Tasas();
-        $tasas->materiales_id = $request->materiales;
-        $tasas->monedas_id = $request->monedas;
-        $tasas->cantidad = $request->cantidad;
-        $tasas->estado = $request->estado;
-        $tasas->save();
 
+       $this->tasaService->crearTasa($request->validated());
         Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('tasas.index');
     }
     public function edit($tasas)
     {
-        $materiales = Materiales::With(['categorias'])->find($tasas);
-        $monedas = Monedas::where('estado', 1)->get();
+        $materiales = $this->materialService->obtenerMaterialesConCategoriasPorTasa($tasas);
+        $monedas =   $this->monedaService->ObtenerMonedasActivas();
         return view('Gestion_Catalogos.Tasas.edit', compact('materiales', 'monedas'));
     }
     public function show($tasas)
     {
-        $materiales = Materiales::With(['categorias'])->find($tasas);
-        $monedas = Monedas::where('estado', 1)->get();
-        $tasas = Tasas::where('materiales_id', $tasas)->get();
+        $materiales =$this->materialService->obtenerMaterialesConCategoriasPorTasa($tasas);
+        $monedas =  $this->monedaService->ObtenerMonedasActivas();
+        $tasas =$this->tasaService->obtenerTasasPorMaterial($tasas);
         return view('Gestion_Catalogos.Tasas.show', compact('materiales', 'monedas', 'tasas'));
     }
     //
@@ -80,12 +93,7 @@ class TasasController extends Controller
     //
     public function destroy($materiales)
     {
-        // Encuentra el cargo por su ID
-        $material = Tasas::findOrFail($materiales);
-
-        // Cambia el estado del cargo
-        $material->estado = $material->estado == 1 ? 0 : 1;
-        $material->save();
+      
         // Redirige de vuelta a la página de índice con un mensaje flash
         Session::flash('success', 'El estado de la tasa ha sido cambiado exitosamente.');
 

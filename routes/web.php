@@ -6,6 +6,7 @@ use App\Http\Controllers\Catalogos\CategoriasController;
 use App\Http\Controllers\Catalogos\MaterialesController;
 use App\Http\Controllers\Catalogos\MonedasController;
 use App\Http\Controllers\Catalogos\TasasController;
+use App\Http\Controllers\Export\UserExportController;
 use App\Http\Controllers\Facultades\AreasController;
 use App\Http\Controllers\Facultades\CarrerasController;
 use App\Http\Controllers\Page\PageController;
@@ -78,30 +79,99 @@ Route::get('/inicios', [LoginController::class, 'inicios'])->name('inicios');
 Route::post('/cerrar-sesion-dispositivo', [LoginController::class, 'closeSessionForDevice'])->name('cerrar_sesion_dispositivo');
 Route::post('/actualizar', [LoginController::class, 'actualizar'])->name('actualizar');
 
-//Gestion de catalogos
-Route::resource('categorias',CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('checkRole:1');
-Route::resource('materiales',MaterialesController::class)->parameters(['materiales' => 'materiales'])->names('materiales')->middleware('checkRole:2');
-Route::resource('monedas',MonedasController::class)->parameters(['monedas' => 'monedas'])->names('monedas')->middleware('checkRole:3');
-Route::resource('tasas',TasasController::class)->parameters(['tasas' => 'tasas'])->names('tasas')->middleware('checkRole:4');
-//Gestion de promociones
-Route::resource('promociones',PromocionesController::class)->parameters(['promociones' => 'promociones'])->names('promociones')->middleware('checkRole:5');
-Route::resource('canje',CanjearController::class)->parameters(['canje' => 'canje'])->names('canje')->middleware('checkRole:6');
+Route::prefix('admin')->group(function () {
+    // Gestion de catalogos
+    Route::resource('categorias', CategoriasController::class)
+        ->parameters(['categorias' => 'categorias'])
+        ->names('categorias')
+        ->middleware('checkRole:1');
+    
+    Route::resource('materiales', MaterialesController::class)
+        ->parameters(['materiales' => 'materiales'])
+        ->names('materiales')
+        ->middleware('checkRole:2');
+    
+    Route::resource('monedas', MonedasController::class)
+        ->parameters(['monedas' => 'monedas'])
+        ->names('monedas')
+        ->middleware('checkRole:3');
+    
+    Route::resource('tasas', TasasController::class)
+        ->parameters(['tasas' => 'tasas'])
+        ->names('tasas')
+        ->middleware('checkRole:4');
+    
+    // Gestion de promociones
+    Route::resource('promociones', PromocionesController::class)
+        ->parameters(['promociones' => 'promociones'])
+        ->names('promociones')
+        ->middleware('checkRole:5');
+    
+    Route::resource('canje', CanjearController::class)
+        ->parameters(['canje' => 'canje'])
+        ->names('canje')
+        ->middleware('checkRole:6');
+    
+    // Areas de conocimientos
+    Route::resource('areas', AreasController::class)
+        ->parameters(['areas' => 'areas'])
+        ->names('areas')
+        ->middleware('checkRole:7');
+    
+    Route::resource('carreras', CarrerasController::class)
+        ->parameters(['carreras' => 'carreras'])
+        ->names('carreras')
+        ->middleware('checkRole:8');
+    
+    Route::resource('acopios', AcopiosController::class)
+        ->parameters(['acopios' => 'acopios'])
+        ->names('acopios')
+        ->middleware('checkRole:9');
+    
+    Route::resource('recicladoras', RecicladorasController::class)
+        ->parameters(['recicladoras' => 'recicladoras'])
+        ->names('recicladoras')
+        ->middleware('checkRole:10');
+    
+    Route::resource('entregas', EntregasController::class)
+        ->parameters(['entregas' => 'entregas'])
+        ->names('entregas')
+        ->middleware('checkRole:16');
+    
+    Route::resource('inventarios', InventariosController::class)
+        ->parameters(['inventarios' => 'inventarios'])
+        ->names('inventarios')
+        ->middleware('checkRole:17');
+    
+    Route::resource('material', MaterialController::class)
+        ->parameters(['material' => 'material'])
+        ->names('material')
+        ->middleware('checkRole:11');
 
-//Areas de conocimientos
-Route::resource('areas',AreasController::class)->parameters(['areas' => 'areas'])->names('areas')->middleware('checkRole:7');
-Route::resource('carreras',CarrerasController::class)->parameters(['carreras' => 'carreras'])->names('carreras')->middleware('checkRole:8');
-Route::resource('acopios',AcopiosController::class)->parameters(['acopios' => 'acopios'])->names('acopios')->middleware('checkRole:9');
-Route::resource('recicladoras',RecicladorasController::class)->parameters(['recicladoras' => 'recicladoras'])->names('recicladoras')->middleware('checkRole:10');
-Route::resource('entregas',EntregasController::class)->parameters(['entregas' => 'entregas'])->names('entregas')->middleware('checkRole:16');
-Route::resource('inventarios',InventariosController::class)->parameters(['inventarios' => 'inventarios'])->names('inventarios')->middleware('checkRole:17');
-Route::resource('material',MaterialController::class)->parameters(['material' => 'material'])->names('material')->middleware('checkRole:11');
+    // Gestion de usuarios
+    Route::resource('roles', RolesController::class)
+        ->parameters(['roles' => 'roles'])
+        ->names('roles')
+        ->middleware('checkRole:12');
+    
+    Route::resource('privilegios', PrivilegiosController::class)
+        ->parameters(['privilegios' => 'privilegios'])
+        ->names('privilegios')
+        ->middleware('checkRole:14');
+    
+    Route::resource('/permisos', PermisoController::class)
+        ->parameters(['permisos' => 'permisos'])
+        ->names('permisos')
+        ->middleware('checkRole:15');
+    
+    Route::resource('/usuarios', UsersController::class)
+        ->parameters(['usuarios' => 'usuarios'])
+        ->names('usuarios')
+        ->middleware('checkRole:13');
+        Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles')->middleware('checkRole:13');
+        Route::get('/pdf/credenciales/{id}', [UserExportController::class, 'credenciales'])->name('credenciales')->middleware('checkRole:13');
 
-//Gestion de usuarios
-Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:12');
-Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios')->middleware('checkRole:14');
-Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos')->middleware('checkRole:15');
-Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios')->middleware('checkRole:13');
-Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles')->middleware('checkRole:13');
+});
 
 
 // Gestión de la vista del cliente

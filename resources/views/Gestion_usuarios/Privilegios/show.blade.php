@@ -45,7 +45,7 @@
                                                     <!-- Botón para activar/desactivar -->
                                                     <button type="button" class="btn btn-danger d-block" role="button"
                                                         onclick="confirmAction({{ $submodulo['id'] }})">
-                                                        <i class="fas fa-trash"></i>
+                                                        <i class="bx bx-trash"></i>
 
                                                     </button>
                                                 </div>

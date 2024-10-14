@@ -139,7 +139,7 @@
                                                             class="btn btn-{{ $tasa->estado == 1 ? 'danger' : 'success' }}"
                                                             role="button" onclick="confirmAction({{ $tasa->id }})">
                                                             <i
-                                                                class="fas fa-{{ $tasa->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                                class="bx bx-{{ $tasa->estado == 1 ? 'trash' : 'power' }}"></i>
                                                         </button>
                                                     @endif
 

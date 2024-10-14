@@ -23,7 +23,7 @@ class StoreCategorias extends FormRequest
     {
         return [
             //
-            'nombre' => 'required|unique:categorias,nombre| regex:/^[a-zA-Z\s]+$/',
+            'nombre' => 'required|unique:categoria,nombre| regex:/^[a-zA-Z\s]+$/',
             'estado' => 'required|int',
             'descripcion' => 'nullable|max:500',
         ];

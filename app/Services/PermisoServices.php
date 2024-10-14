@@ -1,24 +1,38 @@
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+<?php 
+namespace App\Services;
+use App\Models\permisos;
+use App\Models\permisosroles;
 use Illuminate\Support\Facades\DB;
-
-class permisosroles extends Model
+class PermisoServices
 {
-    use HasFactory;
-    public function  permisosmodulos()
+    protected $permisoModel;
+    public function __construct(permisosroles $permisoModel)
     {
-        return  $this->belongsTo('App\Models\permisosmodulos');
+        $this->permisoModel = $permisoModel;
+    }
+    public function AsignarPermiso($rolId, $submodulos)
+    {
+        foreach ($submodulos as $submoduloIds) {
+            foreach ($submoduloIds as $id_submodulo) {
+                $permiso = new $this->permisoModel();
+                $permiso->roles_id = $rolId;
+                $permiso->permisosmodulos_id = $id_submodulo;
+                $permiso->estado = 1;
+                $permiso->save();
+            }
+        }
+
+        return true; // Devuelve true si la asignación fue exitosa
     }
 
-    public function roles()
+    public function EliminarPermiso($permisoId)
     {
-        return $this->belongsTo('App\Models\RolesModel');
+        $privilegio = $this->permisoModel::findOrFail($permisoId);
+        $privilegio->delete();
+        
+        return true;
     }
-   
+    
     /**
      * Obtiene los permisos asociados a los módulos y los ordena por la cantidad de submódulos.
      *
