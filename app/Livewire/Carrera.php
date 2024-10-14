@@ -13,13 +13,10 @@ class Carrera extends Component
     public function render()
     {
         // Realizar la búsqueda en todos los atributos del modelo
-        $carreras = Carreras::with('areas','imagenes')->where(function ($query) {
+        $carreras = Carreras::with('imagenes')->where(function ($query) {
             $query->where('nombre', 'like', '%' . $this->buscar . '%')
-                ->orWhere('descripcion', 'like', '%' . $this->buscar . '%')
-                ->orWhereHas('areas', function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->buscar . '%');
-
-                });
+                ->orWhere('descripcion', 'like', '%' . $this->buscar . '%');
+               
         })->paginate($this->perPage);
 
         return view('livewire.carrera',compact('carreras'));

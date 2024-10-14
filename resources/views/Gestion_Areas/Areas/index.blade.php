@@ -1,6 +1,6 @@
 @extends('Layouts.layouts')
-@section('title', 'Areas')
+@section('title', 'Universidades')
 @section('content')
-    <livewire:area />
+    <livewire:universidad />
    
 @endsection

@@ -23,9 +23,10 @@ class StoreAreas extends FormRequest
     {
         return [
             //
-            'nombre' => ['required', 'unique:area_conocimientos,nombre', 'regex:/^[a-zA-Z\sáéíóúÁÉÍÓÚüÜ]+$/'],
+            'nombre' => ['required', 'unique:universidades,nombre', 'regex:/^[a-zA-Z\sáéíóúÁÉÍÓÚüÜ]+$/'],
             'estado' => 'required|int',
             'descripcion' => 'nullable|max:500',
+            'materialesData' => 'json'
         ];
     }
 }

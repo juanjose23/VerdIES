@@ -13,24 +13,7 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="areas" class="form-label text-dark">Categorias *</label>
-                                <select style="width: 100%" id="areas" name="areas"
-                                    class="buscador form-select @error('areas') is-invalid @enderror">
-                                    <option>Seleccionar categorias</option>
-                                    @foreach ($areas as $area)
-                                        <option value="{{ $area->id }}"
-                                            {{ old('areas',$carrera->area_conocimientos_id) == $area->id ? 'selected' : '' }}>
-                                            {{ $area->nombre }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('areas')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                       
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre" class="form-label text-dark">Nombre</label>

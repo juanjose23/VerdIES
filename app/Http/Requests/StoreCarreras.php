@@ -22,7 +22,7 @@ class StoreCarreras extends FormRequest
     public function rules(): array
     {
         return [
-            'areas' => 'required|numeric',
+            
             'nombre' => 'required|string|max:255|unique:materiales',
             'estado' => 'required|in:0,1',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

@@ -12,24 +12,7 @@
                 <form action="{{ route('carreras.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="areas" class="form-label text-dark">Area de conocimiento *</label>
-                                <select style="width: 100%" id="areas" name="areas"
-                                    class="buscador form-select @error('areas') is-invalid @enderror">
-                                    <option>Seleccionar Conocimiento</option>
-                                    @foreach ($areas as $areas)
-                                        <option value="{{ $areas->id }}"
-                                            {{ old('areas') == $areas->id ? 'selected' : '' }}>
-                                            {{ $areas->nombre }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('areas')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
+                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nombre" class="form-label text-dark">Nombre *</label>

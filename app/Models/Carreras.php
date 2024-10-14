@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Carreras extends Model
 {
     use HasFactory;
-    public function areas()
+    public function detalle()
     {
-        return $this->belongsTo('App\Models\Areas','area_conocimientos_id');
+        return $this->hasMany(DetalleUniversidad::class);
     }
-    
+   
     public function user_carrera()
     {
         return $this->hasMany('App\Models\User_carreras', 'carreras_id');

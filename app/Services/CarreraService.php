@@ -17,7 +17,7 @@ class CarreraService
     public function CrearCarrera($data)
     {
         $carrera = $this->CarrerasModel->newInstance();
-        $carrera->area_conocimientos_id = $data['areas'];
+     
 
         $carrera->nombre = $data['nombre'];
         $carrera->descripcion = $data['descripcion'];
@@ -43,12 +43,31 @@ class CarreraService
         return $this->CarrerasModel->findOrFail($id);
     }
 
+    public function ObtenerCarreras()
+    {
+        return $this->CarrerasModel::where('estado',1)->get();
+    }
+    public function ObtenerCarrerasNoAsociadas($universidadId) 
+    {
+        $carreras = $this->CarrerasModel::where('estado', 1)
+            ->whereNotIn('id', function($query) use ($universidadId) {
+                $query->select('carreras_id')
+                      ->from('detalleuniversidad')
+                      ->where('universidades_id', $universidadId);
+            });
+    
+        
+        return $carreras->get();
+    }
+    
+    
+
+
     public function ActualizarCarrera( $id,Request $request)
     {
         $carrera = $this->obtenerCarrera($id);
 
         // Actualizar los campos de la carrera
-        $carrera->area_conocimientos_id = $request->areas;
         $carrera->nombre = $request->nombre;
         $carrera->descripcion = $request->descripcion;
         $carrera->estado = $request->estado;

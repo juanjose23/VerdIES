@@ -117,6 +117,7 @@ Route::prefix('admin')->group(function () {
         ->parameters(['areas' => 'areas'])
         ->names('areas')
         ->middleware('checkRole:7');
+        Route::delete('/areas/destroydetalles/{id}', [AreasController::class, 'destroydetalles'])->name('areas.destroydetalles')->middleware('checkRole:7');
     
     Route::resource('carreras', CarrerasController::class)
         ->parameters(['carreras' => 'carreras'])
