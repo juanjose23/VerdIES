@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Catalogos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Categorias;
-use Illuminate\Http\Request;
+use App\Services\CategoriaService;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\StoreCategorias;
 use App\Http\Requests\UpdateCategorias;
 class CategoriasController extends Controller
 {
     //
-    public function __construct()
+    protected $categoriaService;
+    public function __construct(CategoriaService $categoriaService)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\Categorias')->only(['create', 'store']);
@@ -19,10 +19,11 @@ class CategoriasController extends Controller
         $this->middleware('can:delete,App\Models\Categorias')->only(['destroy']);
         // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
         $this->middleware('can:viewAny,App\Models\Categorias')->except(['index', 'show']);
+        $this->categoriaService = $categoriaService;
     }
     public function index()
     {
-       return view('Gestion_Catalogos.Categorias.index');
+        return view('Gestion_Catalogos.Categorias.index');
     }
 
     public function create()
@@ -32,59 +33,36 @@ class CategoriasController extends Controller
 
     public function store(StoreCategorias $request)
     {
-        $categoria = new Categorias();
-        $categoria->nombre = $request->nombre;
-        $categoria->descripcion = $request->descripcion;
-        $categoria->estado = $request->estado;
-        $categoria->save();
+        $data = $request->validated();
+     $this->categoriaService->crearCategoria($data);
         Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('categorias.index');
     }
-    public function edit($categorias)
+    public function edit($categoriasId)
     {
-        $categorias = Categorias::findOrFail($categorias);
+        $categorias = $this->categoriaService->obtenerCategoriaPorId($categoriasId);
 
         return view('Gestion_Catalogos.Categorias.edit', compact('categorias'));
     }
     //
     public function update(UpdateCategorias $request, $categorias)
     {
-        $categoria = Categorias::findOrFail($categorias);
-        // Verificar si los datos han cambiado
-        if (
-
-            $categoria->nombre != $request->nombre ||
-            $categoria->descripcion != $request->descripcion ||
-            $categoria->estado != $request->estado
-        ) {
-
-
-            $categoria->nombre = $request->nombre;
-            $categoria->descripcion = $request->descripcion;
-            $categoria->estado = $request->estado;
-            $categoria->save();
-
-            // Mostrar mensaje solo si hay cambios
-            Session::flash('success', 'El proceso se ha completado exitosamente.');
-        }
-
+        $data = $request->validated();
+        $this->categoriaService->actualizarCategoria($categorias, $data);
+        Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('categorias.index');
+    
     }
     //
     public function destroy($categorias)
     {
-        // Encuentra el cargo por su ID
-        $categoria = Categorias::findOrFail($categorias);
-
-        // Cambia el estado del cargo
-        $categoria->estado = $categoria->estado == 1 ? 0 : 1;
-        $categoria->save();
+        $this->categoriaService->cambiarEstadoCategoria($categorias);
         // Redirige de vuelta a la página de índice con un mensaje flash
         Session::flash('success', 'El estado del categoria ha sido cambiado exitosamente.');
 
         return redirect()->route('categorias.index');
     }
-   
 
-  
+
+
 }

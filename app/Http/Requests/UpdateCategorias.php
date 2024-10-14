@@ -27,7 +27,7 @@ class UpdateCategorias extends FormRequest
         return [
             'nombre' => [
                 'required',
-                Rule::unique('categorias', 'nombre')->ignore($categoriaId),
+                Rule::unique('categoria', 'nombre')->ignore($categoriaId),
                 'regex:/^[a-zA-Z\s]+$/'
             ],
             'estado' => 'required|int',

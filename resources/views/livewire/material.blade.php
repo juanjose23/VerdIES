@@ -19,7 +19,7 @@
                             @can('create', App\Models\Categorias::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
                                     <a href="{{ route('materiales.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus me-1"></i> Registrar Material
+                                        <i class="bx bx-plus me-1"></i> Registrar Material
                                     </a>
                                 </div>
                             @endcan
@@ -114,7 +114,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $material->id }})">
                                                         <i
-                                                            class="fas fa-{{ $material->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $material->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $material->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

@@ -19,7 +19,7 @@
                             @can('create', App\Models\Categorias::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
                                     <a href="{{ route('monedas.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus me-1"></i> Registrar monedas
+                                        <i class="bx bx-plus me-1"></i> Registrar monedas
                                     </a>
                                 </div>
                             @endcan
@@ -110,7 +110,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $moneda->id }})">
                                                         <i
-                                                            class="fas fa-{{ $moneda->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $moneda->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $moneda->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

@@ -19,7 +19,7 @@
                             @can('create', App\Models\Categorias::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
                                     <a href="{{ route('tasas.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus me-1"></i> Registrar Tasa
+                                        <i class="bx bx-plus me-1"></i> Registrar Tasa
                                     </a>
                                 </div>
                             @endcan
