@@ -26,11 +26,12 @@ class UpdateAreas extends FormRequest
         return [
             'nombre' => [
                 'required',
-                Rule::unique('area_conocimientos', 'nombre')->ignore($categoriaId),
+                Rule::unique('universidades', 'nombre')->ignore($categoriaId),
                 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s.]+$/'
             ],
             'estado' => 'required|int',
             'descripcion' => 'nullable|max:500',
+            'materialesData' => 'json',
         ];
     }
 }

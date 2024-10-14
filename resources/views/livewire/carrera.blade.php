@@ -16,7 +16,7 @@
                         <!-- Botones -->
                         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
                             <!-- Botón para crear una categoría -->
-                            @can('create', App\Models\Areas::class)
+                            @can('create', App\Models\Universidades::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
                                     <a href="{{ route('carreras.create') }}" class="btn btn-primary">
                                         <i class="fas fa-plus me-1"></i> Registrar Carrera
@@ -49,7 +49,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Area de conocimiento</th>
+                                
 
                                 <th>Carrera</th>
                                 <th>Descripcion</th>
@@ -61,8 +61,7 @@
                             @foreach ($carreras as $carrera)
                                 <tr class="odd">
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ $carrera->areas->nombre }}</td>
-
+                                   
 
                                     <td class="sorting_1">
                                         <div class="d-flex justify-content-start align-items-center user-name">
@@ -105,17 +104,17 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('update', App\Models\Areas::class)
+                                                @can('update', App\Models\Universidades::class)
                                                     <a class="dropdown-item"
                                                         href="{{ route('carreras.edit', ['carreras' => $carrera->id]) }}">
                                                         <i class="bx bx-edit-alt me-1"></i> Editar
                                                     </a>
                                                 @endcan
-                                                @can('delete', App\Models\Areas::class)
+                                                @can('delete', App\Models\Universidades::class)
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $carrera->id }})">
                                                         <i
-                                                            class="fas fa-{{ $carrera->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $carrera->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $carrera->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

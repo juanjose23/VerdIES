@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template" data-style="light">
+<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr"
+    data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template" data-style="light">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
     <title>VerdIES @yield('title')</title>
 
 
-    <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 Admin Dashboard built for developers!">
+    <meta name="description"
+        content="Most Powerful &amp; Comprehensive Bootstrap 5 Admin Dashboard built for developers!">
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/">
     <script src="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.all.min.js
-    "></script>
+        https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.all.min.js
+        "></script>
     <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.14.2/dist/sweetalert2.min.css
     " rel="stylesheet">
@@ -39,12 +42,15 @@
     <!-- End Google Tag Manager -->
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" />
+    <link rel="icon" type="image/x-icon"
+        href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="{{ asset('Administrador/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap') }}" rel="stylesheet">
+    <link
+        href="{{ asset('Administrador/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap') }}"
+        rel="stylesheet">
 
 
     <!-- Icons -->
@@ -53,19 +59,22 @@
     <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/fonts/flag-icons.css') }}">
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/css/rtl/core.css') }}" class="template-customizer-core-css">
-    <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/css/rtl/theme-default.css') }}" class="template-customizer-theme-css">
+    <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/css/rtl/core.css') }}"
+        class="template-customizer-core-css">
+    <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/css/rtl/theme-default.css') }}"
+        class="template-customizer-theme-css">
     <link rel="stylesheet" href="{{ asset('Administrador/assets/css/demo.css') }}">
 
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('Administrador/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/libs/typeahead-js/typeahead.css') }}">
     <link rel="stylesheet" href="{{ asset('Administrador/assets/vendor/libs/apex-charts/apex-charts.css') }}">
 
     <!-- Page CSS -->
 
-
+    <link rel="stylesheet" href="{{asset('Administrador/assets/vendor/libs/select2/select2.css')}}">
     <!-- Helpers -->
     <script src="{{ asset('Administrador/assets/vendor/js/helpers.js') }}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -85,7 +94,8 @@
 
 
     <!-- ?PROD Only: Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP" height="0" width="0"
+            style="display: none; visibility: hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Layout wrapper -->
@@ -106,10 +116,12 @@
                 <div class="app-brand demo ">
                     <a href="/admin/inicio" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" alt="" width="50">
+                            <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
+                                alt="" width="50">
 
                         </span>
-                        <span class="app-brand-text demo menu-text fw-bold ms-2 span-firstWord">Verd<span class="span-enphasisWord">IES</span></span>
+                        <span class="app-brand-text demo menu-text fw-bold ms-2 span-firstWord">Verd<span
+                                class="span-enphasisWord">IES</span></span>
                     </a>
 
                     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -122,38 +134,38 @@
 
 
                 <ul class="menu-inner py-1">
-                    
+
                     @foreach (Session::get('privilegios') as $modulo)
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons {{ $modulo['icono'] }}"></i>
-                            <div data-i18n="{{ $modulo['nombre'] }}">{{ $modulo['nombre'] }}</div>
+                        <li class="menu-item">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons {{ $modulo['icono'] }}"></i>
+                                <div data-i18n="{{ $modulo['nombre'] }}">{{ $modulo['nombre'] }}</div>
 
-                        </a>
-                        @if (!empty($modulo['submodulos']))
-                            <ul class="menu-sub">
-                                @foreach ($modulo['submodulos'] as $submodulo)
-                                    <li class="menu-item">
-                                        @if ($submodulo['enlace'])
-                                            <a href="{{ route($submodulo['enlace']) }}" target=""
-                                                class="menu-link">
-                                                <div data-i18n="{{ $submodulo['nombre'] }}">
-                                                    {{ $submodulo['nombre'] }}</div>
+                            </a>
+                            @if (!empty($modulo['submodulos']))
+                                <ul class="menu-sub">
+                                    @foreach ($modulo['submodulos'] as $submodulo)
+                                        <li class="menu-item">
+                                            @if ($submodulo['enlace'])
+                                                <a href="{{ route($submodulo['enlace']) }}" target=""
+                                                    class="menu-link">
+                                                    <div data-i18n="{{ $submodulo['nombre'] }}">
+                                                        {{ $submodulo['nombre'] }}</div>
 
-                                            </a>
-                                        @else
-                                            <a href="" target="" class="menu-link">
-                                                <div data-i18n="{{ $submodulo['nombre'] }}">
-                                                    {{ $submodulo['nombre'] }}</div>
+                                                </a>
+                                            @else
+                                                <a href="" target="" class="menu-link">
+                                                    <div data-i18n="{{ $submodulo['nombre'] }}">
+                                                        {{ $submodulo['nombre'] }}</div>
 
-                                            </a>
-                                        @endif
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </li>
-                @endforeach
+                                                </a>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endforeach
 
 
                 </ul>
@@ -177,7 +189,8 @@
 
 
 
-                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar">
 
 
 
@@ -206,7 +219,8 @@
                             <div class="nav-item navbar-search-wrapper mb-0">
                                 <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
                                     <i class="bx bx-search bx-md"></i>
-                                    <span class="d-none d-md-inline-block text-muted fw-normal ms-4">Search (Ctrl+/)</span>
+                                    <span class="d-none d-md-inline-block text-muted fw-normal ms-4">Search
+                                        (Ctrl+/)</span>
                                 </a>
                             </div>
                         </div>
@@ -222,10 +236,12 @@
 
                             <!-- Notification -->
                             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
-                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                    data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                     <span class="position-relative">
                                         <i class="bx bx-bell bx-md"></i>
-                                        <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
+                                        <span
+                                            class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end p-0">
@@ -234,171 +250,240 @@
                                             <h6 class="mb-0 me-auto">Notification</h6>
                                             <div class="d-flex align-items-center h6 mb-0">
                                                 <span class="badge bg-label-primary me-2">8 New</span>
-                                                <a href="javascript:void(0)" class="dropdown-notifications-all p-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx bx-envelope-open text-heading"></i></a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-all p-2"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Mark all as read"><i
+                                                        class="bx bx-envelope-open text-heading"></i></a>
                                             </div>
                                         </div>
                                     </li>
                                     <li class="dropdown-notifications-list scrollable-container">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="{{ asset('Administrador/assets/img/avatars/1.png') }}" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Administrador/assets/img/avatars/1.png') }}"
+                                                                alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">Congratulation Lettie 🎉</h6>
-                                                        <small class="mb-1 d-block text-body">Won the monthly best seller gold badge</small>
+                                                        <small class="mb-1 d-block text-body">Won the monthly best
+                                                            seller gold badge</small>
                                                         <small class="text-muted">1h ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-danger">CF</span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">Charles Franklin</h6>
-                                                        <small class="mb-1 d-block text-body">Accepted your connection</small>
+                                                        <small class="mb-1 d-block text-body">Accepted your
+                                                            connection</small>
                                                         <small class="text-muted">12hr ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="{{ asset('Administrador/assets/img/avatars/2.png') }}" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Administrador/assets/img/avatars/2.png') }}"
+                                                                alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">New Message ✉️</h6>
-                                                        <small class="mb-1 d-block text-body">You have new message from Natalie</small>
+                                                        <small class="mb-1 d-block text-body">You have new message from
+                                                            Natalie</small>
                                                         <small class="text-muted">1h ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-success"><i
+                                                                    class="bx bx-cart"></i></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">Whoo! You have new order 🛒 </h6>
-                                                        <small class="mb-1 d-block text-body">ACME Inc. made new order $1,154</small>
+                                                        <small class="mb-1 d-block text-body">ACME Inc. made new order
+                                                            $1,154</small>
                                                         <small class="text-muted">1 day ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="{{ asset('Administrador/assets/img/avatars/9.png') }}" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Administrador/assets/img/avatars/9.png') }}"
+                                                                alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">Application has been approved 🚀 </h6>
-                                                        <small class="mb-1 d-block text-body">Your ABC project application has been approved.</small>
+                                                        <small class="mb-1 d-block text-body">Your ABC project
+                                                            application has been approved.</small>
                                                         <small class="text-muted">2 days ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-success"><i
+                                                                    class="bx bx-pie-chart-alt"></i></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">Monthly report is generated</h6>
-                                                        <small class="mb-1 d-block text-body">July monthly financial report is generated </small>
+                                                        <small class="mb-1 d-block text-body">July monthly financial
+                                                            report is generated </small>
                                                         <small class="text-muted">3 days ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="{{ asset('Administrador/assets/img/avatars/5.png') }}" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Administrador/assets/img/avatars/5.png') }}"
+                                                                alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">Send connection request</h6>
-                                                        <small class="mb-1 d-block text-body">Peter sent you connection request</small>
+                                                        <small class="mb-1 d-block text-body">Peter sent you connection
+                                                            request</small>
                                                         <small class="text-muted">4 days ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="{{ asset('Administrador/assets/img/avatars/6.png') }}" alt="" class="rounded-circle">
+                                                            <img src="{{ asset('Administrador/assets/img/avatars/6.png') }}"
+                                                                alt="" class="rounded-circle">
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">New message from Jane</h6>
-                                                        <small class="mb-1 d-block text-body">Your have new message from Jane</small>
+                                                        <small class="mb-1 d-block text-body">Your have new message
+                                                            from Jane</small>
                                                         <small class="text-muted">5 days ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                            <li
+                                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span>
+                                                            <span
+                                                                class="avatar-initial rounded-circle bg-label-warning"><i
+                                                                    class="bx bx-error"></i></span>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <h6 class="small mb-0">CPU is running high</h6>
-                                                        <small class="mb-1 d-block text-body">CPU Utilization Percent is currently at 88.63%,</small>
+                                                        <small class="mb-1 d-block text-body">CPU Utilization Percent
+                                                            is currently at 88.63%,</small>
                                                         <small class="text-muted">5 days ago</small>
                                                     </div>
                                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-read"><span
+                                                                class="badge badge-dot"></span></a>
+                                                        <a href="javascript:void(0)"
+                                                            class="dropdown-notifications-archive"><span
+                                                                class="bx bx-x"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -422,7 +507,8 @@
 
                             <!-- Style Switcher -->
                             <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                                    data-bs-toggle="dropdown">
                                     <i class='bx bx-md'></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
@@ -451,9 +537,11 @@
 
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);"
+                                    data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('Administrador/assets/img/avatars/1.png') }}" alt="" class="w-px-40 h-auto rounded-circle">
+                                        <img src="{{ asset('Administrador/assets/img/avatars/1.png') }}"
+                                            alt="" class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -462,7 +550,8 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('Administrador/assets/img/avatars/1.png') }}" alt="" class="w-px-40 h-auto rounded-circle">
+                                                        <img src="{{ asset('Administrador/assets/img/avatars/1.png') }}"
+                                                            alt="" class="w-px-40 h-auto rounded-circle">
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -488,7 +577,8 @@
                                     <li>
                                         <a class="dropdown-item" href="pages-account-settings-billing.html">
                                             <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i><span class="flex-grow-1 align-middle">Billing Plan</span>
+                                                <i class="flex-shrink-0 bx bx-credit-card bx-md me-3"></i><span
+                                                    class="flex-grow-1 align-middle">Billing Plan</span>
                                                 <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>
                                             </span>
                                         </a>
@@ -526,7 +616,8 @@
 
                     <!-- Search Small Screens -->
                     <div class="navbar-search-wrapper search-input-wrapper  d-none">
-                        <input type="text" class="form-control search-input container-xxl border-0" placeholder="Search..." aria-label="Search...">
+                        <input type="text" class="form-control search-input container-xxl border-0"
+                            placeholder="Search..." aria-label="Search...">
                         <i class="bx bx-x bx-md search-toggler cursor-pointer"></i>
                     </div>
 
@@ -558,21 +649,28 @@
                         <!-- Footer -->
                         <footer class="content-footer footer bg-footer-theme">
                             <div class="container-xxl">
-                                <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                                <div
+                                    class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
                                     <div class="text-body">
-                                        © <script>
+                                        ©
+                                        <script>
                                             document.write(new Date().getFullYear())
-                                        </script>, made with ❤️ by <a href="https://themeselection.com" target="_blank" class="footer-link">ThemeSelection</a>
+                                        </script>, made with ❤️ by <a href="https://themeselection.com"
+                                            target="_blank" class="footer-link">ThemeSelection</a>
                                     </div>
                                     <div class="d-none d-lg-inline-block">
 
-                                        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                                        <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+                                        <a href="https://themeselection.com/license/" class="footer-link me-4"
+                                            target="_blank">License</a>
+                                        <a href="https://themeselection.com/" target="_blank"
+                                            class="footer-link me-4">More Themes</a>
 
-                                        <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+                                        <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                                            target="_blank" class="footer-link me-4">Documentation</a>
 
 
-                                        <a href="https://themeselection.com/support/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
+                                        <a href="https://themeselection.com/support/" target="_blank"
+                                            class="footer-link d-none d-sm-inline-block">Support</a>
 
                                     </div>
                                 </div>
@@ -626,10 +724,12 @@
 
         <!-- Page JS -->
         <script src="{{ asset('Administrador/assets/js/dashboards-analytics.js') }}"></script>
-
+        <script src="{{asset('Administrador/assets/vendor/libs/select2/select2.js')}}"></script>
+        <script src="{{asset('Administrador/assets/js/forms-selects.js')}}"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 @if (Session::has('success'))
+                localStorage.removeItem('materiales');
                     Swal.fire({
                         icon: 'success',
                         title: '¡Éxito!',
@@ -647,7 +747,7 @@
                 @endif
             });
         </script>
-    
+
 
 </body>
 

@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gestión Areas de conocimiento /</span> Areas</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Gestión Areas de conocimiento /</span> Universidades</h4>
 
             <div class="card">
                 <div class="card-header">
@@ -16,10 +16,10 @@
                         <!-- Botones -->
                         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
                             <!-- Botón para crear una categoría -->
-                            @can('create', App\Models\Areas::class)
+                            @can('create', App\Models\Universidades::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
                                     <a href="{{ route('areas.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus me-1"></i> Registrar área
+                                        <i class="bx bx-plus me-1"></i> Registrar Universidad
                                     </a>
                                 </div>
                             @endcan
@@ -44,13 +44,13 @@
                 <div class="table-responsive text-nowrap">
                     <table class="table">
                         <caption class="ms-4">
-                            Lista de Area de conocimiento
+                            Lista de universidades
                         </caption>
                         <thead>
                             <tr>
                                 <th>#</th>
                 
-                                <th>Area</th>
+                                <th>Universidad</th>
                                 <th>Descripcion</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
@@ -104,17 +104,17 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('update', App\Models\Areas::class)
+                                                @can('update', App\Models\Universidades::class)
                                                     <a class="dropdown-item"
                                                         href="{{ route('areas.edit', ['areas' => $area->id]) }}">
                                                         <i class="bx bx-edit-alt me-1"></i> Editar
                                                     </a>
                                                 @endcan
-                                                @can('delete', App\Models\Areas::class)
+                                                @can('delete', App\Models\Universidades::class)
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $area->id }})">
                                                         <i
-                                                            class="fas fa-{{ $area->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $area->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $area->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

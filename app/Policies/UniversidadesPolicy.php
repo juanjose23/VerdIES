@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\Areas;
+use App\Models\Universidades;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use App\Models\permisosroles;
 
-class AreasPolicy
+class UniversidadesPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -21,7 +21,7 @@ class AreasPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Areas $areas): bool
+    public function view(User $user, Universidades $areas): bool
     {
         //
         return true;

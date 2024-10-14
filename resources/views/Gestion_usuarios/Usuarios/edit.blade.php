@@ -115,28 +115,23 @@
                                         </span></td>
                                         <td>
                                             <div class="mr-1">
-                                               
                                                 <!-- Botón para activar/desactivar -->
                                                 <button type="button"
-                                                    class="btn btn-{{ $roles->estado == 1 ? 'danger' : 'success' }}"
-                                                    role="button" onclick="confirmAction({{ $roles->id }})">
-                                                    <i
-                                                        class="fas fa-{{ $roles->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                        class="btn btn-{{ $roles->estado == 1 ? 'danger' : 'success' }}"
+                                                        role="button" 
+                                                        onclick="confirmAction({{ $roles->id }}, {{ $roles->estado }})">
+                                                    <i class="bx bx-{{ $roles->estado == 1 ? 'trash' : 'toggle-left' }}"></i>
                                                 </button>
-                                            
-                                                
                                             </div>
                                             <form id="deleteForm{{ $roles->id }}"
-                                                action="{{ route('usuarios.destroyroles', ['id' => $roles->id]) }}"
-                                                method="POST">
+                                                  action="{{ route('usuarios.destroyroles', ['id' => $roles->id]) }}"
+                                                  method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                    
                                                 <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                <button id="submitBtn{{ $roles->id }}" type="submit"
-                                                    style="display: none;"></button>
+                                                <button id="submitBtn{{ $roles->id }}" type="submit" style="display: none;"></button>
                                             </form>
-                    
+                                            
                                         </td>
                                     </tr>
                                     @endforeach
@@ -148,4 +143,30 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmAction(rolId, estado) {
+            // Determinar el mensaje según el estado
+            let title = estado == 1 ? '¿Estás seguro?' : '¿Estás seguro de que deseas activar?';
+            let text = estado == 1 ? '¿Quieres eliminar este rol?' : '¿Quieres activar este rol?';
+            let confirmButtonText = estado == 1 ? 'Sí, eliminar rol' : 'Sí, activar rol';
+    
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: confirmButtonText
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = document.getElementById('deleteForm' + rolId);
+    
+                    // Enviar el formulario
+                    form.submit();
+                }
+            });
+        }
+    </script>
+    
 @endsection

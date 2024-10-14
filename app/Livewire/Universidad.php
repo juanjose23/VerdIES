@@ -2,10 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Models\Areas;
+use App\Models\Universidades;
 use Livewire\Component;
 use Livewire\WithPagination;
-class Area extends Component
+class Universidad extends Component
 {    
     use WithPagination;
     public $buscar = '';
@@ -13,13 +13,13 @@ class Area extends Component
     public function render()
     {
          // Realizar la búsqueda en todos los atributos del modelo
-         $areas = Areas::where(function ($query) {
+         $areas = Universidades::where(function ($query) {
             $query->where('nombre', 'like', '%' . $this->buscar . '%')
                 ->orWhere('descripcion', 'like', '%' . $this->buscar . '%');
             // Agrega más atributos aquí si deseas incluirlos en la búsqueda
         })->paginate($this->perPage);
         
-        return view('livewire.area',compact('areas'));
+        return view('livewire.universidad',compact('areas'));
     }
     public function setPerPage($perPage)
     {
