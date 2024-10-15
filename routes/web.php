@@ -24,6 +24,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Cliente\ResiduosController;
 use App\Http\Controllers\Cliente\PromocionesClienteController;
+use App\Http\Controllers\Cliente\EstablecimientosController;
 use App\Http\Controllers\Landingpage\LandingpageController;
 
 /*
@@ -108,6 +109,7 @@ Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyro
 Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('clientes.inicio');
 
 Route::get('/clientes/promociones', [PromocionesClienteController::class,'promociones']) -> name('promociones');
+Route::get('/clientes/establecimiento', [EstablecimientosController::class,'establecimientos']) -> name('establecimientos');
 
 Route::get('/clientes/residuos', [ResiduosController::class,'residuos']) -> name('residuos');
 
