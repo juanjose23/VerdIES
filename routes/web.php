@@ -6,6 +6,7 @@ use App\Http\Controllers\Catalogos\CategoriasController;
 use App\Http\Controllers\Catalogos\MaterialesController;
 use App\Http\Controllers\Catalogos\MonedasController;
 use App\Http\Controllers\Catalogos\TasasController;
+use App\Http\Controllers\Cliente\CanjeController;
 use App\Http\Controllers\Export\UserExportController;
 use App\Http\Controllers\Facultades\AreasController;
 use App\Http\Controllers\Facultades\CarrerasController;
@@ -183,6 +184,8 @@ Route::get('/clientes/promociones', [PromocionesClienteController::class,'promoc
 Route::get('/clientes/establecimiento', [EstablecimientosController::class,'establecimientos']) -> name('establecimientos');
 
 Route::get('/clientes/residuos', [ResiduosController::class,'residuos']) -> name('residuos');
+
+Route::get('/clientes/canje', [CanjeController::class,'index']) -> name('canje.inicio');
 
 
 
