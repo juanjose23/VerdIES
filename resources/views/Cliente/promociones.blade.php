@@ -3,8 +3,12 @@
 @section('title', 'Promociones')
 
 @section('content')
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/home/home.css') }}">
+
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.css">
 
 
@@ -13,12 +17,12 @@
 <div class="card mb-6">
     <div class="card-header d-flex flex-wrap justify-content-between gap-4">
         <div class="card-title mb-0 me-1">
-            <h5 class="mb-0">My Courses</h5>
-            <p class="mb-0">Total 6 course you have purchased</p>
+            <h5 class="mb-0">Todos los locales</h5>
+            <p class="mb-0">3 locales</p>
         </div>
         <div class="d-flex justify-content-md-end align-items-center column-gap-6 flex-sm-row flex-column row-gap-4">
             <select class="form-select">
-                <option value="">All Courses</option>
+                <option value="">Todos los locales</option>
                 <option value="ui/ux">UI/UX</option>
                 <option value="seo">SEO</option>
                 <option value="web">Web</option>
@@ -33,6 +37,70 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="row gy-6 mb-6">
+            <div class="col-lg-6">
+                <div class="card p-2 h-100 shadow-none border">
+                    <div class="card-body d-flex justify-content-between flex-wrap-reverse">
+                        <div class="mb-0 w-100 app-academy-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
+                            <div class="card-title">
+                                <h5 class="text-primary mb-2">El duarte</h5>
+                                <p class="text-body w-sm-80 app-academy-xl-100">
+                                    Fritanga.
+                                </p>
+                            </div>
+                            <div class="mb-0"><button class="btn btn-sm btn-primary">Ver promociones</button></div>
+                        </div>
+                        <div class="w-100 app-academy-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-4 mb-sm-0">
+                            <img class="img-fluid scaleX-n1-rtl" src="https://res.cloudinary.com/drmoodyde/image/upload/v1728884274/logo2_voerlq.webp" alt="boy illustration" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card p-2 h-100 shadow-none border">
+                    <div class="card-body d-flex justify-content-between flex-wrap-reverse">
+                        <div class="mb-0 w-100 app-academy-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
+                            <div class="card-title">
+                                <h5 class="text-primary mb-2">LibreIES</h5>
+                                <p class="text-body w-sm-80 app-academy-xl-100">
+                                    Librería
+                                </p>
+                            </div>
+                            <div class="mb-0"><button class="btn btn-sm btn-primary">Ver promociones</button></div>
+                        </div>
+                        <div class="w-100 app-academy-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-4 mb-sm-0">
+                            <img class="img-fluid scaleX-n1-rtl" src="https://res.cloudinary.com/drmoodyde/image/upload/v1728884274/logo3_yv3kyl.webp" alt="boy illustration" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row gy-6 mb-6">
+            <div class="col-lg-6">
+                <div class="card p-2 h-100 shadow-none border">
+                    <div class="card-body d-flex justify-content-between flex-wrap-reverse">
+                        <div class="mb-0 w-100 app-academy-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
+                            <div class="card-title">
+                                <h5 class="text-primary mb-2">Bar rojo</h5>
+                                <p class="text-body w-sm-80 app-academy-xl-100">
+                                    Fritanga
+                                </p>
+                            </div>
+                            <div class="mb-0"><button class="btn btn-sm btn-primary">Ver promociones</button></div>
+                        </div>
+                        <div class="w-100 app-academy-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-4 mb-sm-0">
+                            <img class="img-fluid scaleX-n1-rtl" src="https://res.cloudinary.com/drmoodyde/image/upload/v1728884273/logo1_kedikj.webp" alt="boy illustration" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
         <div class="row gy-6 mb-6">
             <div class="col-sm-6 col-lg-4">
                 <div class="card p-2 h-100 shadow-none border">

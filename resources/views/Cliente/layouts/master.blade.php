@@ -93,6 +93,13 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
 
+    @if(isset($cssFonts) && $cssFonts)
+    <!-- font -->
+    <link rel="stylesheet" href="{{ asset('Cliente/assets/fonts/fonts.css') }}">
+    <!-- Icons -->
+    <link rel="stylesheet" href="{{ asset('Cliente/assets/fonts/font-icons.css') }}">
+    @endif
+
 </head>
 
 <body class="{{ session('theme', 'light') }}">>
@@ -444,6 +451,15 @@
                             </li>
                             <!-- / Style Switcher-->
 
+                            <!-- Cart -->
+                            @if(isset($showCart) && $showCart)
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="#shoppingCart" data-bs-toggle="modal">
+                                    <i class="bx bx-cart
+                                    bx-md"></i>
+                                </a>
+                            </li>
+                            @endif
 
 
 
@@ -487,7 +503,7 @@
                                     <li>
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
-                                   
+
                                     <li>
                                         <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
                                             <i class="bx bx-power-off bx-md me-3"></i><span>Cerrar Sesión</span>
