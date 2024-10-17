@@ -100,6 +100,9 @@
     <link rel="stylesheet" href="{{ asset('Cliente/assets/fonts/font-icons.css') }}">
     @endif
 
+    <!-- manifest.json -->
+     
+    @laravelPWA
 </head>
 
 <body class="{{ session('theme', 'light') }}">>
@@ -532,7 +535,7 @@
                 <!-- / Navbar -->
 
                 <!-- Layout wrapper -->
-                <div class="layout-wrapper layout-content-navbar">
+                <div id="navbar_phone" class="layout-wrapper layout-content-navbar">
                     <div class="nav__menu" id="nav-menu">
                         <ul class="nav__list">
                             <li class="nav__item">

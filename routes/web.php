@@ -41,7 +41,7 @@ use App\Http\Controllers\Landingpage\LandingpageController;
 */
 
 //Gestion del sitio web
-Route::get('/', [LandingpageController::class,'index']) -> name('inicio');
+Route::get('/landingpage', [LandingpageController::class,'index']) -> name('inicio');
 Route::get('/landingpage_legacy', [PageController::class, 'index']);
 Route::get('/home', [PageController::class, 'home'])->name('home');
 Route::get('/acerca', [PageController::class, 'acerca'])->name('acerca');
@@ -178,7 +178,7 @@ Route::prefix('admin')->group(function () {
 
 
 // Gestión de la vista del cliente
-Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('clientes.inicio');
+Route::get('/', [ClienteController::class,'index']) -> name('clientes.inicio');
 
 Route::get('/clientes/promociones', [PromocionesClienteController::class,'promociones']) -> name('promociones');
 Route::get('/clientes/establecimiento', [EstablecimientosController::class,'establecimientos']) -> name('establecimientos');
