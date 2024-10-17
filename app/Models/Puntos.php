@@ -10,11 +10,11 @@ class Puntos extends Model
     use HasFactory;
     public function monedas()
     {
-        return $this->belongsTo('App\Models\Monedas');
+        return $this->belongsTo(Monedas::class);
     }
     public function users()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
    
 }

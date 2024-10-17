@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalles_entregas', function (Blueprint $table) {
+        Schema::create('detalle_recepcion', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('entregas_id')->references('id')->on('entregas')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('recepciones_id')->references('id')->on('recepciones')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('materiales_id')->references('id')->on('materiales')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('monedas_id')->references('id')->on('monedas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('cantidad');
+            $table->integer('cantidadlibra');
             $table->decimal('valor');
             $table->timestamps();
         });

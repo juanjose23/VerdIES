@@ -26,13 +26,12 @@ class StoreRecicladoras extends FormRequest
             'nombre' => 'required|string|max:255|unique:recicladoras,nombre',
             'direccion' => 'nullable|string',
             'telefono' => 'nullable|string|max:20',
-            'email' => 'nullable|email|unique:recicladoras,email',
+            'correo' => 'nullable|email|unique:recicladoras,email',
             'nombre_contacto' => 'nullable|string|max:255',
-            'telefono_contacto' => 'nullable|string|max:20',
-            'email_contacto' => 'nullable|email',
-            'horario' => 'nullable|string|max:255',
-            'capacidad' => 'nullable|integer',
-            'estado' => 'required|boolean',
+            'contacto_telefono' => 'nullable|string|max:20',
+            'contacto_correo' => 'nullable|email',
+          
+            'estado' => 'required|int',
         ];
     }
 }

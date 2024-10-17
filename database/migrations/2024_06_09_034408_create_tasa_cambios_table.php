@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('materiales_id')->references('id')->on('materiales')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('monedas_id')->references('id')->on('monedas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('cantidad');
+            $table->integer('cantidadlibras');
             $table->integer('estado')->default(1);
             $table->timestamps();
         });

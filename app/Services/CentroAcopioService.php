@@ -31,7 +31,7 @@ class CentroAcopioService
 
     public function ActualizarAcopio($id,Request $request)
     {
-        $acopio=$this->AcopiosModel->ObtenerAcopio($id);
+        $acopio=$this->ObtenerAcopio($id);
         $acopio->nombre = $request->nombre;
         $acopio->descripcion = $request->descripcion;
         $acopio->latitude = $request->latitude;
@@ -42,7 +42,7 @@ class CentroAcopioService
 
     public function CambiarEstado($AcopioId)
     {
-        $Acopio=$this->AcopiosModel->ObtenerAcopio($AcopioId);
+        $Acopio=$this->ObtenerAcopio($AcopioId);
           // Cambia el estado del cargo
           $Acopio->estado = $Acopio->estado == 1 ? 0 : 1;
           $Acopio->save();

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entregas', function (Blueprint $table) {
+        Schema::create('recepciones', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('acopios_id')->references('id')->on('acopios')->cascadeOnDelete()->cascadeOnUpdate();

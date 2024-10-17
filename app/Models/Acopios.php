@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Acopios extends Model
 {
     use HasFactory;
-    public function entregas()
+    public function recepciones()
     {
-        return $this->hasMany('App\Models\Entregas');
+        return $this->hasMany(Recepciones::class);
     }
     public function inventarios()
     {

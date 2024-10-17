@@ -65,6 +65,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="cantidadlibra" class="form-label text-dark">Cantidad</label>
+                                <input type="text" id="cantidadlibra" name="cantidadlibra" placeholder="Escribe tu nombre"
+                                    class="form-control @error('cantidadlibra') is-invalid @enderror" value="{{ old('cantidadlibra') }}">
+                                @error('cantidadlibra')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="estado" class="form-label text-dark">Estado *</label>
                                 <select id="estado" name="estado"
                                     class="form-select @error('estado') is-invalid @enderror">

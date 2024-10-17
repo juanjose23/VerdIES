@@ -33,17 +33,16 @@ class UpdateRecicladoras extends FormRequest
             ],
             'direccion' => 'nullable|string',
             'telefono' => 'nullable|string|max:20',
-            'email' => [
+            'correo' => [
                 'nullable',
                 'email',
                 Rule::unique('recicladoras', 'email')->ignore($recicladorasId),
             ],
             'nombre_contacto' => 'nullable|string|max:255',
-            'telefono_contacto' => 'nullable|string|max:20',
-            'email_contacto' => 'nullable|email',
-            'horario' => 'nullable|string|max:255',
-            'capacidad' => 'nullable|integer',
-            'estado' => 'required|boolean',
+            'contacto_telefono' => 'nullable|string|max:20',
+            'contacto_correo' => 'nullable|email',
+            
+            'estado' => 'required|int',
         ];
     }
 }

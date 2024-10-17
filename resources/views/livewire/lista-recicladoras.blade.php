@@ -95,7 +95,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $reciclar->id }})">
                                                         <i
-                                                            class="fas fa-{{ $reciclar->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $reciclar->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $reciclar->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

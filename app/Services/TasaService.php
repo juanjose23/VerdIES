@@ -13,10 +13,7 @@ class TasaService
     }
     public function obtenerTasasPorMaterial($materialesId)
     {
-       
-     
-        
-        return $tasas = $this->TasaModel->where('materiales_id', $materialesId)->get();
+        return $this->TasaModel->where('materiales_id', $materialesId)->get();
     }
 
     /**
@@ -31,6 +28,7 @@ class TasaService
         $tasas->materiales_id = $data['materiales'];
         $tasas->monedas_id = $data['monedas'];
         $tasas->cantidad = $data['cantidad'];
+        $tasas->cantidadlibra = $data['cantidadlibra'];
         $tasas->estado = $data['estado'];
         $tasas->save();
     }
@@ -41,33 +39,29 @@ class TasaService
      * @return void
      * @throws \Exception
      */
-    public function cambiarTasa(array $data)
+    public function cambiarTasa(array $data, $materiales)
     {
         try {
             // Buscar una tasa existente con el mismo material y moneda
             $tasaExistente = $this->TasaModel
-                ->where('materiales_id', $data['materiales_id'])
-                ->where('monedas_id', $data['monedas'])
+                ->where('materiales_id', $materiales)
+                ->where('estado', 1)
                 ->first();
 
-          
-                // Si la tasa existe, actualizar su estado
+            // Si la tasa existe, actualizar su estado
             if ($tasaExistente) {
                 $tasaExistente->estado = 0;
                 $tasaExistente->save();
             }
 
-            // Crear una nueva tasa
-            $nuevaTasa = $this->TasaModel->updateOrCreate(
-                [
-                    'materiales_id' => $data['materiales_id'],
-                    'monedas_id' => $data['monedas']
-                ],
-                [
-                    'cantidad' => $data['cantidad'],
-                    'estado' => $data['estado']
-                ]
-            );
+            // Crear una nueva tasa con los datos proporcionados
+            $nuevaTasa = $this->TasaModel->create([
+                'materiales_id' => $materiales,
+                'monedas_id' => $data['monedas'],
+                'cantidad' => $data['cantidad'],
+                'cantidadlibra' => $data['cantidadlibra'],
+                'estado' => $data['estado'],
+            ]);
 
         } catch (\Exception $e) {
             Log::error('Error al cambiar la tasa: ' . $e->getMessage());

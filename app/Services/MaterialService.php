@@ -254,4 +254,37 @@ public function obtenerMaterialesConCategoriasEnTasas()
             throw new \Exception('Material no encontrado.');
         }
     }
+    
+    public static function ObtenerCategorias()
+    {
+        $materialesEnTasas = Tasas::pluck('materiales_id')->toArray();
+
+        // Obtener las categorías con materiales filtrados que no existen en Tasas
+        $categorias = Categorias::where('estado', 1)
+            ->with([
+                'materiales' => function ($query) use ($materialesEnTasas) {
+                    $query->whereIn('id', $materialesEnTasas);
+                }
+            ])
+            ->get();
+
+
+        $resultados = [];
+
+        foreach ($categorias as $categoria) {
+            $nombreCategoria = $categoria->nombre;
+
+            if ($categoria->materiales !== null && $categoria->materiales->count() > 0) {
+                foreach ($categoria->materiales as $material) {
+                    $resultados[$nombreCategoria][] = [
+                        'id' => $material->id,
+                        'nombre' => $material->nombre
+                    ];
+                }
+            }
+        }
+
+        return $resultados;
+    }
+
 }
