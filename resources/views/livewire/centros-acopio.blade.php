@@ -7,7 +7,7 @@
                 <div class="d-flex align-items-center">
                     <div class="avatar-wrapper">
                         <div class="avatar me-4">
-                            <span class="avatar-initial rounded-circle bg-label-secondary w-px-40 h-px-40"><i class="bx bx-car bx-lg"></i></span>
+                            <span class="avatar-initial rounded-circle bg-label-secondary w-px-40 h-px-40"><img src="{{ asset('Cliente/assets/img/illustrations/centros_acopios.png') }}" alt="Icon" style="max-width: 50%!important;" class="rounded-3"></span>
                         </div>
                     </div>
                     <span class="d-flex flex-column gap-1">
@@ -111,13 +111,25 @@
                 if (Helpers._hasClass("active", r)) {
                     a.flyTo({
                         center: s.features[o.properties.message - 1].geometry.coordinates,
-                        zoom: 16
+                        zoom: 18
                     });
                     e && Helpers._removeClass("marker-focus", e);
                     Helpers._addClass("marker-focus", t);
                 } else {
                     Helpers._removeClass("marker-focus", t);
                 }
+                // Actualizar el título y la información del modal
+                document.getElementById("mapModalLabel").textContent = o.properties.name;
+                document.getElementById("modal-description").innerHTML = o.properties.info;
+                document.getElementById("modal-image").src = o.properties.image;
+
+                // Crear el enlace dinámico para Google Maps con las coordenadas
+                let googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${o.geometry.coordinates[1]},${o.geometry.coordinates[0]}`;
+                document.getElementById("maps-link").href = googleMapsUrl;
+
+                // Abrir el modal de Bootstrap
+                var myModal = new bootstrap.Modal(document.getElementById('mapModal'));
+                myModal.show();
             });
         }
 
