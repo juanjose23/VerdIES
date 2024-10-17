@@ -17,7 +17,7 @@
                             @can('create', App\Models\Acopios::class)
                                 <div class="btn-group me-2 mb-2 mb-md-0">
                                     <a href="{{ route('entregas.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus me-1"></i> Registrar Entrega
+                                        <i class="bx bx-plus me-1"></i> Registrar Entrega
                                     </a>
                                 </div>
                             @endcan
@@ -87,14 +87,7 @@
                                                
                                             </div>
                                         </div>
-                                        <form id="deleteForm{{ $entrega->id }}"
-                                            action="{{ route('recicladoras.destroy', ['recicladoras' => $entrega->id]) }}"
-                                            method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button id="submitBtn{{ $entrega->id }}" type="submit"></button>
-                                        </form>
-
+                                       
                                     </td>
                                 </tr>
                             @endforeach

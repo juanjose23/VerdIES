@@ -22,11 +22,21 @@ class UpdateTasas extends FormRequest
     public function rules(): array
     {
         return [
-            //
-         
+            'materiales'=>'required|exists:materiales,id',
             'estado' => 'required|in:0,1',
-            'monedas' => 'required',
-            'cantidad' => 'required',
+            'monedas' => 'required|exists:monedas,id',
+            'cantidad' => 'required|numeric|min:0', // Asegura que sea un número mayor o igual a 0
+            'cantidadlibra' => 'required|numeric|min:0', // Asegura que cantidadlibra sea un número mayor o igual a 0
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->input('cantidadlibra') <= $this->input('cantidad')) {
+                $validator->errors()->add('cantidadlibra', 'La cantidad en libras debe ser mayor que la cantidad.');
+            }
+        });
+    }
+
 }

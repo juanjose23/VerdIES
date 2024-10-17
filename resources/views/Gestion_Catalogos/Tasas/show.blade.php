@@ -1,5 +1,5 @@
 @extends('Layouts.layouts')
-@section('title', 'Roles')
+@section('title', 'Tasas de cambio')
 
 @section('content')
     <div class="col-xl">
@@ -25,6 +25,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <input type="hidden" name="materiales" value="{{$materiales->id}}"/>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="empleado" class="form-label text-dark">Material:</label>
@@ -61,6 +62,18 @@
                                 <input type="text" id="cantidad" name="cantidad" placeholder="Escriba la cantidad"
                                     class="form-control @error('cantidad') is-invalid @enderror" value="">
                                 @error('cantidad')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cantidadlibra" class="form-label text-dark">Cantidad</label>
+                                <input type="text" id="cantidadlibra" name="cantidadlibra"
+                                    placeholder="Escribe tu nombre"
+                                    class="form-control @error('cantidadlibra') is-invalid @enderror"
+                                    value="{{ old('cantidadlibra') }}">
+                                @error('cantidadlibra')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -111,6 +124,7 @@
 
                                         <th scope="col" class="px-4 py-3">Moneda</th>
                                         <th scope="col" class="px-4 py-3">Cantidad</th>
+                                        <th scope="col" class="px-4 py-3">Cantidad libras</th>
                                         <th scope="col" class="px-4 py-3">Fecha de registro</th>
                                         <th scope="col" class="px-4 py-3">Fecha de Actualizacion</th>
                                         <th scope="col" class="px-4 py-3">Estado</th>
@@ -123,7 +137,9 @@
                                             <td>{{ $loop->index + 1 }}</td>
 
                                             <td>{{ $tasa->monedas->nombre }}</td>
-                                            <td>{{ $tasa->cantidad }}</td>
+                                            <td>{{ $tasa->cantidad == 0 ? '0' : $tasa->cantidad }}</td>
+                                            <td>{{ $tasa->cantidadlibra == 0 ? '0' : $tasa->cantidadlibra }}</td>
+                                            
                                             <td>{{ $tasa->created_at }}</td>
                                             <td>{{ $tasa->updated_at }}</td>
                                             <td><span

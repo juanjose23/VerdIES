@@ -9,15 +9,22 @@ class Tasas extends Model
 {
     use HasFactory;
     protected $table="tasa_cambios";
+    protected $fillable = [
+        'materiales_id', 
+        'monedas_id', 
+        'cantidad', 
+        'cantidadlibra', 
+        'estado',
+    ];
 
     public function materiales()
     {
-        return $this->belongsTo('App\Models\Materiales');
+        return $this->belongsTo(Materiales::class);
     }
 
     public function monedas()
     {
-        return $this->belongsTo('App\Models\Monedas');
+        return $this->belongsTo(Monedas::class);
     }
 
     public static function calcularPuntosAcumulados($materialId, $cantidadRecolectada)

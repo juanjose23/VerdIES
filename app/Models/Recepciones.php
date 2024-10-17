@@ -2,23 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-class Entregas extends Model
+
+class Recepciones extends Model
 {
-    use HasFactory;
+    //
     public function users()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
     public function acopios()
     {
-        return $this->belongsTo('App\Models\Acopios');
+        return $this->belongsTo(Acopios::class);
     }
     public function detalles()
     {
-        return $this->hasMany('App\Models\Detalles_entregas');
+        return $this->hasMany(Detalles_Recepciones::class);
     }
     public function imagenes()
     {

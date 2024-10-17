@@ -12,7 +12,7 @@ class submodulos extends Model
     use HasFactory;
     public function modulos()
     {
-        return $this->belongsTo('App\Models\modulos');
+        return $this->belongsTo(modulos::class);
     }
     public function privilegios()
     {

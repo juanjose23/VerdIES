@@ -11,10 +11,10 @@ class EntregaMaterial extends Model
     protected $table="entrega_material";
     public function users()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
     public function recicladoras()
     {
-        return $this->belongsTo('App\Models\Recicladoras');
+        return $this->belongsTo(Recicladoras::class);
     }
 }

@@ -98,7 +98,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $acopio->id }})">
                                                         <i
-                                                            class="fas fa-{{ $acopio->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $acopio->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $acopio->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan

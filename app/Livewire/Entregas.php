@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Livewire;
-
-use App\Models\Entregas as entre;
+use App\Models\Recepciones;
 use Livewire\Component;
 use Livewire\WithPagination;
 class Entregas  extends Component
@@ -14,7 +13,7 @@ class Entregas  extends Component
     public function render()
     {
          // Realizar la búsqueda en todos los atributos del modelo
-         $entregas = entre::with(['acopios','users'])
+         $entregas = Recepciones::with(['acopios','users'])
          ->where('estado',1)
          ->where(function ($query) {
             $query->where('codigo', 'like', '%' . $this->buscar . '%')

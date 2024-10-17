@@ -12,20 +12,20 @@ class Materiales extends Model
     use HasFactory;
     public function categorias()
     {
-        return $this->belongsTo('App\Models\Categorias');
+        return $this->belongsTo(Categorias::class);
     }
     public function tasas()
     {
-        return $this->hasMany('App\Models\Tasas');
+        return $this->hasMany(Tasas::class);
     }
     public function imagenes()
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
     }
 
-    public function detalles()
+    public function detallesrecepciones()
     {
-        return $this->hasMany('App\Models\Detalles_entregas');
+        return $this->hasMany(Detalles_Recepciones::class);
     }
 
     public function inventarios()
@@ -69,38 +69,6 @@ class Materiales extends Model
             ->with([
                 'materiales' => function ($query) use ($materialesEnTasas) {
                     $query->whereNotIn('id', $materialesEnTasas);
-                }
-            ])
-            ->get();
-
-
-        $resultados = [];
-
-        foreach ($categorias as $categoria) {
-            $nombreCategoria = $categoria->nombre;
-
-            if ($categoria->materiales !== null && $categoria->materiales->count() > 0) {
-                foreach ($categoria->materiales as $material) {
-                    $resultados[$nombreCategoria][] = [
-                        'id' => $material->id,
-                        'nombre' => $material->nombre
-                    ];
-                }
-            }
-        }
-
-        return $resultados;
-    }
-
-    public static function ObtenerCategorias()
-    {
-        $materialesEnTasas = Tasas::pluck('materiales_id')->toArray();
-
-        // Obtener las categorías con materiales filtrados que no existen en Tasas
-        $categorias = Categorias::where('estado', 1)
-            ->with([
-                'materiales' => function ($query) use ($materialesEnTasas) {
-                    $query->whereIn('id', $materialesEnTasas);
                 }
             ])
             ->get();

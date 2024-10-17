@@ -18,14 +18,14 @@ class Monedas extends Model
     }
     public function tasas()
     {
-        return $this->hasMany('App\Models\Tasas');
+        return $this->hasMany(Tasas::class);
     }
     public function puntos()
     {
-        return $this->hasMany('App\Models\Puntos');
+        return $this->hasMany(Puntos::class);
     }
     public function detalles()
     {
-        return $this->hasMany('App\Models\Detalles_entregas');
+        return $this->hasMany(Detalles_Recepciones::class);
     }
 }

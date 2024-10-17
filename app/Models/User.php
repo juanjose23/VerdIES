@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
     public function puntos()
     {
-        return $this->hasMany('App\Models\Puntos');
+        return $this->hasMany(Puntos::class);
     }
 
     public function session()
@@ -69,9 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\EntregaMaterial');
     }
-    public function entregas()
+    public function recepciones()
     {
-        return $this->hasMany('App\Models\Entregas');
+        return $this->hasMany(Recepciones::class);
     }
     public function transciones()
     {

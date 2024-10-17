@@ -49,7 +49,7 @@ class TasasController extends Controller
     public function store(StoreTasas $request)
     {
 
-       $this->tasaService->crearTasa($request->validated());
+      $this->tasaService->crearTasa($request->validated());
         Session::flash('success', 'Se ha registado correctamente la operación');
         return redirect()->route('tasas.index');
     }
@@ -69,24 +69,11 @@ class TasasController extends Controller
     //
     public function update(UpdateTasas $request, $materiales)
     {
-        $material = Tasas::where('materiales_id', $materiales)
-            ->where('monedas_id', $request->monedas)
-            ->first(); 
-
-        if ($material) { 
-            $material->estado = 0; 
-            $material->save(); 
-        }
-
-        $tasas = new Tasas();
-        $tasas->materiales_id = $materiales;
-        $tasas->monedas_id = $request->monedas;
-        $tasas->cantidad = $request->cantidad;
-        $tasas->estado = $request->estado;
-        $tasas->save();
+       
+        $data=$request->validated();
+        $this->tasaService->cambiarTasa($data,$materiales);
+      
         Session::flash('success', 'El proceso se ha completado exitosamente.');
-
-
         return redirect()->back();
 
     }
@@ -94,6 +81,7 @@ class TasasController extends Controller
     public function destroy($materiales)
     {
       
+        $this->tasaService->cambiarestado($materiales);
         // Redirige de vuelta a la página de índice con un mensaje flash
         Session::flash('success', 'El estado de la tasa ha sido cambiado exitosamente.');
 

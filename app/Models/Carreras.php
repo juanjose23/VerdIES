@@ -23,7 +23,7 @@ class Carreras extends Model
     }
     public static function ObtenerCarrera()
     {
-        $areas = Areas::where('estado', 1)->with('carreras')->get(); // Asegúrate de cargar las carreras
+        $areas = Universidades::where('estado', 1)->with('carreras')->get(); // Asegúrate de cargar las carreras
     
         $resultados = [];
     

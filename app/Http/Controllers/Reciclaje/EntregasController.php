@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Reciclaje;
 use App\Http\Controllers\Controller;
 use App\Models\Acopios;
 use App\Models\Detalles_entregas;
+use App\Models\Detalles_Recepciones;
 use App\Models\Entregas;
 use App\Models\Inventarios;
 use App\Models\Materiales;
 use App\Models\Puntos;
+use App\Models\Recepciones;
 use App\Models\Tasas;
 use App\Models\User;
 use App\Notifications\EntregaVerificada;
+use App\Services\CentroAcopioService;
+use App\Services\MaterialService;
+use App\Services\RecepcionMaterialesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -19,8 +24,14 @@ use Illuminate\Support\Facades\Session;
 class EntregasController extends Controller
 {
     //
-    public function __construct()
+    protected $materialService;
+    protected $centroAcopioService;
+    protected $recepcionMaterialesService;
+    public function __construct(MaterialService $materialService, CentroAcopioService $centroAcopioService,RecepcionMaterialesService $recepcionMaterialesService)
     {
+        $this->materialService = $materialService;
+        $this->centroAcopioService = $centroAcopioService;
+        $this->recepcionMaterialesService =$recepcionMaterialesService;
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
         $this->middleware('can:create,App\Models\Acopios')->only(['create', 'store']);
         $this->middleware('can:update,App\Models\Acopios')->only(['edit', 'update']);
@@ -44,10 +55,9 @@ class EntregasController extends Controller
     public function create()
     {
         //
-        $materiale = new Materiales();
-        $materiales = $materiale->ObtenerCategorias();
+        $materiales = $this->materialService->ObtenerCategorias();
         $usuarios = User::where('estado', 1)->get();
-        $acopios = Acopios::where('estado', 1)->get();
+        $acopios = $this->centroAcopioService->ObtenerAcopioActivos();
         return view('Gestion_Reciclaje.Entregas.create', compact('materiales', 'usuarios', 'acopios'));
     }
 
@@ -56,69 +66,30 @@ class EntregasController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $entregas = new Entregas();
-        $codigo = $entregas->generarCodigoUnico();
-        $entregas->users_id = $request->user;
-        $entregas->acopios_id = $request->acopios;
-        $entregas->codigo = $codigo;
-        $entregas->nota = "";
-        $entregas->estado = 2;
-        $entregas->save();
-        $materialesData = json_decode($request->materialesData);
+        // Validar los datos entrantes
+        $validatedData = $request->validate([
+            'acopios' => 'required|exists:acopios,id', 
+            'user' => 'required|exists:users,id', 
+            'materialesData' => 'required',
+           
+        ]);
 
-        // Verificar si la decodificación fue exitosa
-        if ($materialesData !== null) {
-            // Iterar sobre los datos de materiales
-            foreach ($materialesData as $item) {
-                // Acceder a las propiedades de cada artículo del carrito
-                $tasa = Tasas::where('materiales_id', $item->id)->where('estado', 1)->first();
+        // Decodificar el JSON de 'materialesData'
+        $materialesData = json_decode($validatedData['materialesData'], true);
 
-                // Verificar si se encontró una tasa válida
-                if ($tasa) {
-                    // Crear un nuevo detalle de entrega
-                    $detalle = new Detalles_entregas();
-                    $detalle->entregas_id = $entregas->id;
-                    $detalle->materiales_id = $item->id;
-                    $detalle->monedas_id = $tasa->monedas_id;
-                    $detalle->cantidad = $item->cantidad;
-                    $detalle->valor = $tasa->cantidad * $item->cantidad;
-                    $detalle->save();
-                    $punto = new Puntos();
+        // Crear la entrega utilizando los datos validados
+        $entrega = $this->recepcionMaterialesService->CrearEntrega([
+            'user' => $validatedData['user'],
+            'acopios' => $validatedData['acopios'],
+            'nota' => $validatedData['nota'] ?? '', // Si es opcional
+            'estado' => 2, // Asignar un estado por defecto
+        ]);
 
-                    $punto->users_id = $request->user;
-                    $punto->monedas_id = $tasa->monedas_id;
-                    $punto->puntos = $tasa->cantidad * $item->cantidad;
-                    $punto->save();
-
-                    $inventarios = Inventarios::firstOrNew([
-                        'materiales_id' => $item->id,
-                        'acopios_id' => $request->acopios
-                    ]);
-
-                    if ($inventarios->exists) {
-                        // Si el inventario ya existe, sumar la cantidad
-                        $inventarios->cantidad += $item->cantidad;
-                    } else {
-                        // Si el inventario no existe, asignar la nueva cantidad
-                        $inventarios->cantidad = $item->cantidad;
-                    }
-
-                    $inventarios->estado = 1;
-                    $inventarios->save();
-
-                } else {
-                    // Manejar el caso donde no se encontró una tasa válida (opcional)
-                }
-            }
-        } else {
-            // Manejar el caso donde la decodificación JSON falló
-        }
-        $user = User::find($request->user);
-        $user->notify(new EntregaVerificada());
-        // inventario
-        Session::flash('success', 'Se ha registado correctamente la operación');
+        // Procesar los materiales para esa entrega
+        $this->recepcionMaterialesService->ProcesarMateriales($entrega, $materialesData);
+        Session::flash('success', 'Se ha registrado correctamente la operación');
         return redirect()->route('entregas.index');
+       
     }
 
     /**
@@ -137,9 +108,9 @@ class EntregasController extends Controller
     public function edit($entregas)
     {
         //
-        $entrega = Entregas::findOrFail($entregas);
+        $entrega = Recepciones::findOrFail($entregas);
         $entrega->load('imagenes', 'acopios', 'users');
-        $materiales = Detalles_entregas::where('entregas_id', $entregas)->get();
+        $materiales = Detalles_Recepciones::where('recepciones_id', $entregas)->get();
         return view('Gestion_Reciclaje.Entregas.edit', compact('entrega', 'materiales'));
     }
 
@@ -149,7 +120,7 @@ class EntregasController extends Controller
     public function update(Request $request, $entregas)
     {
         // Buscar la entrega correspondiente
-        $entrega = Entregas::findOrFail($entregas);
+        $entrega = Recepciones::findOrFail($entregas);
 
         // Actualizar la nota y el estado de la entrega
         $entrega->nota = $request->nota;
@@ -171,10 +142,12 @@ class EntregasController extends Controller
                     // Verificar si se encontró una tasa válida
                     if ($tasa) {
                         // Buscar o crear un nuevo detalle de entrega
-                        $detalle = Detalles_entregas::firstOrNew(['materiales_id' => $item->id, 'entregas_id' => $entrega->id]);
+                        $detalle = Detalles_Recepciones::firstOrNew(['materiales_id' => $item->id, 'recepciones_id' => $entrega->id]);
                         $detalle->monedas_id = $tasa->monedas_id;
                         $detalle->cantidad = $item->cantidad;
-                        $detalle->valor = $tasa->cantidad * $item->cantidad;
+                        $detalle->cantidadlibra =$item->cantidadlibra;
+                        $detalle->valor = $tasa->cantidad * $item->cantidad + $tasa->cantidadlibra * $item->cantidadlibra;
+
                         $detalle->save();
 
                         // Crear un nuevo registro en la tabla de puntos
@@ -229,7 +202,7 @@ class EntregasController extends Controller
     public function destroy(Request $request, $entregas)
     {
 
-        $acopio = Entregas::findOrFail($entregas);
+        $acopio = Recepciones::findOrFail($entregas);
         // Cambia el estado del cargo
         $acopio->estado = $request->estado;
         $acopio->save();
