@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('materiales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categorias_id')->references('id')->on('categorias')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('categorias_id')->references('id')->on('categoria')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('codigo')->unique();
             $table->string('nombre');
             $table->text('descripcion')->nullable();
