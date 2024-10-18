@@ -9,13 +9,21 @@ class CategoriaService
     {
         $this->CategoriaModel = $CategoriaModel;
     }
-    public function ObtenerCategoriasActivas()
+    public function obtenerCategoriasConMaterialesYTasaActivos()
     {
-        return Categorias::where('estado', 1)->get();
+        return $this->CategoriaModel::whereHas('materiales', function ($query) {
+            $query->where('estado', 1)
+                ->whereHas('tasas', function ($q) {
+                    $q->where('estado', 1);
+                });
+        })->where('estado', 1)->select('id', 'nombre', 'descripcion')
+            ->get();
     }
+
+
     public function crearCategoria($data)
     {
-        
+
         // Crear una nueva instancia del modelo Categoria
         $categoria = new $this->CategoriaModel;
         $categoria->nombre = $data['nombre'];

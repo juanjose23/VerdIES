@@ -237,6 +237,57 @@ public function obtenerMaterialesConCategoriasEnTasas()
 
     return $resultados;
 }
+/**
+ * Obtiene los materiales de una categoría específica cuyas tasas existen, y devuelve las tasas por unidad y libra.
+ *
+ * @param int $categoriaId
+ * @return array
+ */
+public function obtenerMaterialesConTasasPorCategoria($categoriaId)
+{
+    // Obtener los materiales que tienen una tasa en la tabla tasas
+    $materialesEnTasas = $this->TasasModel::pluck('materiales_id')->toArray();
+
+    // Obtener la categoría filtrada por ID con materiales en tasas
+    $categoriaConMaterialesEnTasas = $this->CategoriasModel::where('id', $categoriaId)
+        ->where('estado', 1)
+        ->whereHas('materiales', function ($query) use ($materialesEnTasas) {
+            $query->whereIn('id', $materialesEnTasas);
+        })
+        ->with(['materiales' => function ($query) use ($materialesEnTasas) {
+            $query->whereIn('id', $materialesEnTasas);
+        }])
+        ->first();
+
+    // Validar si la categoría fue encontrada
+    if (!$categoriaConMaterialesEnTasas) {
+        return [];
+    }
+
+    $resultados = [];
+
+    $nombreCategoria = $categoriaConMaterialesEnTasas->nombre;
+
+    if ($categoriaConMaterialesEnTasas->materiales && $categoriaConMaterialesEnTasas->materiales->count() > 0) {
+        foreach ($categoriaConMaterialesEnTasas->materiales as $material) {
+            // Obtener la tasa asociada al material
+            $tasa = $this->TasasModel::where('materiales_id', $material->id)
+                ->where('estado', 1)
+                ->first();
+
+            if ($tasa) {
+                $resultados[$nombreCategoria][] = [
+                    'id' => $material->id,
+                    'nombre' => $material->nombre,
+                    'tasa_por_unidad' => $tasa->cantidad, // Tasa por unidad
+                    'tasa_por_libra' => $tasa->cantidadlibra // Tasa por libra
+                ];
+            }
+        }
+    }
+
+    return $resultados;
+}
 
     /**
      * Encuentra un material por su ID e incluye sus categorías.

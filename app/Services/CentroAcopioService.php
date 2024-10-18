@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 use App\Models\Acopios;
-use Illuminate\Http\Request;    
+use Illuminate\Http\Request;
 class CentroAcopioService
 {
     protected $AcopiosModel;
@@ -15,23 +15,23 @@ class CentroAcopioService
         $Acopio = $this->AcopiosModel->newInstance();
         $Acopio->nombre = $request->nombre;
         $Acopio->descripcion = $request->descripcion;
-        $Acopio->latitude=$request->latitude;
-        $Acopio->longitude=$request->longitude;
+        $Acopio->latitude = $request->latitude;
+        $Acopio->longitude = $request->longitude;
         $Acopio->estado = $request->estado;
-        $Acopio->save(); 
+        $Acopio->save();
     }
     public function ObtenerAcopioActivos()
     {
-        return $this->AcopiosModel->where('estado',1)->get();
+        return $this->AcopiosModel->where('estado', 1)->get();
     }
     public function ObtenerAcopio($Acopio)
     {
         return $this->AcopiosModel->findOrFail($Acopio);
     }
 
-    public function ActualizarAcopio($id,Request $request)
+    public function ActualizarAcopio($id, Request $request)
     {
-        $acopio=$this->ObtenerAcopio($id);
+        $acopio = $this->ObtenerAcopio($id);
         $acopio->nombre = $request->nombre;
         $acopio->descripcion = $request->descripcion;
         $acopio->latitude = $request->latitude;
@@ -42,10 +42,14 @@ class CentroAcopioService
 
     public function CambiarEstado($AcopioId)
     {
-        $Acopio=$this->ObtenerAcopio($AcopioId);
-          // Cambia el estado del cargo
-          $Acopio->estado = $Acopio->estado == 1 ? 0 : 1;
-          $Acopio->save();
-          // Redirige de vuelta a la página de índice con un mensaje flash
+        $Acopio = $this->ObtenerAcopio($AcopioId);
+        $Acopio->estado = $Acopio->estado == 1 ? 0 : 1;
+        $Acopio->save();
+    }
+    public function CambiarEstados($AcopioId,$estado)
+    {
+        $Acopio = $this->ObtenerAcopio($AcopioId);
+        $Acopio->estado = $estado;
+        $Acopio->save();
     }
 }
