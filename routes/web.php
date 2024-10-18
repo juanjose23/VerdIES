@@ -10,6 +10,8 @@ use App\Http\Controllers\Cliente\CanjeController;
 use App\Http\Controllers\Export\UserExportController;
 use App\Http\Controllers\Facultades\AreasController;
 use App\Http\Controllers\Facultades\CarrerasController;
+use App\Http\Controllers\GithubController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\Page\PageController;
 use App\Http\Controllers\Promociones\CanjearController;
 use App\Http\Controllers\Promociones\PromocionesController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\Reciclaje\EntregasController;
 use App\Http\Controllers\Reciclaje\InventariosController;
 use App\Http\Controllers\Reciclaje\RecicladorasController;
 use App\Http\Controllers\Reciclaje\MaterialController;
+use App\Http\Controllers\TwitterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PrivilegiosController;
@@ -74,6 +77,26 @@ Route::post('/auth/password/reset', [LoginController::class, 'sendResetLinkEmail
 Route::get('/password/reset/{token}', [LoginController::class, 'showResetForm'])->name('password.reset');
 Route::post('/auth/password/reset/process', [LoginController::class, 'resetPassword'])->name('auth.password.reset.process');
 Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('validarLogin');
+
+//Inicio con Google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
+//Inicio con Twitter
+Route::controller(TwitterController::class)->group(function(){
+    Route::get('auth/twitter', 'redirectToTwitter')->name('auth.twitter');
+    Route::get('auth/twitter/callback', 'handleTwitterCallback')->name('auth.twitter.callback');
+});
+
+//Inicio con Github
+Route::controller(GithubController::class)->group(function(){
+    Route::get('auth/github', 'redirect')->name('auth.github');
+    Route::get('auth/github/callback', 'callback')->name('auth.github.callback');
+});
+
+
+
+
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/error403',[LoginController::class,'error403'])->name('error403');
 Route::get('/inicio',[PageController::class,'inicio'])->name('inicio')->middleware('auth');
