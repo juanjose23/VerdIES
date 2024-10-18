@@ -151,7 +151,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="app-calendar.html" class="menu-link">
+                        <a href="/clientes/canje" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-package"></i>
                             <div class="text-truncate" data-i18n="Canje">Canje</div>
                         </a>
@@ -550,7 +550,7 @@
                             </li>
 
                             <li class="nav__item">
-                                <a href="#skills" class="nav__link">
+                                <a href="/clientes/canje" class="nav__link">
                                     <i class='bx bx-package nav__icon'></i>
                                     <span class="nav__name">Canje</span>
                                 </a>

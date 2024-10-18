@@ -20,7 +20,7 @@ class ListaAcopios extends Component
         })->paginate($this->perPage);
         
    
-        return view('livewire.lista-acopios',compact('acopios'));
+        return view('livewire.centros-acopio',compact('acopios'));
     }
  
     
