@@ -7,23 +7,12 @@
                     <!-- Logo -->
                     <div class="col-xl-2 col-lg-2 col-md-2">
                         <div class="logo">
-                            <a href=""><img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" width="60"></a>
+                            <a href=""><img src="https://res.cloudinary.com/drmoodyde/image/upload/v1729335445/logotipo_kx1kxn.png" width="150"></a>
                         </div>
                     </div>
                     <div class="col-xl-10 col-lg-10 col-md-10">
                         <!-- Main-menu -->
                         <div class="main-menu f-right d-none d-lg-block">
-                            <nav>
-                                <ul id="navigation">
-
-                                 
-                                    <li><a href="#">Estrategias</a>
-
-                                    </li>
-                                   
-
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                     <!-- Mobile Menu -->

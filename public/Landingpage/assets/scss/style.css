@@ -6193,4 +6193,16 @@ p {
 
 .service-area .services-caption .service-icon span {
   background: #00a5a0 !important;
+}
+
+.slider-padding {
+  padding-top: 0px !important;
+}
+
+.slider-area {
+  margin-top: -100px !important;
+}
+
+.slider-area .hero__img img {
+  right: 0 !important;
 }/*# sourceMappingURL=style.css.map */

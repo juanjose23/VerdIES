@@ -9,9 +9,9 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <link href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
+    <link href="https://res.cloudinary.com/drmoodyde/image/upload/v1729335444/iso_logo_mqaych.png"
         rel="icon">
-    <link href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
+    <link href="https://res.cloudinary.com/drmoodyde/image/upload/v1729335444/iso_logo_mqaych.png"
         rel="apple-touch-icon">
     <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Landingpage/assets/scss/style.css') }}">

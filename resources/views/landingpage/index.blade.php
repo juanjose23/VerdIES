@@ -29,28 +29,29 @@
                                 gana premios y ayuda a construir un futuro más sostenible.
                             </p>
 
-                            <div class="slider-btns">
 
-                                <a data-animation="fadeInLeft" data-delay="1.0s" href=""
-                                    class="btn radius-btn">Participar Ahora</a>
-
-                                <a data-animation="fadeInRight" data-delay="1.0s" class="popup-video video-btn ani-btn"
-                                    href="https://www.youtube.com/watch?v=1aP-TXUpNoU">
-                                    <i class="fas fa-play"></i>
-                                </a>
-                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <figure class="hero__img d-none d-lg-block f-right" data-animation="fadeInRight"
                             data-delay="1s">
-                            <img src="https://res.cloudinary.com/drmoodyde/image/upload/v1729332233/home_screen_phone_twmnje.png" alt="Hero Image">
+                            <img src="https://res.cloudinary.com/drmoodyde/image/upload/v1729343113/phone_new_home_wpgtqm.png" alt="Hero Image" class="img-fluid">
                         </figure>
                     </div>
                 </div>
             </div>
         </article>
     </div>
+</section>
+
+<section class="iframe-video">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="video-area text-center">
+                    <div class="video-play">
+                    <iframe src="https://res.cloudinary.com/drmoodyde/video/upload/v1729333382/presentacion_inicial_Verdies_lpynlj.mp4" frameborder="0"></iframe>
+                    </div>
 </section>
 <!-- Slider Area End -->
 <section class="best-features-area section-padd4">

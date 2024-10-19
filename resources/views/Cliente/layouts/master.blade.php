@@ -660,35 +660,35 @@
 
 
 <script>
-    // Muestra el loader
-    function showLoader() {
-        document.getElementById('loader').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
+    // // Muestra el loader
+    // function showLoader() {
+    //     document.getElementById('loader').style.display = 'flex';
+    //     document.body.style.overflow = 'hidden';
+    // }
 
-    // Oculta el loader
-    function hideLoader() {
-        document.getElementById('loader').style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
-
-    function someFunction() {
-        showLoader();
-
-        // Espera a que todas las assets (imágenes, scripts, etc.) se carguen
-        window.onload = function() {
-            hideLoader();
-        };
-    }
-
-    someFunction();
+    // // Oculta el loader
+    // function hideLoader() {
+    //     document.getElementById('loader').style.display = 'none';
+    //     document.body.style.overflow = '';
+    // }
 
 
-    // Ejemplo de ocultar el loader cuando la página está completamente cargada
-    // window.addEventListener('load', function() {
-    //     hideLoader();
-    // });
+    // function someFunction() {
+    //     showLoader();
+
+    //     // Espera a que todas las assets (imágenes, scripts, etc.) se carguen
+    //     window.onload = function() {
+    //         hideLoader();
+    //     };
+    // }
+
+    // someFunction();
+
+
+    // // Ejemplo de ocultar el loader cuando la página está completamente cargada
+    // // window.addEventListener('load', function() {
+    // //     hideLoader();
+    // // });
 
 
     document.addEventListener("DOMContentLoaded", function() {
