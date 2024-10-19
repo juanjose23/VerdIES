@@ -35,11 +35,11 @@
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('vendor/css/pages/page-auth.css') }}" />
-
+    <link rel="stylesheet" href="{{ asset('Auth/assets/vendor/css/pages/page-auth.css') }}" />
+    <link rel="stylesheet" href="{{ asset('Auth/assets/vendor/fonts/boxicons.css') }}" />
     <!-- Helpers -->
-    <script src="{{ asset('vendor/js/helpers.js') }}"></script>
-    <script src="{{ asset('js/config.js') }}"></script>
+    <script src="{{ asset('Auth/assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('Auth/assets/js/config.js') }}"></script>
 
 </head>
 
@@ -105,6 +105,7 @@
                             </div>
                         </form>
 
+                        
                         <p class="text-center">
                             <span>¿Nuevo en nuestra plataforma?</span>
                             <a href="{{route('registro')}}">
@@ -112,6 +113,28 @@
                             </a>
                         </p>
 
+                        <div class="divider my-6">
+                            <div class="divider-text">or</div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="javascript:;"
+                                class="btn btn-sm btn-icon rounded-circle btn-text-facebook me-1_5">
+                                <i class="bx bxl-facebook-circle"></i>
+                            </a>
+
+                            <a href="{{ route('auth.twitter') }}" class="btn btn-sm btn-icon rounded-circle btn-text-twitter me-1_5">
+                                <i class="tf-icons bx bxl-twitter"></i>
+                            </a>
+
+                            <a href="{{ route('auth.github') }}" class="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
+                                <i class="bx bxl-github"></i>
+                            </a>
+
+                            <a href="{{ route('auth.google') }}"
+                                class="btn btn-sm btn-icon rounded-circle btn-text-google-plus">
+                                <i class=" bx bxl-google"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <!-- /Register -->
