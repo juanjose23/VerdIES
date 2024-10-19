@@ -39279,3 +39279,29 @@ a.bg-vimeo:hover,a.bg-vimeo:focus {
 .chatbot-icon{
     background-color: #2b2c40 !important;
 }
+
+.chatbot {
+    background: #232333 !important;
+}
+
+.chatbox .incoming p {
+    color: #fff !important;
+    background: #2b2c40 !important;
+}
+
+.chatbot .chat-input {
+    background: #2b2c40 !important;
+}
+
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar-track {
+    background: #2b2c40 !important;
+}
+
+.chatbot :where(.chatbox, textarea)::-webkit-scrollbar-thumb {
+    background: #7ed957 !important;
+}
+
+.chat-input textarea {
+    background: #2b2c40 !important;
+}
+

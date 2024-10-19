@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* Cambios LUPE */
 /* Import Google font - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 /*=============== Inicio Botón de chatbot  ===============*/
@@ -21,6 +22,7 @@
 
 .chatbot-icon i {
   font-size: 32px;
+  color: #00a5a0;
 }
 
 .chatbot-icon_in_chat {
@@ -41,6 +43,7 @@
 
 .chatbot-icon_in_chat i {
   font-size: 22px;
+  color: #00a5a0;
 }
 
 /*=============== Fin Botón de chatbot  ===============*/
@@ -111,7 +114,7 @@ body.show-chatbot .chatbot {
   position: relative;
   text-align: start;
   color: #384551;
-  background: #7ed957;
+  background: #00a5a0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -168,7 +171,7 @@ body.show-chatbot .chatbot {
   text-align: center;
   line-height: 32px;
   align-self: flex-end;
-  background: #7ed957;
+  background: #00a5a0;
   border-radius: 4px;
   margin: 0 10px 7px 0;
 }
@@ -180,7 +183,7 @@ body.show-chatbot .chatbot {
   max-width: 75%;
   color: #fff;
   font-size: 0.95rem;
-  background: #7ed957;
+  background: #00a5a0;
 }
 
 .chatbox .incoming p {
@@ -221,7 +224,7 @@ body.show-chatbot .chatbot {
 
 .chat-input span {
   align-self: flex-end;
-  color: #7ed957;
+  color: #00a5a0;
   cursor: pointer;
   height: 55px;
   display: flex;

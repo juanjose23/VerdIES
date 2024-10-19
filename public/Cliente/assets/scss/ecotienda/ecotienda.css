@@ -1,3 +1,4 @@
+/* Cambios LUPE */
 /* ---------------------------------------------------------
     * Name: Ecomus Multipurpose eCommerce HTML Template
     * Version: 1.0.6
@@ -738,12 +739,12 @@ header {
 .widget-tab-5 .nav-tab-item a.active {
   padding: 6px 20px;
   border-radius: 60px;
-  border-color: #7ed957;
-  color: #7ed957;
+  border-color: #00a5a0;
+  color: #00a5a0;
 }
 
 .widget-tab-5 .nav-tab-item a:hover {
-  color: #7ed957;
+  color: #00a5a0;
 }
 
 .flat-animate-tab {
@@ -2428,7 +2429,7 @@ header {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  background-color: #7ed957;
+  background-color: #00a5a0;
   width: 32px;
   height: 32px;
   color: var(--white);

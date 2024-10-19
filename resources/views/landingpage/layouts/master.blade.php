@@ -14,7 +14,7 @@
     <link href="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png"
         rel="apple-touch-icon">
     <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('Landingpage/assets/scss/style.css') }}">
     <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/fontawesome-all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Landingpage/assets/css/themify-icons.css') }}">
     @stack('styles')

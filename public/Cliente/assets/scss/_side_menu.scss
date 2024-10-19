@@ -29,3 +29,38 @@
 .bx-menu:before {
     display: none;
 }
+
+.title{
+    span{
+        color: $primary-color;
+    }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+
+.bg-success{
+    background-color: $primary-color !important;
+}
+
+.avatar.avatar-online:after {
+    background-color: $primary-color !important;
+}
+
+.text-primary {
+    color: $primary-color !important;
+}
+
+.form-check-input:checked {
+    background-color: $primary-color !important;
+    border-color: $primary-color !important;
+    box-shadow: 0 .125rem .25rem 0 rgba(105, 108, 255, .4);
+}
+
+.html:not([dir=rtl]) .ms-2 {
+    margin-left: 0 !important;
+}

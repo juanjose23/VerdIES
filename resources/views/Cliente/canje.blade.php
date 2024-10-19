@@ -20,7 +20,7 @@
 </style>
 
 <div class="title">
-    <h2 style="font-weight: 900;" class="mb-20">Centros de <span style="color: #6ab218;">acopio</span> </h2>
+    <h2 style="font-weight: 900;" class="mb-20">Centros de <span>acopio</span> </h2>
 </div>
 
 
