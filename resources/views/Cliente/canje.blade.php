@@ -44,7 +44,7 @@
             <div class="modal-footer">
                 <!-- Botón para abrir Google Maps con la ruta -->
                 <div class="d-grid gap-2 col-lg-6 mx-auto mt-5">
-                    <a id="maps-link" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createApp">Canjear aquí</a>
+                    <a id="opa" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createApp">Canjear aquí</a>
                     <a id="maps-link" href="#" class="btn btn-primary" target="_blank">Ver ruta en Google Maps</a>
                 </div>
 

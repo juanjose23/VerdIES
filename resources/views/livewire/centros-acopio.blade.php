@@ -97,6 +97,7 @@
 
                 // Crear el enlace dinámico para Google Maps con las coordenadas
                 let googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${o.geometry.coordinates[1]},${o.geometry.coordinates[0]}`;
+                console.log(googleMapsUrl);
                 document.getElementById("maps-link").href = googleMapsUrl;
 
                 // Abrir el modal de Bootstrap
