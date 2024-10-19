@@ -25,6 +25,9 @@ class GoogleController extends Controller
     public function handleGoogleCallback()
     {
         try {
+            if (request()->has('error')) {
+                return redirect('/')->with('error', 'Has cancelado el inicio de sesión con Google.');
+            }
             $client = new Client();
 
             // Configura los datos para el intercambio de código por token

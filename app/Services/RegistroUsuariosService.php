@@ -66,7 +66,7 @@ class RegistroUsuariosService
             case 'google':
                 $userId =$providerUser['id'];
                 $userNombre = $providerUser['given_name'];
-                $userApellido = $providerUser['family_name'];
+                $userApellido = $providerUser['family_name'] ?? '';
                 $userEmail = $providerUser['email'];
                 $userProfile = $providerUser['picture'];
         
