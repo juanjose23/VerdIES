@@ -9,7 +9,7 @@ let userMessage = null; // Variable para almacenar el mensaje del usuario
 const inputInitHeight = chatInput.scrollHeight;
 
 // URL de la API local (Flask)
-const API_URL = "http://127.0.0.1:5000/api/ecochat";
+const API_URL = "https://medinacat.pythonanywhere.com/api/ecochat";
 
 // Función para crear los elementos <li> de los mensajes
 const createChatLi = (message, className) => {

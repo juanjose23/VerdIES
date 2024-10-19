@@ -85,8 +85,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('Cliente/assets/js/config.js') }}"></script>
 
-    <!-- customCSS -->
-    <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/custom_layout.css') }}">
+
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -99,6 +98,9 @@
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/fonts/font-icons.css') }}">
     @endif
+
+    <!-- customCSS -->
+    <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/custom_layout.css') }}">
 
 </head>
 
@@ -121,7 +123,7 @@
                 <div class="app-brand demo ">
                     <a href="index.html" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1717962322/Verdies/srx3xflk0atk71jzrmdq.png" alt="" width="50">
+                            <img src="https://res.cloudinary.com/drmoodyde/image/upload/v1729335444/iso_logo_mqaych.png" alt="" width="50">
 
                         </span>
                         <span class="app-brand-text demo menu-text fw-bold ms-2 span-firstWord">Verd<span class="span-enphasisWord">IES</span></span>
@@ -468,7 +470,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{Session::get('Foto') }}"rounded="true" alt="" class="w-px-40 h-auto rounded-circle">
+                                        <img src="{{Session::get('Foto') }}" rounded="true" alt="" class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -509,7 +511,7 @@
                                             <button class="dropdown-item" type="submit"> <i class="bx bx-power-off bx-md me-3"></i>Logout</button>
                                         </form>
                                     </li>
-                                   
+
                                 </ul>
                             </li>
                             <!--/ User -->
@@ -658,35 +660,35 @@
 
 
 <script>
-    // Muestra el loader
-    function showLoader() {
-        document.getElementById('loader').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
+    // // Muestra el loader
+    // function showLoader() {
+    //     document.getElementById('loader').style.display = 'flex';
+    //     document.body.style.overflow = 'hidden';
+    // }
 
-    // Oculta el loader
-    function hideLoader() {
-        document.getElementById('loader').style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
-
-    function someFunction() {
-        showLoader();
-
-        // Espera a que todas las assets (imágenes, scripts, etc.) se carguen
-        window.onload = function() {
-            hideLoader();
-        };
-    }
-
-    someFunction();
+    // // Oculta el loader
+    // function hideLoader() {
+    //     document.getElementById('loader').style.display = 'none';
+    //     document.body.style.overflow = '';
+    // }
 
 
-    // Ejemplo de ocultar el loader cuando la página está completamente cargada
-    // window.addEventListener('load', function() {
-    //     hideLoader();
-    // });
+    // function someFunction() {
+    //     showLoader();
+
+    //     // Espera a que todas las assets (imágenes, scripts, etc.) se carguen
+    //     window.onload = function() {
+    //         hideLoader();
+    //     };
+    // }
+
+    // someFunction();
+
+
+    // // Ejemplo de ocultar el loader cuando la página está completamente cargada
+    // // window.addEventListener('load', function() {
+    // //     hideLoader();
+    // // });
 
 
     document.addEventListener("DOMContentLoaded", function() {

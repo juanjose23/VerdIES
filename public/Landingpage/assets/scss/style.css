@@ -50,7 +50,7 @@
 }
 
 .theme-bg {
-  background: rgb(0, 179, 131);
+  background: #004957;
 }
 
 .brand-bg {
@@ -71,9 +71,10 @@
 }
 
 .theme-color {
-  color: rgb(0, 179, 131);
+  color: #004957;
 }
 
+/* Cambios LUPE */
 /*------------------- Responsive --------------------------*/
 /*
 	@include transition(.4s);
@@ -81,24 +82,24 @@
 */
 .boxed-btn {
   background: #fff;
-  color: rgb(0, 179, 131) !important;
+  color: #004957 !important;
   display: inline-block;
   padding: 18px 44px;
   font-family: "Nunito", sans-serif;
   font-size: 14px;
   font-weight: 400;
   border: 0;
-  border: 1px solid rgb(0, 179, 131);
+  border: 1px solid #004957;
   letter-spacing: 3px;
   text-align: center;
-  color: rgb(0, 179, 131);
+  color: #004957;
   text-transform: uppercase;
   cursor: pointer;
 }
 .boxed-btn:hover {
-  background: rgb(0, 179, 131);
+  background: #004957;
   color: #fff !important;
-  border: 1px solid rgb(0, 179, 131);
+  border: 1px solid #004957;
 }
 .boxed-btn:focus {
   outline: none;
@@ -489,11 +490,11 @@ hr {
 .border-btn {
   background: none;
   -moz-user-select: none;
-  border: 2px solid rgb(0, 179, 131);
+  border: 2px solid #004957;
   padding: 18px 38px;
   margin: 10px;
   text-transform: capitalize;
-  color: rgb(0, 179, 131);
+  color: #004957;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
@@ -515,7 +516,7 @@ hr {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgb(0, 179, 131);
+  background: #004957;
   z-index: -1;
   transition: transform 0.5s;
   transition-timing-function: ease;
@@ -534,7 +535,7 @@ hr {
 }
 
 .send-btn {
-  background: rgb(0, 179, 131);
+  background: #004957;
   color: #fff;
   font-size: 14px;
   width: 100%;
@@ -556,7 +557,7 @@ hr {
   width: 100%;
   height: 100%;
   background: #e6373d;
-  color: rgb(0, 179, 131);
+  color: #004957;
   z-index: -1;
   transition: transform 0.5s;
   transition-timing-function: ease;
@@ -578,7 +579,7 @@ hr {
 
 /* scrollUp */
 #scrollUp {
-  background: rgb(0, 179, 131);
+  background: #004957;
   height: 50px;
   width: 50px;
   right: 31px;
@@ -1969,7 +1970,7 @@ hr {
   position: relative;
   border-style: solid;
   border-width: 3px;
-  border-top-color: rgb(0, 179, 131);
+  border-top-color: #004957;
   border-bottom-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
@@ -2416,7 +2417,7 @@ hr {
 }
 
 .theme-bg {
-  background: rgb(0, 179, 131);
+  background: #004957;
 }
 
 .brand-bg {
@@ -2437,9 +2438,10 @@ hr {
 }
 
 .theme-color {
-  color: rgb(0, 179, 131);
+  color: #004957;
 }
 
+/* Cambios LUPE */
 /* Start Blog Area css
 ============================================================================================ */
 .latest-blog-area .area-heading {
@@ -2452,7 +2454,7 @@ hr {
   transition: 0.4s;
 }
 .blog_area a:hover, .blog_area a :hover {
-  background: -webkit-linear-gradient(131deg, rgb(0, 179, 131) 0%, rgb(0, 179, 131) 99%);
+  background: -webkit-linear-gradient(131deg, #004957 0%, #004957 99%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-decoration: none;
@@ -2829,7 +2831,7 @@ hr {
   color: #ff8b23;
 }
 .blog_details a:hover {
-  color: #ff5c97;
+  color: #00a5a0;
 }
 .blog_details h2 {
   font-size: 18px;
@@ -2879,7 +2881,7 @@ hr {
   left: 10px;
   display: block;
   color: #fff;
-  background-color: rgb(0, 179, 131);
+  background-color: #004957;
   padding: 8px 15px;
   border-radius: 5px;
 }
@@ -2952,7 +2954,7 @@ hr {
   box-shadow: none;
 }
 .blog_right_sidebar .search_widget .input-group button {
-  background: rgb(0, 179, 131);
+  background: #004957;
   border-left: 0;
   border: 1px solid #f0e9ff;
   padding: 4px 15px;
@@ -3053,7 +3055,7 @@ hr {
   font-size: 13px;
 }
 .blog_right_sidebar .tag_cloud_widget ul li a:hover {
-  background: rgb(0, 179, 131);
+  background: #004957;
   color: #fff !important;
   -webkit-text-fill-color: #fff;
   text-decoration: none;
@@ -3232,7 +3234,7 @@ hr {
   display: inline-block;
 }
 .single-post-area .blog-author a:hover {
-  color: #ff5c97;
+  color: #00a5a0;
 }
 .single-post-area .blog-author p {
   margin-bottom: 0;
@@ -4917,7 +4919,7 @@ del {
 }
 
 .slicknav_menu .slicknav_icon-bar {
-  background-color: rgb(0, 179, 131) !important;
+  background-color: #004957 !important;
 }
 
 .slicknav_nav {
@@ -4934,7 +4936,7 @@ del {
 
 .slicknav_menu .slicknav_nav a:hover {
   background: transparent;
-  color: rgb(0, 179, 131);
+  color: #004957;
 }
 
 .slicknav_menu {
@@ -5613,7 +5615,7 @@ z .slider-area .hero-cap h2 {
   }
 }
 .our-customer .single-customer .what-cap h4 a:hover {
-  color: rgb(0, 179, 131);
+  color: #004957;
 }
 @media (max-width: 767px) {
   .our-customer .single-customer .what-cap p {
@@ -5994,7 +5996,7 @@ z .slider-area .hero-cap h2 {
   color: #fff;
   opacity: 0;
   visibility: hidden;
-  background: rgb(0, 179, 131);
+  background: #004957;
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .testimonial-area .h1-testimonial-active button.slick-arrow {
@@ -6068,7 +6070,7 @@ z .slider-area .hero-cap h2 {
   font-weight: 300;
 }
 .footer-area .footer-tittle ul li a:hover {
-  color: rgb(0, 179, 131);
+  color: #004957;
   padding-left: 5px;
 }
 .footer-area .footer-form {
@@ -6092,11 +6094,11 @@ z .slider-area .hero-cap h2 {
   border: 0;
   cursor: pointer;
   padding: 11px 22px;
-  background: rgb(0, 179, 131);
+  background: #004957;
   line-height: 1;
 }
 .footer-area .info.error {
-  color: rgb(0, 179, 131);
+  color: #004957;
 }
 .footer-area .footer-social a {
   width: 40px;
@@ -6133,11 +6135,11 @@ z .slider-area .hero-cap h2 {
   color: #f9218d;
 }
 .footer-area .footer-copy-right p a:hover {
-  color: rgb(0, 179, 131);
+  color: #004957;
 }
 
 .footer-social a:hover {
-  background: rgb(0, 179, 131);
+  background: #004957;
 }
 .footer-social a:hover i {
   color: #fff;
@@ -6158,7 +6160,7 @@ z .slider-area .hero-cap h2 {
   content: "";
   width: 75px;
   height: 3px;
-  background: rgb(0, 179, 131);
+  background: #004957;
   left: 0;
   top: 52%;
   transform: translateY(-50%);
@@ -6167,4 +6169,40 @@ z .slider-area .hero-cap h2 {
   color: #fff;
   font-size: 50px;
   font-weight: 700;
+}
+
+.slider-area .hero__caption span {
+  color: #000000 !important;
+}
+
+.slider-area .hero__caption h1 {
+  color: #415094 !important;
+}
+
+.btn {
+  background: #00a5a0 !important;
+}
+
+p {
+  color: #000000 !important;
+}
+
+.slider-area .hero__img img {
+  right: -200px !important;
+}
+
+.service-area .services-caption .service-icon span {
+  background: #00a5a0 !important;
+}
+
+.slider-padding {
+  padding-top: 0px !important;
+}
+
+.slider-area {
+  margin-top: -100px !important;
+}
+
+.slider-area .hero__img img {
+  right: 0 !important;
 }/*# sourceMappingURL=style.css.map */

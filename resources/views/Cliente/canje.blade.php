@@ -20,8 +20,13 @@
 </style>
 
 <div class="title">
-        <h2 style="font-weight: 900;" class="mb-20">Centros de <span style="color: #6ab218;">acopio</span> </h2>
-    </div>
+    <h2 style="font-weight: 900;" class="mb-20">Centros de <span>acopio</span> </h2>
+</div>
+
+
+
+<input type="text" value="{{Session::get('IdUser') }}" name="id_usuario" id="id_usuario">
+<input type="text" value="{{Session::get('nombre') }}" name="apellido_usuario" id="apellido_usuario">
 
 <!-- Modal de información del centro de acopio -->
 <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
@@ -342,34 +347,74 @@
 <script src="{{ asset('Cliente/assets/js/modal-two-factor-auth.js') }}"></script>
 
 <script>
-    let siguienteCamara = document.getElementById('siguiente-camara');
-
-    function onScanSuccess(decodedText, decodedResult) {
-        // handle the scanned code as you like, for example:
-        console.log(`Code matched = ${decodedText}`, decodedResult);
-    }
-
-    function onScanFailure(error) {
-        // handle scan failure, usually better to ignore and keep scanning.
-        // for example:
-        console.warn(`Code scan error = ${error}`);
-    }
-
-
-    siguienteCamara.addEventListener('click', function() {
-
-        let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", {
-                fps: 10,
-                qrbox: {
-                    width: 250,
-                    height: 250
+    $(document).ready(function() {
+        // Función para enviar los datos vía AJAX
+        function enviarDatos(id_usuario, nombre_usuario, apellido_usuario) {
+            $.ajax({
+                url: 'http://127.0.0.1:5000/inicio_sesion',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id_usuario: id_usuario,
+                    nombre_usuario: nombre_usuario,
+                    apellido_usuario: apellido_usuario
+                }),
+                success: function(response) {
+                    alert('Datos enviados y guardados en sesión: ' + response.message);
+                },
+                error: function(error) {
+                    alert('Error al enviar los datos.');
                 }
-            },
-            /* verbose= */
-            false);
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            });
+        }
 
+        // Código QR
+        let siguienteCamara = document.getElementById('siguiente-camara');
+
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(`Código escaneado: ${decodedText}`, decodedResult);
+
+            try {
+                // Parsear el JSON del código QR
+                let data = JSON.parse(decodedText);
+
+                if (data && data.success) {
+                    // Extraer los valores del objeto JSON
+                    let id_usuario = data.centroacopios.id;
+                    let nombre_usuario = data.centroacopios.nombre;
+                    let apellido_usuario = data.centroacopios.descripcion; // Aquí se usará la descripción
+
+                    // Llenar el formulario automáticamente (opcional)
+                    $('#id_usuario').val(id_usuario);
+                    $('#nombre_usuario').val(nombre_usuario);
+
+                    // Enviar los datos automáticamente vía AJAX
+                    enviarDatos(id_usuario, nombre_usuario, apellido_usuario);
+                } else {
+                    alert('El formato del código QR es incorrecto.');
+                }
+            } catch (error) {
+                console.error('Error al parsear el JSON: ', error);
+                alert('El código QR no contiene un JSON válido.');
+            }
+        }
+
+        function onScanFailure(error) {
+            console.warn(`Error al escanear el código: ${error}`);
+        }
+
+        siguienteCamara.addEventListener('click', function() {
+            let html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", {
+                    fps: 10,
+                    qrbox: {
+                        width: 250,
+                        height: 250
+                    }
+                },
+                false);
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        });
     });
 </script>
 
