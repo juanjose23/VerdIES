@@ -17,6 +17,10 @@
     .accordion-button {
         display: block !important;
     }
+
+    .img-fluid{
+        max-width: 10% !important;
+    }
 </style>
 
 <div class="title">
@@ -25,8 +29,8 @@
 
 
 
-<input type="text" value="{{Session::get('IdUser') }}" name="id_usuario" id="id_usuario">
-<input type="text" value="{{Session::get('nombre') }}" name="apellido_usuario" id="apellido_usuario">
+<input type="text" value="{{Session::get('IdUser') }}" name="id_usuario" id="id_usuario" hidden>
+<input type="text" value="{{Session::get('nombre') }}" name="apellido_usuario" id="apellido_usuario" hidden>
 
 <!-- Modal de información del centro de acopio -->
 <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
@@ -36,7 +40,7 @@
                 <h5 class="modal-title" id="mapModalLabel">Lugar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body d-flex justify-content-center">
                 <!-- Aquí aparecerán los detalles del lugar -->
                 <p id="modal-description">Descripción del lugar</p>
                 <img id="modal-image" src="" alt="Imagen del lugar" class="img-fluid">
@@ -44,7 +48,7 @@
             <div class="modal-footer">
                 <!-- Botón para abrir Google Maps con la ruta -->
                 <div class="d-grid gap-2 col-lg-6 mx-auto mt-5">
-                    <a id="maps-link" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createApp">Canjear aquí</a>
+                    <a id="" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createApp">Canjear aquí</a>
                     <a id="maps-link" href="#" class="btn btn-primary" target="_blank">Ver ruta en Google Maps</a>
                 </div>
 
@@ -347,75 +351,51 @@
 <script src="{{ asset('Cliente/assets/js/modal-two-factor-auth.js') }}"></script>
 
 <script>
-    $(document).ready(function() {
-        // Función para enviar los datos vía AJAX
-        function enviarDatos(id_usuario, nombre_usuario, apellido_usuario) {
-            $.ajax({
-                url: 'http://127.0.0.1:5000/inicio_sesion',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    id_usuario: id_usuario,
-                    nombre_usuario: nombre_usuario,
-                    apellido_usuario: apellido_usuario
-                }),
-                success: function(response) {
-                    alert('Datos enviados y guardados en sesión: ' + response.message);
-                },
-                error: function(error) {
-                    alert('Error al enviar los datos.');
-                }
-            });
-        }
+ $(document).ready(function() {
+    // Código QR
+    let siguienteCamara = document.getElementById('siguiente-camara');
 
-        // Código QR
-        let siguienteCamara = document.getElementById('siguiente-camara');
+    function onScanSuccess(decodedText, decodedResult) {
+        console.log(`Código escaneado: ${decodedText}`, decodedResult);
 
-        function onScanSuccess(decodedText, decodedResult) {
-            console.log(`Código escaneado: ${decodedText}`, decodedResult);
+        try {
+            // Parsear el JSON del código QR
+            let data = JSON.parse(decodedText);
 
-            try {
-                // Parsear el JSON del código QR
-                let data = JSON.parse(decodedText);
-
-                if (data && data.success) {
-                    // Extraer los valores del objeto JSON
-                    let id_usuario = data.centroacopios.id;
-                    let nombre_usuario = data.centroacopios.nombre;
-                    let apellido_usuario = data.centroacopios.descripcion; // Aquí se usará la descripción
-
-                    // Llenar el formulario automáticamente (opcional)
-                    $('#id_usuario').val(id_usuario);
-                    $('#nombre_usuario').val(nombre_usuario);
-
-                    // Enviar los datos automáticamente vía AJAX
-                    enviarDatos(id_usuario, nombre_usuario, apellido_usuario);
-                } else {
-                    alert('El formato del código QR es incorrecto.');
-                }
-            } catch (error) {
-                console.error('Error al parsear el JSON: ', error);
-                alert('El código QR no contiene un JSON válido.');
+            if (data && data.success) {
+                // Aquí puedes redirigir a la URL deseada
+                // Si la URL depende del QR escaneado, puedes usar los valores de 'data'
+                let urlRedireccion = `https://5473gbbc-5001.use2.devtunnels.ms/`;
+                
+                // Redirigir a la URL
+                window.location.href = urlRedireccion;
+            } else {
+                alert('El formato del código QR es incorrecto.');
             }
+        } catch (error) {
+            console.error('Error al parsear el JSON: ', error);
+            alert('El código QR no contiene un JSON válido.');
         }
+    }
 
-        function onScanFailure(error) {
-            console.warn(`Error al escanear el código: ${error}`);
-        }
+    function onScanFailure(error) {
+        console.warn(`Error al escanear el código: ${error}`);
+    }
 
-        siguienteCamara.addEventListener('click', function() {
-            let html5QrcodeScanner = new Html5QrcodeScanner(
-                "reader", {
-                    fps: 10,
-                    qrbox: {
-                        width: 250,
-                        height: 250
-                    }
-                },
-                false);
-            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-        });
+    siguienteCamara.addEventListener('click', function() {
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 250
+                }
+            },
+            false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     });
+});
+
 </script>
 
 @endsection

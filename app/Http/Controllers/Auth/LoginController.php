@@ -60,7 +60,7 @@ class LoginController extends Controller
                 ->exists();
 
 
-            $redirectRoute = $validarRol ? 'inicio' : 'home';
+            $redirectRoute = $validarRol ? 'inicio' : 'clientes.inicio';
             $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!';
 
             // Crear las sesiones

@@ -655,8 +655,8 @@
                                         ©
                                         <script>
                                             document.write(new Date().getFullYear())
-                                        </script>, made with ❤️ by <a href="https://themeselection.com"
-                                            target="_blank" class="footer-link">ThemeSelection</a>
+                                        </script>, hecho por <a href="https://themeselection.com"
+                                            target="_blank" class="footer-link">VerdIES</a>
                                     </div>
                                     <div class="d-none d-lg-inline-block">
 

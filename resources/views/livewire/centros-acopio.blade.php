@@ -1,3 +1,13 @@
+<style>
+    .modal-image{
+        .img-fluid{
+            max-width: 40% !important;
+        }
+       
+    }
+</style>
+
+
 <div class="accordion py-2 px-1" id="fleet" data-bs-toggle="sidebar" data-overlay="" data-target="#app-logistics-fleet-sidebar">
     <!-- Fleet 1 -->
     @foreach ($acopios as $acopio)
@@ -37,7 +47,7 @@
                     message: "{{ $loop->iteration }}", // Usamos $loop->iteration para el número secuencial
                     name: "{{ $acopio->nombre }}",
                     info: "<p>{{ $acopio->descripcion }}</p>",
-                    image: ""
+                    image: "{{ asset('Cliente/assets/img/illustrations/centros_acopios.png') }}"
                 },
                 geometry: {
                     type: "Point",
