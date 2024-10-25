@@ -24,9 +24,10 @@
             </div>
         </div>
         <div class="card-product-info">
+            @foreach ($producto->detallePromociones as $detalle)
             <div class="inner-info">
                 <a href="product-detail.html" class="title link fw-6">{{ wordwrap($producto->nombre , 15, "\n", true) }}</a>
-                <span class="price fw-6">$85.00</span>
+                <span class="price fw-6">{{ $detalle->cantidadmoneda }} {{ $detalle->moneda->nombre }}</span>
             </div>
             <div class="list-product-btn">
                 <a href="#quick_add" data-bs-toggle="modal" class="box-icon quick-add tf-btn-loading">
@@ -34,6 +35,7 @@
                     <span class="tooltip">Add to cart</span>
                 </a>
             </div>
+            @endforeach
         </div>
     </div>
     @endforeach

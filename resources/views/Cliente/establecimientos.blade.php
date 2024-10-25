@@ -22,16 +22,16 @@
             <div class="container">
                 <div class="flat-animate-tab">
                     <div class="flat-title flat-title-tab flex-row justify-content-between px-0 swiper" data-preview="3" data-tablet="3" data-mobile="1" data-space-lg="30" data-space-md="15" data-pagination="1" data-pagination-md="3" data-pagination-lg="3">
-                        <span class="title text-nowrap fw-6 wow fadeInUp" data-wow-delay="0s">Productos</span>
+                        <span class="title text-nowrap fw-6 wow fadeInUp" data-wow-delay="0s">{{ $usuario-> name }}</span>
                         <ul class="widget-tab-5" role="tablist">
                             <li class="nav-tab-item" role="presentation">
-                                <a href="#meat" class="active" data-bs-toggle="tab">Comidas</a>
+                                <a href="#meat" class="active" data-bs-toggle="tab">Todo</a>
                             </li>
                             <li class="nav-tab-item" role="presentation">
-                                <a href="#oils" data-bs-toggle="tab">Bebidas</a>
+                                <a href="#oils" data-bs-toggle="tab">Comidas</a>
                             </li>
                             <li class="nav-tab-item" role="presentation">
-                                <a href="#fruits" data-bs-toggle="tab">Fruits</a>
+                                <a href="#fruits" data-bs-toggle="tab">Bebidas</a>
                             </li>
                             <li class="nav-tab-item" role="presentation">
                                 <a href="#tomatoes" data-bs-toggle="tab">Tomatoes</a>
@@ -46,7 +46,7 @@
 
                             <!-- card product 1 -->
 
-                            @livewire('ProductosAliados', ['idUsuario' => $id])
+                            @livewire('ProductosAliados', ['idUsuario' => $usuario->id])
                         </div>
                     </div>
                     <div class="tab-pane" id="oils" role="tabpanel">

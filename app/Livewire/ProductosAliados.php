@@ -18,11 +18,11 @@ class ProductosAliados extends Component
     {
         $this->idUsuario = $idUsuario;
     }
-    
+
     public function render()
     {
-        // Consulta basada en el id recibido
-        $productos = Promociones::where('estado', 1)
+        $productos = Promociones::with(['detallePromociones.monedas']) // Cargar la relación de monedas dentro de detallePromociones
+            ->where('estado', 1)
             ->where('users_id', $this->idUsuario)
             ->where(function ($query) {
                 $query->where('nombre', 'like', '%' . $this->buscar . '%')

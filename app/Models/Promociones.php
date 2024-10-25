@@ -24,4 +24,8 @@ class Promociones extends Model
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
     }
+    public function detallePromociones()
+    {
+        return $this->hasMany('App\Models\DetallesPromociones', 'promociones_id');
+    }
 }
