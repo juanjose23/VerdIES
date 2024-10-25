@@ -204,6 +204,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/clientes/inicio', [ClienteController::class,'index']) -> name('clientes.inicio');
 
 Route::get('/clientes/promociones', [PromocionesClienteController::class,'promociones']) -> name('promociones');
+Route::get('/cliente/local/{id}', [PromocionesClienteController::class, 'show'])->name('cliente.show');
 Route::get('/clientes/establecimiento', [EstablecimientosController::class,'establecimientos']) -> name('establecimientos');
 
 Route::get('/clientes/residuos', [ResiduosController::class,'residuos']) -> name('residuos');

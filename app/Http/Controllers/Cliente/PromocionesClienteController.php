@@ -38,7 +38,7 @@ class PromocionesClienteController extends Controller
      */
     public function show($id)
     {
-        return view('cliente::show');
+        return view('cliente.establecimientos', compact('id'));
     }
 
     /**

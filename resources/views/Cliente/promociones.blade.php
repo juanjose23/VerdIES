@@ -37,7 +37,10 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="row gy-6 mb-6">
+        
+        <livewire:Aliado />
+        
+        <!-- <div class="row gy-6 mb-6">
             <div class="col-lg-6">
                 <div class="card p-2 h-100 shadow-none border">
                     <div class="card-body d-flex justify-content-between flex-wrap-reverse">
@@ -269,7 +272,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <nav aria-label="Page navigation" class="d-flex align-items-center justify-content-center">
             <ul class="pagination mb-0 pagination-rounded">
                 <li class="page-item first disabled">
