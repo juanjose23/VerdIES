@@ -12,13 +12,15 @@
 <!-- Page CSS -->
 <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/css/pages/app-logistics-fleet.css') }}">
 <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/bs-stepper/bs-stepper.css') }}">
+<link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
+
 
 <style>
     .accordion-button {
         display: block !important;
     }
 
-    .img-fluid{
+    .img-fluid {
         max-width: 10% !important;
     }
 </style>
@@ -28,9 +30,12 @@
 </div>
 
 
+<button type="button" class="btn btn-success" id="type-success">
+    Success
+</button>
 
 <input type="text" value="{{Session::get('IdUser') }}" name="id_usuario" id="id_usuario" hidden>
-<input type="text" value="{{Session::get('nombre') }}" name="apellido_usuario" id="apellido_usuario" hidden>
+<input type="text" value="{{Session::get('nombre') }}" name="nombre_usuario" id="nombre_usuario" hidden>
 
 <!-- Modal de información del centro de acopio -->
 <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
@@ -338,9 +343,19 @@
 <script src="{{ asset('Cliente/assets/vendor/libs/@form-validation/bootstrap5.js') }}"></script>
 <script src="{{ asset('Cliente/assets/vendor/libs/@form-validation/auto-focus.js') }}"></script>
 <script src="{{ asset('Cliente/assets/vendor/libs/bs-stepper/bs-stepper.js') }}"></script>
+<script src="{{ asset('Cliente/assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+
+
+
+
+<!-- Vendors JS -->
+
+
 
 
 <!-- Page JS -->
+<script src="{{ asset('Cliente/assets/js/extended-ui-sweetalert2.js') }}"></script>
+
 <script src="{{ asset('Cliente/assets/js/pages-pricing.js') }}"></script>
 <script src="{{ asset('Cliente/assets/js/modal-create-app.js') }}"></script>
 <script src="{{ asset('Cliente/assets/js/modal-add-new-cc.js') }}"></script>
@@ -351,51 +366,122 @@
 <script src="{{ asset('Cliente/assets/js/modal-two-factor-auth.js') }}"></script>
 
 <script>
- $(document).ready(function() {
-    // Código QR
-    let siguienteCamara = document.getElementById('siguiente-camara');
+    $(document).ready(function() {
+        // Código QR
+        let siguienteCamara = document.getElementById('siguiente-camara');
+        let html5QrcodeScanner;
 
-    function onScanSuccess(decodedText, decodedResult) {
-        console.log(`Código escaneado: ${decodedText}`, decodedResult);
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(`Código escaneado: ${decodedText}`, decodedResult);
 
-        try {
-            // Parsear el JSON del código QR
-            let data = JSON.parse(decodedText);
+            try {
+                // Parsear el JSON del código QR
+                let data = JSON.parse(decodedText);
 
-            if (data && data.success) {
-                // Aquí puedes redirigir a la URL deseada
-                // Si la URL depende del QR escaneado, puedes usar los valores de 'data'
-                let urlRedireccion = `https://5473gbbc-5001.use2.devtunnels.ms/`;
-                
-                // Redirigir a la URL
-                window.location.href = urlRedireccion;
-            } else {
-                alert('El formato del código QR es incorrecto.');
-            }
-        } catch (error) {
-            console.error('Error al parsear el JSON: ', error);
-            alert('El código QR no contiene un JSON válido.');
-        }
-    }
+                console.log('Datos del código QR:', data);
 
-    function onScanFailure(error) {
-        console.warn(`Error al escanear el código: ${error}`);
-    }
+                if (data && data.success) {
+                    // Extraer el id del centro de acopio
+                    let idCentroAcopio = data.centroacopios.id;
 
-    siguienteCamara.addEventListener('click', function() {
-        let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", {
-                fps: 10,
-                qrbox: {
-                    width: 250,
-                    height: 250
+                    // Obtener los valores de los inputs ocultos
+                    let idUsuario = $('#id_usuario').val();
+                    let nombre_usuario = $('#nombre_usuario').val();
+
+                    // Crear el JSON con los datos obtenidos
+                    let jsonFabricado = {
+                        id_centro_acopio: idCentroAcopio,
+                        id_user: idUsuario,
+                        nombre_user: nombre_usuario,
+                    };
+
+                    
+
+                    // Detener el escáner antes de hacer el POST
+                    html5QrcodeScanner.clear().then(() => {
+                        console.log("Escáner detenido");
+                    }).catch(err => {
+                        console.error("No se pudo detener el escáner", err);
+                    });
+
+                    console.log('JSON fabricado:', JSON.stringify(jsonFabricado));
+
+                    // Hacer el POST con el JSON fabricado
+                    $.ajax({
+                        url: 'https://qq37ws9m-8002.use.devtunnels.ms/inicio_sesion',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(jsonFabricado),
+                        success: function(response) {
+                            console.log('Respuesta del servidor:', response);
+
+                            // Mostrar SweetAlert2 de éxito
+                            Swal.fire({
+                                title: "Sesión iniciada correctamente",
+                                text: "Has iniciado sesión en el centro de acopio inteligente.",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Recargar la página después de cerrar el modal
+                                    location.reload();
+                                }
+                            });
+                        },
+                        error: function(error) {
+                            console.error('Error en la solicitud:', error);
+
+                            // Mostrar SweetAlert2 de error y reactivar el escáner
+                            Swal.fire({
+                                title: "Error",
+                                text: "Hubo un error al iniciar sesión. Intenta nuevamente.",
+                                icon: "error",
+                                confirmButtonText: "Reintentar"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Volver a activar el escáner
+                                    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error",
+                        text: "El formato del código QR es incorrecto.",
+                        icon: "error",
+                        confirmButtonText: "OK"
+                    });
                 }
-            },
-            false);
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-    });
-});
+            } catch (error) {
+                console.error('Error al parsear el JSON: ', error);
+                Swal.fire({
+                    title: "Error",
+                    text: "El código QR no contiene un JSON válido.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        }
 
+        function onScanFailure(error) {
+            console.warn(`Error al escanear el código: ${error}`);
+        }
+
+        siguienteCamara.addEventListener('click', function() {
+            html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", {
+                    fps: 10,
+                    qrbox: {
+                        width: 250,
+                        height: 250
+                    }
+                },
+                false);
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        });
+    });
 </script>
+
 
 @endsection
