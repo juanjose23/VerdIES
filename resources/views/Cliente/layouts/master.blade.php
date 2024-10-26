@@ -74,6 +74,8 @@
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/typeahead-js/typeahead.css') }}">
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/apex-charts/apex-charts.css') }}">
 
+
+
     <!-- Page CSS -->
 
 
@@ -463,6 +465,12 @@
                             </li>
                             @endif
 
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="#paymentMethods" data-bs-toggle="modal">
+                                    <i class='bx bx-wallet'></i>
+                                </a>
+                            </li>
+
 
 
 
@@ -613,11 +621,9 @@
 
     </div>
 
-
-
-
-    </div>
-
+    <!-- Se crea el modal para el total de monedas que tiene el usuario -->
+    <livewire:TotalMonedasUser />
+    
 
 
 
@@ -640,6 +646,11 @@
 
     <!-- Vendors JS -->
     <script src="{{ asset('Cliente/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('Cliente/assets/vendor/libs/toastr/toastr.js') }}"></script>
+
+
+
+
 
     <!-- Main JS -->
     <script src="{{ asset('Cliente/assets/js/main.js') }}"></script>

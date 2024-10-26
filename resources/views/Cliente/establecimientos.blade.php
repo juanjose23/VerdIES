@@ -11,7 +11,8 @@
 
 <!-- Estilos tienda -->
 <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/ecotienda/ecotienda.css') }}">
-
+<link rel="stylesheet" href="{{ asset('Cliente/vendor/libs/toastr/toastr.css') }}">
+<link rel="stylesheet" href="{{ asset('Cliente/vendor/libs/animate-css/animate.css') }}">
 
 
 
@@ -1555,20 +1556,25 @@
                 </div>
                 <div class="tf-product-info-variant-picker mb_15">
                     <div class="tf-product-description">
-                        <p>Nunc arcu faucibus a et lorem eu a mauris adipiscing conubia ac aptent ligula facilisis a auctor habitant parturient a a.Interdum fermentum.</p>
+                        <p id="productDescription"></p>
                     </div>
                 </div>
                 <div class="tf-product-info-quantity mb_15">
-                    <div class="quantity-title fw-6">Quantity</div>
+                    <div class="quantity-title fw-6">Cantidad</div>
                     <div class="wg-quantity">
-                        <span class="btn-quantity minus-btn">-</span>
-                        <input type="text" name="number" value="1">
-                        <span class="btn-quantity plus-btn">+</span>
+                        <span id="minusBtn" class="btn-quantity minus-btn">-</span>
+                        <input id="quantityInput" type="text" name="number" value="1">
+                        <span id="plusBtn" class="btn-quantity plus-btn">+</span>
+                    </div>
+                </div>
+                <div class="tf-product-info-variant-picker mb_15">
+                    <div class="tf-product-description">
+                        <p id="yourExactlyCoin">Tu cantidad de VerdCoins: 80 </p>
                     </div>
                 </div>
                 <div class="tf-product-info-buy-button">
                     <form class="">
-                        <a href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price">$18.00</span></a>
+                        <a href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Añadir al carrito -&nbsp;</span><span class="tf-qty-price">$18.00</span></a>
                     </form>
                 </div>
             </div>
@@ -1672,7 +1678,7 @@
                             </div>
                         </div>
                         <div class="tf-product-info-quantity">
-                            <div class="quantity-title fw-6">Quantity</div>
+                            <div class="quantity-title fw-6">Cantidad</div>
                             <div class="wg-quantity">
                                 <span class="btn-quantity minus-btn">-</span>
                                 <input type="text" name="number" value="1">
@@ -1681,7 +1687,7 @@
                         </div>
                         <div class="tf-product-info-buy-button">
                             <form class="">
-                                <a href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price">$8.00</span></a>
+                                <a href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Añadir al carrito -&nbsp;</span><span class="tf-qty-price">$8.00</span></a>
                                 <a href="javascript:void(0);" class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action">
                                     <span class="icon icon-heart"></span>
                                     <span class="tooltip">Add to Wishlist</span>
@@ -1796,6 +1802,12 @@
     </div>
 </div>
 <!-- /modal find_size -->
+<div class="col-md-3">
+    <label class="form-label" for="showToastPlacement">&nbsp;</label>
+    <button id="showToastButton" class="btn btn-danger">Mostrar Toast</button>
+</div>
+
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>
 
@@ -1815,4 +1827,30 @@
 <script type="text/javascript" src="js/wow.min.js"></script>
 <script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/multiple-modal.js') }}"></script>
 <script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/main.js') }}"></script>
+<script src="{{ asset('Cliente/assets/js/ui-toasts.js') }}"></script>
+
+<script>
+        $(function () {
+            // Configuración del toast
+            toastr.options = {
+                closeButton: true, // Habilita el botón de cierre
+                progressBar: true, // Barra de progreso (opcional)
+                positionClass: "toast-top-right", // Ubicación en la pantalla
+                timeOut: 5000, // Duración en milisegundos
+                extendedTimeOut: 2000, // Tiempo extendido cuando el mouse está sobre el toast
+                showEasing: "swing", // Animación de entrada
+                hideEasing: "linear", // Animación de salida
+                showMethod: "fadeIn", // Método de aparición
+                hideMethod: "fadeOut" // Método de desaparición
+            };
+
+            // Evento de clic en el botón
+            $("#showToastButton").on("click", function () {
+                // Mostrar el toast
+                toastr.error("No cuenta con monedas suficientes para poder comprar este producto", "Fondos insuficientes");
+            });
+        });
+    </script>
+
+    
 @endsection
