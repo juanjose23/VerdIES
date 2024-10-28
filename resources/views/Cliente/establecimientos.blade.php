@@ -11,8 +11,8 @@
 
 <!-- Estilos tienda -->
 <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/ecotienda/ecotienda.css') }}">
-<link rel="stylesheet" href="{{ asset('Cliente/vendor/libs/toastr/toastr.css') }}">
-<link rel="stylesheet" href="{{ asset('Cliente/vendor/libs/animate-css/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/toastr/toastr.css') }}">
+<link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/animate-css/animate.css') }}">
 
 
 
@@ -1293,15 +1293,7 @@
 <!-- / Content -->
 
 
-<div class="toolbar-item">
-    <a href="#shoppingCart" data-bs-toggle="modal">
-        <div class="toolbar-icon">
-            <i class="icon-bag"></i>
-            <div class="toolbar-count">1</div>
-        </div>
-        <div class="toolbar-label">Cart</div>
-    </a>
-</div>
+
 
 
 <!-- shoppingCart -->
@@ -1473,7 +1465,7 @@
                 </div>
                 <div class="tf-product-info-quantity mb_15">
                     <div class="quantity-title fw-6">Cantidad disponible</div>
-                    <p  id="quantityAvailable"></p>
+                    <p id="quantityAvailable"></p>
                 </div>
                 <div class="tf-product-info-variant-picker mb_15">
                     <div class="tf-product-description">
@@ -1710,12 +1702,31 @@
     </div>
 </div>
 <!-- /modal find_size -->
-<div class="col-md-3">
-    <label class="form-label" for="showToastPlacement">&nbsp;</label>
-    <button id="showToastButton" class="btn btn-danger">Mostrar Toast</button>
+
+
+<!-- Modal de advertencia -->
+<div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exitModalLabel">Advertencia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Solamente se pueden tener en el carrito compras productos de un negocio por sesión. ¿Estás seguro de que deseas salir y limpiar el carrito?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mantenerse en la página</button>
+                <button type="button" id="confirmExit" class="btn btn-danger">Salir y limpiar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+
+
+<script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/validator-localstorage-before-request.js') }}"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>
 
@@ -1737,28 +1748,6 @@
 <script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/main.js') }}"></script>
 <script src="{{ asset('Cliente/assets/js/ui-toasts.js') }}"></script>
 
-<script>
-        $(function () {
-            // Configuración del toast
-            toastr.options = {
-                closeButton: true, // Habilita el botón de cierre
-                progressBar: true, // Barra de progreso (opcional)
-                positionClass: "toast-top-right", // Ubicación en la pantalla
-                timeOut: 5000, // Duración en milisegundos
-                extendedTimeOut: 2000, // Tiempo extendido cuando el mouse está sobre el toast
-                showEasing: "swing", // Animación de entrada
-                hideEasing: "linear", // Animación de salida
-                showMethod: "fadeIn", // Método de aparición
-                hideMethod: "fadeOut" // Método de desaparición
-            };
 
-            // Evento de clic en el botón
-            $("#showToastButton").on("click", function () {
-                // Mostrar el toast
-                toastr.error("No cuenta con monedas suficientes para poder comprar este producto", "Fondos insuficientes");
-            });
-        });
-    </script>
 
-    
 @endsection

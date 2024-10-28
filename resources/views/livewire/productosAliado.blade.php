@@ -42,7 +42,35 @@
     @endforeach
 </div>
 <script>
+    $(function() {
+        // Configuración del toast
+        toastr.options = {
+            maxOpened: 1, // Solo permite un toast visible a la vez
+            autoDismiss: true,
+            preventDuplicates: true, // Evita duplicados// Previene toasts duplicados
+            closeButton: true, // Habilita el botón de cierre
+            progressBar: true, // Barra de progreso (opcional)
+            positionClass: "toast-top-right", // Ubicación en la pantalla
+            timeOut: 5000, // Duración en milisegundos
+            extendedTimeOut: 2000, // Tiempo extendido cuando el mouse está sobre el toast
+            showEasing: "swing", // Animación de entrada
+            hideEasing: "linear", // Animación de salida
+            showMethod: "fadeIn", // Método de aparición
+            hideMethod: "fadeOut", // Método de desaparición
+        };
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
+        // Función para actualizar el precio total, ahora fuera del evento Livewire.on
+        function actualizarPrecioTotal() {
+            const inputCantidad = document.getElementById('quantityInput');
+            const cantidad = parseInt(inputCantidad.value) || 1;
+            const puntosRequeridos = parseFloat(inputCantidad.dataset.puntosRequeridos) || 0; // Si 'puntosRequeridos' depende de otro valor, puedes pasar el valor como parámetro
+            const precioTotal = puntosRequeridos * cantidad;
+            actualizarSpanPrecio(precioTotal);
+            console.log(`Precio total actualizado: $${precioTotal.toFixed(2)} para cantidad: ${cantidad}`);
+        }
+
         // Escucha el evento 'mostrarModalQuickAdd' de Livewire
         Livewire.on('mostrarModalQuickAdd', function(producto) {
             console.log("Producto recibido:", producto);
@@ -55,6 +83,7 @@
             const monedaId = productoData.moneda.id;
             const productoId = productoData.id;
             const inputCantidad = document.getElementById('quantityInput');
+            inputCantidad.dataset.puntosRequeridos = puntosRequeridos; // Asigna puntosRequeridos para usar en actualizarPrecioTotal
             const btnAgregarCarrito = document.getElementById('addToCart');
             const plusBtn = document.getElementById('plusBtn');
             const minusBtn = document.getElementById('minusBtn');
@@ -94,15 +123,15 @@
 
             // Actualiza el contenido del modal
             actualizarContenidoModal(productoData, cantidadDisponible, puntosRequeridos, puntosDisponibles);
-
             // Muestra el modal
             var myModal = new bootstrap.Modal(document.getElementById('quick_add'), {
                 keyboard: false
             });
             myModal.show();
 
-            // Actualiza el precio total
+            // Llama a actualizarPrecioTotal
             actualizarPrecioTotal();
+
 
             // Resetea el modal al cerrarlo
             document.getElementById('quick_add').addEventListener('hide.bs.modal', function() {
@@ -130,7 +159,7 @@
         function actualizarSpanPrecio(precioTotal) {
             const spanPrecio = document.getElementById('spanPriceCart');
             if (spanPrecio) {
-                spanPrecio.textContent = `$${precioTotal.toFixed(2)}`;
+                spanPrecio.textContent = `${precioTotal.toFixed(2)}`;
             } else {
                 console.error('No se encontró el elemento con el ID spanPriceCart');
             }
@@ -156,13 +185,17 @@
                             inputCantidad.value = ++cantidad;
                             actualizarPrecioTotal();
                         } else {
-                            alert("No hay más cantidad disponible para este producto.");
+                            // Mostrar toast cuando no hay más cantidad disponible
+                            toastr.warning("No hay más cantidad disponible para este producto.", "Cantidad insuficiente");
                         }
                     } else {
-                        alert("No tienes suficientes puntos para incrementar esta cantidad.");
+                        // Mostrar toast cuando no hay suficientes puntos
+                        toastr.error("No tienes suficientes puntos para incrementar esta cantidad.", "Fondos insuficientes");
                     }
                 });
             }
+
+
 
             if (newMinusBtn) {
                 newMinusBtn.addEventListener('click', function() {
@@ -269,77 +302,77 @@
             asignarEventosCarrito();
         }
 
-         // Función para asignar eventos a los botones del carrito
-         function asignarEventosCarrito() {
-                const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-                const puntosDisponiblesObj = JSON.parse(localStorage.getItem('puntosDisponibles')) || {};
-                const cantidadDisponibleObj = JSON.parse(localStorage.getItem('cantidadDisponible')) || {};
-        
-                document.querySelectorAll('.tf-mini-cart-item').forEach((itemElement, index) => {
-                    const plusBtn = itemElement.querySelector('.plus-btn');
-                    const minusBtn = itemElement.querySelector('.minus-btn');
-                    const inputCantidad = itemElement.querySelector('input[name="number"]');
-                    const producto = carrito[index];
-                    const puntosRequeridos = producto.puntosUsados / producto.cantidad;
-                    const monedaId = producto.monedaId;
-                    const productoId = producto.id;
-                    let puntosDisponibles = puntosDisponiblesObj[monedaId];
-                    let cantidadDisponible = cantidadDisponibleObj[productoId];
-                    let cantidadDisponibleTemp = cantidadDisponibleObj[productoId] + inputCantidad.value;
-        
-                    if (plusBtn) {
-                        plusBtn.addEventListener('click', function () {
-                            let cantidad = parseInt(inputCantidad.value) || 1;
-                            const puntosNecesarios = puntosRequeridos;
-                            console.log("Intentando incrementar. Puntos necesarios:", puntosNecesarios);
-                            alert("Puntos necesarios: " + puntosNecesarios + "Puntos disponibles: " + puntosDisponibles + "cantidad disponible: " + cantidadDisponible + "cantidad: " + cantidad);
-                        
-        
-                            if (puntosDisponibles >= puntosNecesarios) {
-                                console.log("Puntos suficientes para incrementar la cantidad.");
-                                if (cantidad < cantidadDisponibleTemp) {
-                                    inputCantidad.value = ++cantidad;
-                                    producto.cantidad = cantidad;
-                                    producto.puntosUsados = cantidad * puntosRequeridos;
-                                    puntosDisponibles -= puntosRequeridos;
-                                    cantidadDisponible -= 1;
-                                    puntosDisponiblesObj[monedaId] = puntosDisponibles;
-                                    cantidadDisponibleObj[productoId] = cantidadDisponible;
-                                    localStorage.setItem('carrito', JSON.stringify(carrito));
-                                    localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
-                                    localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
-                                    actualizarCarrito();
-                                } else {
-                                    alert("No hay más cantidad disponible para este producto.");
-                                }
-                            } else {
-                                alert("No tienes suficientes puntos para incrementar esta cantidad.");
-                            }
-                        });
-                    }
-        
-                    if (minusBtn) {
-                        minusBtn.addEventListener('click', function () {
-                            let cantidad = parseInt(inputCantidad.value) || 1;
-                            if (cantidad > 1) {
-                                inputCantidad.value = --cantidad;
+        // Función para asignar eventos a los botones del carrito
+        function asignarEventosCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const puntosDisponiblesObj = JSON.parse(localStorage.getItem('puntosDisponibles')) || {};
+            const cantidadDisponibleObj = JSON.parse(localStorage.getItem('cantidadDisponible')) || {};
+
+            document.querySelectorAll('.tf-mini-cart-item').forEach((itemElement, index) => {
+                const plusBtn = itemElement.querySelector('.plus-btn');
+                const minusBtn = itemElement.querySelector('.minus-btn');
+                const inputCantidad = itemElement.querySelector('input[name="number"]');
+                const producto = carrito[index];
+                const puntosRequeridos = producto.puntosUsados / producto.cantidad;
+                const monedaId = producto.monedaId;
+                const productoId = producto.id;
+                let puntosDisponibles = puntosDisponiblesObj[monedaId];
+                let cantidadDisponible = cantidadDisponibleObj[productoId];
+                let cantidadDisponibleTemp = cantidadDisponibleObj[productoId] + inputCantidad.value;
+
+                if (plusBtn) {
+                    plusBtn.addEventListener('click', function() {
+                        let cantidad = parseInt(inputCantidad.value) || 1;
+                        const puntosNecesarios = puntosRequeridos;
+                        console.log("Intentando incrementar. Puntos necesarios:", puntosNecesarios);
+                        alert("Puntos necesarios: " + puntosNecesarios + "Puntos disponibles: " + puntosDisponibles + "cantidad disponible: " + cantidadDisponible + "cantidad: " + cantidad);
+
+
+                        if (puntosDisponibles >= puntosNecesarios) {
+                            console.log("Puntos suficientes para incrementar la cantidad.");
+                            if (cantidad < cantidadDisponibleTemp) {
+                                inputCantidad.value = ++cantidad;
                                 producto.cantidad = cantidad;
                                 producto.puntosUsados = cantidad * puntosRequeridos;
-                                puntosDisponibles += puntosRequeridos;
-                                cantidadDisponible += 1;
+                                puntosDisponibles -= puntosRequeridos;
+                                cantidadDisponible -= 1;
                                 puntosDisponiblesObj[monedaId] = puntosDisponibles;
                                 cantidadDisponibleObj[productoId] = cantidadDisponible;
                                 localStorage.setItem('carrito', JSON.stringify(carrito));
                                 localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
                                 localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
                                 actualizarCarrito();
+                            } else {
+                                alert("No hay más cantidad disponible para este producto.");
                             }
-                        });
-                    }
-                });
-            }
-        
-            // Llama a la función al cargar la página para actualizar el carrito con los datos almacenados
-            actualizarCarrito();
-        });
+                        } else {
+                            alert("No tienes suficientes puntos para incrementar esta cantidad.");
+                        }
+                    });
+                }
+
+                if (minusBtn) {
+                    minusBtn.addEventListener('click', function() {
+                        let cantidad = parseInt(inputCantidad.value) || 1;
+                        if (cantidad > 1) {
+                            inputCantidad.value = --cantidad;
+                            producto.cantidad = cantidad;
+                            producto.puntosUsados = cantidad * puntosRequeridos;
+                            puntosDisponibles += puntosRequeridos;
+                            cantidadDisponible += 1;
+                            puntosDisponiblesObj[monedaId] = puntosDisponibles;
+                            cantidadDisponibleObj[productoId] = cantidadDisponible;
+                            localStorage.setItem('carrito', JSON.stringify(carrito));
+                            localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
+                            localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
+                            actualizarCarrito();
+                        }
+                    });
+                }
+            });
+        }
+
+        // Llama a la función al cargar la página para actualizar el carrito con los datos almacenados
+        actualizarCarrito();
+    });
 </script>
