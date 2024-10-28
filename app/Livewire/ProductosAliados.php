@@ -26,7 +26,7 @@ class ProductosAliados extends Component
 
     public function render()
     {
-        $productos = Promociones::with(['detallePromociones.monedas'])
+        $productos = Promociones::with(['detallePromociones.monedas', 'imagenes']) // Agrega 'imagenes' para cargar la relación
             ->where('estado', 1)
             ->where('users_id', $this->idUsuario)
             ->where(function ($query) {
@@ -39,6 +39,7 @@ class ProductosAliados extends Component
         return view('livewire.productosAliado', compact('productos'));
     }
 
+
     public function abrirModalQuickAdd($productoId)
     {
         // Cambiar a `dispatch` en lugar de `emit` y asegurar el nombre del evento
@@ -49,7 +50,7 @@ class ProductosAliados extends Component
     public function cargarProducto(int $productoId)
     {
         // Cargar el producto seleccionado
-        $producto = Promociones::with('detallePromociones.monedas')->find($productoId);
+        $producto = Promociones::with('detallePromociones.monedas', 'imagenes')->find($productoId);
 
         // Obtener la moneda del usuario con respecto al id del detalle de la promoción
         $userId = Auth::id();
