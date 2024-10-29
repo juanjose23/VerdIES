@@ -431,7 +431,7 @@
 
 
                             <!-- Style Switcher -->
-                            <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                            <!-- <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <i class='bx bx-md'></i>
                                 </a>
@@ -452,7 +452,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <!-- / Style Switcher-->
 
                             <!-- Cart -->
@@ -503,6 +503,11 @@
                                     <li>
                                         <a class="dropdown-item" href="pages-profile-user.html">
                                             <i class="bx bx-user bx-md me-3"></i><span>Mi cuenta</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="theme-toggle" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                            <i id="theme-icon" class="bx bx-sun bx-md"></i><span id="theme-text" class="ms-2">Modo Claro</span>
                                         </a>
                                     </li>
                                     <li>
@@ -623,7 +628,7 @@
 
     <!-- Se crea el modal para el total de monedas que tiene el usuario -->
     <livewire:TotalMonedasUser />
-    
+
 
 
 
@@ -742,4 +747,9 @@
             }
         });
     });
+</script>
+
+
+<script>
+
 </script>
