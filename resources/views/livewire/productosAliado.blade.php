@@ -143,12 +143,12 @@
         // Función para validar la disponibilidad de cantidad y puntos
         function validarDisponibilidad(cantidadDisponible, puntosDisponibles, puntosRequeridos) {
             if (cantidadDisponible < 1) {
-                alert("No hay cantidad disponible para este producto.");
+                toastr.error("No hay cantidad disponible para este producto.", "Cantidad insuficiente");
                 return false;
             }
 
             if (puntosDisponibles < puntosRequeridos) {
-                alert("No tienes suficientes puntos para canjear esta promoción.");
+                toastr.error("No tienes suficientes puntos para canjear esta promoción.", "Fondos insuficientes");
                 return false;
             }
 
@@ -235,8 +235,6 @@
                     localStorage.setItem('carrito', JSON.stringify(carrito));
                     localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
                     localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
-
-                    alert("Producto agregado al carrito. Puntos restantes: " + puntosRestantes + ". Cantidad restante: " + cantidadRestante);
 
                     actualizarCarrito();
                 });
@@ -331,7 +329,6 @@
                         let cantidad = parseInt(inputCantidad.value) || 1;
                         const puntosNecesarios = puntosRequeridos;
                         console.log("Intentando incrementar. Puntos necesarios:", puntosNecesarios);
-                        alert("Puntos necesarios: " + puntosNecesarios + "Puntos disponibles: " + puntosDisponibles + "cantidad disponible: " + cantidadDisponible + "cantidad: " + cantidad);
 
 
                         if (puntosDisponibles >= puntosNecesarios) {
@@ -349,10 +346,12 @@
                                 localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
                                 actualizarCarrito();
                             } else {
-                                alert("No hay más cantidad disponible para este producto.");
+                                
+                                toastr.warning("No hay más cantidad disponible para este producto.", "Cantidad insuficiente");
                             }
                         } else {
-                            alert("No tienes suficientes puntos para incrementar esta cantidad.");
+                            
+                            toastr.error("No tienes suficientes puntos para incrementar esta cantidad.", "Fondos insuficientes");
                         }
                     });
                 }

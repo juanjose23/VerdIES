@@ -1330,7 +1330,7 @@
                                         <div class="tf-mini-cart-btns">
                                             <div class="wg-quantity small">
                                                 <span class="btn-quantity minus-btn">-</span>
-                                                <input type="text" name="number" value="1">
+                                                <input type="text" name="number" value="1" disabled>
                                                 <span class="btn-quantity plus-btn">+</span>
                                             </div>
                                             <div class="tf-mini-cart-remove">Eliminar</div>
@@ -1466,7 +1466,7 @@
                     <div class="quantity-title fw-6">Cantidad</div>
                     <div class="wg-quantity">
                         <span id="minusBtn" class="btn-quantity minus-btn">-</span>
-                        <input id="quantityInput" type="text" name="number" value="1">
+                        <input id="quantityInput" type="text" name="number" value="1" disabled>
                         <span id="plusBtn" class="btn-quantity plus-btn">+</span>
                     </div>
                 </div>

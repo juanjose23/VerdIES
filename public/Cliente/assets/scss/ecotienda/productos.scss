@@ -788,7 +788,12 @@ header {
 .btn-fill {
   background-color: $primary-color;
   border: 1px solid $primary-color;
-  color: var(--white);
+  color: $color-text-hover;
+
+
+}
+.btn-fill:hover {
+  color: $color-text-hover;
 }
 
 .btn-outline {
@@ -2153,7 +2158,7 @@ header {
   font-size: 16px;
   font-weight: 600;
   line-height: 26px;
-  color: var(--main);
+  color: black;
 }
 .wg-quantity .btn-quantity {
   width: 38px;
@@ -2162,7 +2167,7 @@ header {
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  color: var(--main);
+  color: black;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
