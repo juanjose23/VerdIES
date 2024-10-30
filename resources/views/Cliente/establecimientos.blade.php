@@ -2,8 +2,6 @@
 
 @section('title', 'Establecimiento')
 
-
-
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/home/home.css') }}">
@@ -16,6 +14,8 @@
 
 
 
+
+
 <div class="card mb-6">
     <div class="card-body">
         <!-- Popular product -->
@@ -23,6 +23,13 @@
             <div class="container">
                 <div class="flat-animate-tab">
                     <div class="flat-title flat-title-tab flex-row justify-content-between px-0 swiper" data-preview="3" data-tablet="3" data-mobile="1" data-space-lg="30" data-space-md="15" data-pagination="1" data-pagination-md="3" data-pagination-lg="3">
+                        <div class="app-brand custom-demo">
+                            <a href="/clientes/promociones" class="layout-menu-toggle menu-link text-large ms-auto" onclick="event.preventDefault(); window.location.href='/clientes/promociones';">
+                                <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+                            </a>
+                            <img src="" class="img-fluid" alt="">
+
+                        </div>
                         <span class="title text-nowrap fw-6 wow fadeInUp" data-wow-delay="0s">{{ $usuario-> name }}</span>
                         <ul class="widget-tab-5" role="tablist">
                             <li class="nav-tab-item" role="presentation">
@@ -84,7 +91,7 @@
                                     <div class="list-product-btn">
                                         <a href="#quick_add" data-bs-toggle="modal" class="box-icon quick-add tf-btn-loading">
                                             <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Add to cart</span>
+                                            <span class="tooltip">Añadir al carrito</span>
                                         </a>
                                     </div>
 

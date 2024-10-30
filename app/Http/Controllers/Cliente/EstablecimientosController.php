@@ -14,7 +14,12 @@ class EstablecimientosController extends Controller
      */
     public function establecimientos()
     {
-        return view('cliente.establecimientos',  ['showCart' => true], ['cssFonts' => true]);
+        return view(
+            'cliente.establecimientos',
+            ['showCart' => true],
+            ['cssFonts' => true],
+            ['dontshownavbarphone' => true]
+        );
     }
 
     /**

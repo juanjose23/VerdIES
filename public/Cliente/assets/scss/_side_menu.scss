@@ -1,5 +1,3 @@
-
-
 .app-brand .layout-menu-toggle {
     background-color: $primary-color;
 }
@@ -12,6 +10,7 @@
     color: $primary-color;
     background-color: $rgba-primary-color !important;
 }
+
 .menu-vertical .menu-inner {
     margin-top: 25px;
 }
@@ -30,8 +29,8 @@
     display: none;
 }
 
-.title{
-    span{
+.title {
+    span {
         color: $primary-color;
     }
 }
@@ -43,7 +42,7 @@
 }
 
 
-.bg-success{
+.bg-success {
     background-color: $primary-color !important;
 }
 
@@ -63,4 +62,46 @@
 
 .html:not([dir=rtl]) .ms-2 {
     margin-left: 0 !important;
+}
+
+.layout-navbar .navbar-dropdown .badge-notifications {
+    top: 2px;
+    inset-inline-end: -8px !important;
+}
+
+a:hover {
+    color: $color-text-hover;
+}
+
+.btn-primary:hover {
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+
+.nav__link:hover {
+    color: $primary-color !important;
+
+    a:hover {
+        color: $primary-color !important;
+    }
+}
+
+.custom-demo {
+    .layout-menu-toggle {
+        position: absolute;
+        inset-inline-start: 4.2rem;
+        border-radius: 50%;
+    }
+
+}
+
+@media (max-width: 1199.98px) {
+    .custom-demo {
+        .layout-menu-toggle {
+            display: block !important;
+        }
+
+    }
+
 }

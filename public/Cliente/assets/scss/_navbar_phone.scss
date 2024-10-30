@@ -240,7 +240,7 @@ border-radius: 50%;
      }
 
      .nav__link:hover {
-         color: var(--first-color);
+         color: var(--first-color) !important;
      }
 
      /* First design, remove if you choose the minimalist design */

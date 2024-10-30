@@ -6,7 +6,7 @@
                 <img class="lazyload img-product" data-src="{{ $producto ->imagenes ->url }}" src="{{ $producto ->imagenes ->url }}" alt="image-product">
                 <img class="lazyload img-hover" data-src="images/products/vegetable2.jpg" src="images/products/vegetable2.jpg" alt="image-product">
             </a>
-            <div class="list-product-btn absolute-2">
+            <!-- <div class="list-product-btn absolute-2">
                 <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
                     <span class="icon icon-heart"></span>
                     <span class="tooltip">Add to Wishlist</span>
@@ -21,19 +21,19 @@
                     <span class="icon icon-view"></span>
                     <span class="tooltip">Quick View</span>
                 </a>
-            </div>
+            </div> -->
         </div>
         <div class="card-product-info">
             @foreach ($producto->detallePromociones as $detalle)
             <div class="inner-info">
-                <a href="product-detail.html" class="title link fw-6">{{ wordwrap($producto->nombre , 15, "\n", true) }}</a>
+                <a class="title link fw-6">{{ wordwrap($producto->nombre , 15, "\n", true) }}</a>
                 <span class="price fw-6">{{ $detalle->cantidadmoneda }} {{ $detalle->moneda->nombre }}</span>
             </div>
             <div class="list-product-btn">
                 <a href="javascript:void(0);" wire:click="cargarProducto({{ $producto->id }})"
                     class="box-icon quick-add tf-btn-loading">
                     <span class="icon icon-bag"></span>
-                    <span class="tooltip">Add to cart</span>
+                    <span class="tooltip">Añadir al carrito</span>
                 </a>
             </div>
             @endforeach
@@ -262,6 +262,12 @@
 
         // Función para actualizar el carrito en el DOM
         function actualizarCarrito() {
+            if (!localStorage.getItem('carrito')) {
+                let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'none';
+            }
+            else {
+                let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'block';
+            }
             const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             const carritoItemsContainer = document.querySelector('.tf-mini-cart-items');
             const subtotalElement = document.querySelector('.tf-totals-total-value');

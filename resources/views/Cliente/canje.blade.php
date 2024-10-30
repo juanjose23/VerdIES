@@ -30,10 +30,6 @@
 </div>
 
 
-<button type="button" class="btn btn-success" id="type-success">
-    Success
-</button>
-
 <input type="text" value="{{Session::get('IdUser') }}" name="id_usuario" id="id_usuario" hidden>
 <input type="text" value="{{Session::get('nombre') }}" name="nombre_usuario" id="nombre_usuario" hidden>
 

@@ -72,6 +72,38 @@
   margin-left: 0 !important;
 }
 
+.layout-navbar .navbar-dropdown .badge-notifications {
+  top: 2px;
+  inset-inline-end: -8px !important;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #00a5a0;
+  border-color: #00a5a0;
+}
+
+.nav__link:hover {
+  color: #00a5a0 !important;
+}
+.nav__link:hover a:hover {
+  color: #00a5a0 !important;
+}
+
+.custom-demo .layout-menu-toggle {
+  position: absolute;
+  inset-inline-start: 4.2rem;
+  border-radius: 50%;
+}
+
+@media (max-width: 1199.98px) {
+  .custom-demo .layout-menu-toggle {
+    display: block !important;
+  }
+}
 /*=============== GOOGLE FONTS ===============*/
 /*=============== VARIABLES CSS ===============*/
 :root {
@@ -294,7 +326,7 @@ border-radius: 50%;
     /* Minimalist design, visible labels */
   }
   .nav__link:hover {
-    color: var(--first-color);
+    color: var(--first-color) !important;
   }
   /* First design, remove if you choose the minimalist design */
   .active-link::before {

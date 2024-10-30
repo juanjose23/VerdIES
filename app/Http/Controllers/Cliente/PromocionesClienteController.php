@@ -44,7 +44,13 @@ class PromocionesClienteController extends Controller
         $usuario = User::select('id', 'name')->findOrFail($id);
     
         // Retorna la vista con el id y el nombre del usuario
-        return view('cliente.establecimientos', compact('usuario'), ['showCart' => true], ['cssFonts' => true]);
+        return view('cliente.establecimientos', [
+            'usuario' => $usuario,
+            'showCart' => true,
+            'ecoTiendaFonts' => true,
+            'dontshownavbarWindow' => true,
+            'dontshownavbarphone' => true
+        ]);        
     }
 
     /**
