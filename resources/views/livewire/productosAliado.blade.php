@@ -50,7 +50,7 @@
             preventDuplicates: true, // Evita duplicados// Previene toasts duplicados
             closeButton: true, // Habilita el botón de cierre
             progressBar: true, // Barra de progreso (opcional)
-            positionClass: "toast-top-right", // Ubicación en la pantalla
+            positionClass: "toast-bottom-right", // Ubicación en la pantalla
             timeOut: 5000, // Duración en milisegundos
             extendedTimeOut: 2000, // Tiempo extendido cuando el mouse está sobre el toast
             showEasing: "swing", // Animación de entrada
@@ -237,6 +237,14 @@
                     localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
 
                     actualizarCarrito();
+
+                    // Cierra el modal
+                    var myModalEl = document.getElementById('quick_add');
+                    var modal = bootstrap.Modal.getInstance(myModalEl);
+                    modal.hide();
+
+                    // Muestra el toast
+                    toastr.success("Producto añadido al carrito.", "Añadido al carrito");
                 });
             }
         }
@@ -260,7 +268,7 @@
 
         // Función para actualizar el carrito en el DOM
         function actualizarCarrito() {
-            if (!localStorage.getItem('carrito')) {
+            if (!localStorage.getItem('carrito') || localStorage.getItem('carrito') === '[]') {
                 let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'none';
             }
             else {
@@ -293,6 +301,7 @@
                                 </div>
                                 <div class="tf-mini-cart-remove">Eliminar</div>
                             </div>
+                            <p class="error-message" style="color: red; display: none; margin-top: 5px;"></p> <!-- Moved here -->
                         </div>`;
 
                 carritoItemsContainer.appendChild(itemElement);
@@ -315,6 +324,7 @@
             document.querySelectorAll('.tf-mini-cart-item').forEach((itemElement, index) => {
                 const plusBtn = itemElement.querySelector('.plus-btn');
                 const minusBtn = itemElement.querySelector('.minus-btn');
+                const removeBtn = itemElement.querySelector('.tf-mini-cart-remove'); // Add this line
                 const inputCantidad = itemElement.querySelector('input[name="number"]');
                 const producto = carrito[index];
                 const puntosRequeridos = producto.puntosUsados / producto.cantidad;
@@ -328,8 +338,7 @@
                     plusBtn.addEventListener('click', function() {
                         let cantidad = parseInt(inputCantidad.value) || 1;
                         const puntosNecesarios = puntosRequeridos;
-                        console.log("Intentando incrementar. Puntos necesarios:", puntosNecesarios);
-
+                        const errorMessage = itemElement.querySelector('.error-message');
 
                         if (puntosDisponibles >= puntosNecesarios) {
                             console.log("Puntos suficientes para incrementar la cantidad.");
@@ -345,13 +354,16 @@
                                 localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
                                 localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
                                 actualizarCarrito();
+                                errorMessage.style.display = 'none';
                             } else {
                                 
-                                toastr.warning("No hay más cantidad disponible para este producto.", "Cantidad insuficiente");
+                                errorMessage.textContent = "No hay más cantidad disponible para este producto.";
+                                errorMessage.style.display = 'block';
                             }
                         } else {
                             
-                            toastr.error("No tienes suficientes puntos para incrementar esta cantidad.", "Fondos insuficientes");
+                            errorMessage.textContent = "No tienes suficientes puntos para incrementar esta cantidad.";
+                            errorMessage.style.display = 'block';
                         }
                     });
                 }
@@ -359,6 +371,8 @@
                 if (minusBtn) {
                     minusBtn.addEventListener('click', function() {
                         let cantidad = parseInt(inputCantidad.value) || 1;
+                        const errorMessage = itemElement.querySelector('.error-message');
+
                         if (cantidad > 1) {
                             inputCantidad.value = --cantidad;
                             producto.cantidad = cantidad;
@@ -371,7 +385,22 @@
                             localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
                             localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
                             actualizarCarrito();
+                            errorMessage.style.display = 'none';
                         }
+                    });
+                }
+
+                if (removeBtn) { // Remueve los productos del carrito
+                    removeBtn.addEventListener('click', function() {
+                        carrito.splice(index, 1);
+                        puntosDisponibles += producto.puntosUsados;
+                        cantidadDisponible += producto.cantidad;
+                        puntosDisponiblesObj[monedaId] = puntosDisponibles;
+                        cantidadDisponibleObj[productoId] = cantidadDisponible;
+                        localStorage.setItem('carrito', JSON.stringify(carrito));
+                        localStorage.setItem('puntosDisponibles', JSON.stringify(puntosDisponiblesObj));
+                        localStorage.setItem('cantidadDisponible', JSON.stringify(cantidadDisponibleObj));
+                        actualizarCarrito();
                     });
                 }
             });
