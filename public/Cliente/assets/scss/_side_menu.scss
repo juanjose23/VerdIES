@@ -1,6 +1,10 @@
 .app-brand .layout-menu-toggle {
     background-color: $primary-color;
 }
+.app-brand .backBtn {
+    background-color: $primary-color;
+}
+
 
 .bg-menu-theme .menu-inner>.menu-item.active:before {
     background: $primary-color;
@@ -103,5 +107,61 @@ a:hover {
         }
 
     }
+
+}
+
+// BackButton
+
+
+
+html:not([dir=rtl]) .ms-auto {
+    margin-left: auto !important;
+}
+
+.app-brand .backBtn {
+    background-color: #00a5a0;
+}
+
+.app-brand .backBtn {
+    background-color: $primary-color;
+    border: 7px solid #232333;
+}
+
+
+
+.app-brand .backBtn {
+    position: absolute;
+    inset-inline-start: 3.2rem;
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+    .app-brand .backBtn {
+        top: 55px;
+    }
+    
+}
+
+
+
+.menu:not(.menu-no-animation) .menu-link>:not(.menu-icon) {
+    transition: opacity .3s ease-in-out;
+}
+
+html:not([dir=rtl]) .backBtn i {
+    transform: rotate(0deg) !important;
+}
+
+.app-brand .backBtn i {
+    color: #fff;
+}
+
+.app-brand .backBtn i {
+    width: 1.375rem;
+    height: 1.375rem;
+    transition: all .3s ease-in-out;
+    line-height: 1;
 
 }

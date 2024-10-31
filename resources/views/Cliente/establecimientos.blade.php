@@ -13,7 +13,9 @@
 <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/animate-css/animate.css') }}">
 
 
-
+<style>
+    
+</style>
 
 
 <div class="card mb-6">
@@ -24,7 +26,7 @@
                 <div class="flat-animate-tab">
                     <div class="flat-title flat-title-tab flex-row justify-content-between px-0 swiper" data-preview="3" data-tablet="3" data-mobile="1" data-space-lg="30" data-space-md="15" data-pagination="1" data-pagination-md="3" data-pagination-lg="3">
                         <div class="app-brand custom-demo">
-                            <a href="/clientes/promociones" class="layout-menu-toggle menu-link text-large ms-auto">
+                            <a href="/clientes/promociones" class="backBtn menu-link text-large ms-auto">
                                 <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
                             </a>
                             <img src="" class="img-fluid" alt="">

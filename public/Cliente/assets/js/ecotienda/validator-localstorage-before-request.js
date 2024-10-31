@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function hasCartData() {
-        return localStorage.getItem('cantidadDisponible') || localStorage.getItem('carrito') || localStorage.getItem('puntosDisponibles');
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        return carrito.length > 0;
     }
 
     document.addEventListener("click", (event) => {
