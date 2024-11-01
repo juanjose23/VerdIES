@@ -14,6 +14,10 @@
   background-color: #00a5a0;
 }
 
+.app-brand .backBtn {
+  background-color: #00a5a0;
+}
+
 .bg-menu-theme .menu-inner > .menu-item.active:before {
   background: #00a5a0;
 }
@@ -70,6 +74,83 @@
 
 .html:not([dir=rtl]) .ms-2 {
   margin-left: 0 !important;
+}
+
+.layout-navbar .navbar-dropdown .badge-notifications {
+  top: 2px;
+  inset-inline-end: -8px !important;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #00a5a0;
+  border-color: #00a5a0;
+}
+
+.nav__link:hover {
+  color: #00a5a0 !important;
+}
+.nav__link:hover a:hover {
+  color: #00a5a0 !important;
+}
+
+.custom-demo .layout-menu-toggle {
+  position: absolute;
+  inset-inline-start: 4.2rem;
+  border-radius: 50%;
+}
+
+@media (max-width: 1199.98px) {
+  .custom-demo .layout-menu-toggle {
+    display: block !important;
+  }
+}
+html:not([dir=rtl]) .ms-auto {
+  margin-left: auto !important;
+}
+
+.app-brand .backBtn {
+  background-color: #00a5a0;
+}
+
+.app-brand .backBtn {
+  background-color: #00a5a0;
+  border: 7px solid #232333;
+}
+
+.app-brand .backBtn {
+  position: absolute;
+  inset-inline-start: 3.2rem;
+  border-radius: 50%;
+  opacity: 1;
+  z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+  .app-brand .backBtn {
+    top: 55px;
+  }
+}
+.menu:not(.menu-no-animation) .menu-link > :not(.menu-icon) {
+  transition: opacity 0.3s ease-in-out;
+}
+
+html:not([dir=rtl]) .backBtn i {
+  transform: rotate(0deg) !important;
+}
+
+.app-brand .backBtn i {
+  color: #fff;
+}
+
+.app-brand .backBtn i {
+  width: 1.375rem;
+  height: 1.375rem;
+  transition: all 0.3s ease-in-out;
+  line-height: 1;
 }
 
 /*=============== GOOGLE FONTS ===============*/
@@ -194,12 +275,11 @@ img {
     width: 100%;
     height: 4.5rem;
     padding: 0 1rem;
-    display: grid;
+    display: grid !important;
     align-content: center;
     border-radius: 1.25rem 1.25rem 0 0;
     transition: 0.4s;
     z-index: 5;
-    display: block !important;
   }
 }
 .nav__menu {
@@ -294,7 +374,7 @@ border-radius: 50%;
     /* Minimalist design, visible labels */
   }
   .nav__link:hover {
-    color: var(--first-color);
+    color: var(--first-color) !important;
   }
   /* First design, remove if you choose the minimalist design */
   .active-link::before {

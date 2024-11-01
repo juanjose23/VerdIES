@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Promociones;
+use App\Models\User;
 
 class PromocionesClienteController extends Controller
 {
@@ -38,7 +40,17 @@ class PromocionesClienteController extends Controller
      */
     public function show($id)
     {
-        return view('cliente::show');
+        // Obtén el usuario por su id y selecciona solo el nombre
+        $usuario = User::select('id', 'name')->findOrFail($id);
+    
+        // Retorna la vista con el id y el nombre del usuario
+        return view('cliente.establecimientos', [
+            'usuario' => $usuario,
+            'showCart' => true,
+            'ecoTiendaFonts' => true,
+            'dontshownavbarWindow' => true,
+            'dontshownavbarphone' => true
+        ]);        
     }
 
     /**

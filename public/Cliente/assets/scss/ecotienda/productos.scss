@@ -38,33 +38,27 @@
 /*--------- Abstracts variable ---------- */
 @import url(bootstrap-select.min.css);
 :root {
-  --main: #000000;
-  --white: #ffffff;
-  --primary: #db1215;
-  --red_1: #db1215;
-  --backdrop: rgba(0, 0, 0, 0.5);
-  --main-rgba-1: rgba(0, 0, 0, 0.16);
-  --main-rgba-2: rgba(0, 0, 0, 0.15);
-  --text: #545454;
-  --text-2:#909090;
-  --text-3:#868686;
-  --line: #ebebeb;
+
+  // --text: #545454;
+  // --text-2:#909090;
+  // --text-3:#868686;
+  // --line: #ebebeb;
   --line-2: #ececec;
-  --bg-1: #fcfbf9;
-  --bg-2: #f6f6f6;
-  --bg-3: #fcffb2;
-  --bg-4: #c9f4aa;
-  --bg-5: #ff7b54;
-  --bg-6: #8054ff;
-  --bg-7: #f1f0ed;
-  --bg-8: #f0edf1;
-  --bg-9: #edeef1;
-  --bg-10: #fcfbf9;
-  --bg-11: #f2f2f2;
-  --success: #31A56D;
-  --bg-load: #d9d9d9;
-  --bg-scrollbar-track: #f1f1f1;
-  --bg-scrollbar-thumb: #c1c1c1;
+  // --bg-1: #fcfbf9;
+  // --bg-2: #f6f6f6;
+  // --bg-3: #fcffb2;
+  // --bg-4: #c9f4aa;
+  // --bg-5: #ff7b54;
+  // --bg-6: #8054ff;
+  // --bg-7: #f1f0ed;
+  // --bg-8: #f0edf1;
+  // --bg-9: #edeef1;
+  // --bg-10: #fcfbf9;
+  // --bg-11: #f2f2f2;
+  // --success: #31A56D;
+  // --bg-load: #d9d9d9;
+  // --bg-scrollbar-track: #f1f1f1;
+  // --bg-scrollbar-thumb: #c1c1c1;
 }
 
 .color-primary-8 {
@@ -142,12 +136,10 @@ html {
 }
 
 body {
-  font-family: "Albert Sans", sans-serif;
+  font-family: "public sans", sans-serif;
   font-size: 14px;
   line-height: 22px;
   font-weight: 400;
-  color: var(--main);
-  background-color: var(--white);
 }
 
 img {
@@ -306,7 +298,7 @@ a {
   text-decoration: none;
   cursor: pointer;
   display: inline-block;
-  color: var(--main);
+  color: $primary-color;
 }
 a:focus, a:hover {
   -webkit-transition: all 0.3s ease;
@@ -316,6 +308,7 @@ a:focus, a:hover {
   transition: all 0.3s ease;
   text-decoration: none;
   outline: 0;
+  color: $primary-color;
 }
 
 label {
@@ -700,6 +693,7 @@ header {
 }
 .widget-tab-5 .nav-tab-item {
   width: 100%;
+  margin-bottom: 10px;
 }
 .widget-tab-5 .nav-tab-item a {
   display: flex;
@@ -793,9 +787,14 @@ header {
 }
 
 .btn-fill {
-  background-color: var(--main);
-  border: 1px solid var(--main);
-  color: var(--white);
+  background-color: $primary-color;
+  border: 1px solid $primary-color;
+  color: $color-text-hover;
+
+
+}
+.btn-fill:hover {
+  color: $color-text-hover;
 }
 
 .btn-outline {
@@ -1086,7 +1085,6 @@ header {
 }
 .modalDemo .modal-content {
   padding: 0 50px 40px;
-  background-color: var(--white);
   width: 100%;
   border-radius: 10px;
   margin: 0 30px;
@@ -1233,7 +1231,7 @@ header {
   align-items: center;
 }
 #quick_add .tf-product-info-item .image img {
-  width: 70px;
+  width: 98px;
   height: 98px;
 }
 #quick_add .tf-product-info-item .content {
@@ -2161,7 +2159,7 @@ header {
   font-size: 16px;
   font-weight: 600;
   line-height: 26px;
-  color: var(--main);
+  color: black;
 }
 .wg-quantity .btn-quantity {
   width: 38px;
@@ -2170,7 +2168,7 @@ header {
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  color: var(--main);
+  color: black;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -2179,7 +2177,7 @@ header {
   transition: all 0.3s ease;
 }
 .wg-quantity .btn-quantity:hover {
-  color: var(--primary);
+  color: $primary-color;
 }
 .wg-quantity.small {
   width: 109px;
@@ -2226,7 +2224,7 @@ header {
   border-radius: 10px;
   overflow: hidden;
   z-index: 20;
-  aspect-ratio: 1/1.4;
+  aspect-ratio: 1/1;
 }
 .card-product .card-product-wrapper img {
   display: block;
@@ -2316,7 +2314,7 @@ header {
   background-color: $primary-color;
   width: 32px;
   height: 32px;
-  color: var(--white);
+  color: $color-text-hover;
 }
 .card-product.style-9 .card-product-info .box-icon .tooltip {
   margin: 0;
@@ -2411,7 +2409,7 @@ header {
   background-color: var(--white);
 }
 .list-product-btn .box-icon:hover {
-  background-color: var(--main) !important;
+  background-color: $primary-color !important;
   color: var(--white);
 }
 .list-product-btn .box-icon:hover .tooltip {
@@ -2794,6 +2792,7 @@ header {
     margin: 0 !important;
   }
   #quick_view .modal-content .tf-product-info-title a {
+    color: $primary-color;
     font-size: 26px !important;
   }
 
@@ -3076,4 +3075,12 @@ header {
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
   }
+}
+
+.tab-content:not(.doc-example-content) {
+  padding: 0 !important;
+}
+
+.card-body{
+  padding: 40px 0 0 5px !important;
 }

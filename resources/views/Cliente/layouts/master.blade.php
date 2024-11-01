@@ -74,6 +74,8 @@
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/typeahead-js/typeahead.css') }}">
     <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/apex-charts/apex-charts.css') }}">
 
+
+
     <!-- Page CSS -->
 
 
@@ -92,19 +94,22 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
 
-    @if(isset($cssFonts) && $cssFonts)
-    <!-- font -->
+
+    <!-- EcoTienda fontss -->
+     @if(isset($ecoTiendaFonts) && $ecoTiendaFonts)
+         <!-- font -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/fonts/fonts.css') }}">
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/fonts/font-icons.css') }}">
     @endif
+
 
     <!-- customCSS -->
     <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/custom_layout.css') }}">
 
 </head>
 
-<body class="{{ session('theme', 'light') }}">>
+<body class="{{ session('theme', 'light') }}">
 
     @include('cliente.layouts.loader')
 
@@ -119,6 +124,41 @@
     <div class="layout-wrapper layout-content-navbar  ">
         <div class="layout-container">
             <!-- Menu -->
+            @if(isset($dontshownavbarWindow) && $dontshownavbarWindow)
+            <style>
+                #layout-menu {
+                    display: none !important;
+                }
+
+
+                @media (min-width: 1200px) {
+                    .layout-menu-fixed.layout-menu-collapsed .layout-page {
+                        padding-left: 0 !important;
+                    }
+                }
+
+                @media (min-width: 1200px) {
+
+                    .layout-menu-fixed:not(.layout-menu-collapsed) .layout-page,
+                    .layout-menu-fixed-offcanvas:not(.layout-menu-collapsed) .layout-page {
+                        padding-left: 0 !important;
+                    }
+                }
+
+                .layout-navbar-fixed .layout-navbar.navbar-detached {
+                    width: 80% !important;
+                }
+
+                @media (min-width: 1200px) {
+
+                    .layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar,
+                    .layout-menu-fixed.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar,
+                    .layout-menu-fixed-offcanvas.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar {
+                        left: 0 !important;
+                    }
+                }
+            </style>
+            @else
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo ">
                     <a href="index.html" class="app-brand-link">
@@ -169,6 +209,7 @@
 
 
             </aside>
+            @endif
             <!-- / Menu -->
 
 
@@ -429,7 +470,7 @@
 
 
                             <!-- Style Switcher -->
-                            <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                            <!-- <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <i class='bx bx-md'></i>
                                 </a>
@@ -450,18 +491,27 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <!-- / Style Switcher-->
 
                             <!-- Cart -->
                             @if(isset($showCart) && $showCart)
-                            <li class="nav-item">
+                            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="#shoppingCart" data-bs-toggle="modal">
-                                    <i class="bx bx-cart
+                                    <span class="position-relative">
+                                        <i class="bx bx-cart
                                     bx-md"></i>
+                                        <span id="notificationCartSpan" class="badge rounded-pill bg-success badge-dot badge-notifications border" style="display:none;"></span>
+                                    </span>
                                 </a>
                             </li>
                             @endif
+
+                            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="#paymentMethods" data-bs-toggle="modal">
+                                    <i class='bx bx-wallet'></i>
+                                </a>
+                            </li>
 
 
 
@@ -495,6 +545,11 @@
                                     <li>
                                         <a class="dropdown-item" href="pages-profile-user.html">
                                             <i class="bx bx-user bx-md me-3"></i><span>Mi cuenta</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="theme-toggle" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                            <i id="theme-icon" class="bx bx-sun bx-md"></i><span id="theme-text" class="ms-2">Modo Claro</span>
                                         </a>
                                     </li>
                                     <li>
@@ -536,6 +591,8 @@
 
                 <!-- Layout wrapper -->
                 <div class="layout-wrapper layout-content-navbar">
+                    @if(isset($dontshownavbarphone) && $dontshownavbarphone)
+                    @else
                     <div class="nav__menu" id="nav-menu">
                         <ul class="nav__list">
                             <li class="nav__item">
@@ -567,6 +624,9 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
+
+
 
 
 
@@ -613,10 +673,8 @@
 
     </div>
 
-
-
-
-    </div>
+    <!-- Se crea el modal para el total de monedas que tiene el usuario -->
+    <livewire:TotalMonedasUser />
 
 
 
@@ -640,6 +698,11 @@
 
     <!-- Vendors JS -->
     <script src="{{ asset('Cliente/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('Cliente/assets/vendor/libs/toastr/toastr.js') }}"></script>
+
+
+
+
 
     <!-- Main JS -->
     <script src="{{ asset('Cliente/assets/js/main.js') }}"></script>
@@ -731,4 +794,9 @@
             }
         });
     });
+</script>
+
+
+<script>
+
 </script>

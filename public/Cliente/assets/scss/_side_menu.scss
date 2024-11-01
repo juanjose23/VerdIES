@@ -1,8 +1,10 @@
-
-
 .app-brand .layout-menu-toggle {
     background-color: $primary-color;
 }
+.app-brand .backBtn {
+    background-color: $primary-color;
+}
+
 
 .bg-menu-theme .menu-inner>.menu-item.active:before {
     background: $primary-color;
@@ -12,6 +14,7 @@
     color: $primary-color;
     background-color: $rgba-primary-color !important;
 }
+
 .menu-vertical .menu-inner {
     margin-top: 25px;
 }
@@ -30,8 +33,8 @@
     display: none;
 }
 
-.title{
-    span{
+.title {
+    span {
         color: $primary-color;
     }
 }
@@ -43,7 +46,7 @@
 }
 
 
-.bg-success{
+.bg-success {
     background-color: $primary-color !important;
 }
 
@@ -63,4 +66,102 @@
 
 .html:not([dir=rtl]) .ms-2 {
     margin-left: 0 !important;
+}
+
+.layout-navbar .navbar-dropdown .badge-notifications {
+    top: 2px;
+    inset-inline-end: -8px !important;
+}
+
+a:hover {
+    color: $color-text-hover;
+}
+
+.btn-primary:hover {
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+
+.nav__link:hover {
+    color: $primary-color !important;
+
+    a:hover {
+        color: $primary-color !important;
+    }
+}
+
+.custom-demo {
+    .layout-menu-toggle {
+        position: absolute;
+        inset-inline-start: 4.2rem;
+        border-radius: 50%;
+    }
+
+}
+
+@media (max-width: 1199.98px) {
+    .custom-demo {
+        .layout-menu-toggle {
+            display: block !important;
+        }
+
+    }
+
+}
+
+// BackButton
+
+
+
+html:not([dir=rtl]) .ms-auto {
+    margin-left: auto !important;
+}
+
+.app-brand .backBtn {
+    background-color: #00a5a0;
+}
+
+.app-brand .backBtn {
+    background-color: $primary-color;
+    border: 7px solid #232333;
+}
+
+
+
+.app-brand .backBtn {
+    position: absolute;
+    inset-inline-start: 3.2rem;
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+    .app-brand .backBtn {
+        top: 55px;
+    }
+    
+}
+
+
+
+.menu:not(.menu-no-animation) .menu-link>:not(.menu-icon) {
+    transition: opacity .3s ease-in-out;
+}
+
+html:not([dir=rtl]) .backBtn i {
+    transform: rotate(0deg) !important;
+}
+
+.app-brand .backBtn i {
+    color: #fff;
+}
+
+.app-brand .backBtn i {
+    width: 1.375rem;
+    height: 1.375rem;
+    transition: all .3s ease-in-out;
+    line-height: 1;
+
 }
