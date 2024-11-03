@@ -16,10 +16,15 @@ class CategoriaService
                 ->whereHas('tasas', function ($q) {
                     $q->where('estado', 1);
                 });
-        })->where('estado', 1)->select('id', 'nombre', 'descripcion')
+        })->where('estado', 1)->where('tipo',0)
+            ->select('id', 'nombre', 'descripcion')
             ->get();
     }
-
+    public function ObtenerCategoriasActivas()
+    {
+        // Buscar la categoría por su ID o lanzar una excepción si no se encuentra
+        return $this->CategoriaModel->where('tipo',0)->get();
+    }
 
     public function crearCategoria($data)
     {
@@ -29,6 +34,7 @@ class CategoriaService
         $categoria->nombre = $data['nombre'];
         $categoria->descripcion = $data['descripcion'];
         $categoria->estado = $data['estado'];
+        $categoria->tipo = $data['tipo'] ? 1 : 0;
         $categoria->save();
         Session::flash('success', 'Se ha registado correctamente la operación');
         return $categoria;
@@ -51,6 +57,7 @@ class CategoriaService
             $categoria->nombre = $data['nombre'];
             $categoria->descripcion = $data['descripcion'];
             $categoria->estado = $data['estado'];
+            $categoria->tipo = $data['tipo'] ? 1 : 0;
             $categoria->save();
 
             // Mostrar mensaje solo si hay cambios

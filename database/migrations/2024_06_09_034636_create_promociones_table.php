@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('promociones', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('categorias_id');
+            $table->foreign('categorias_id')->references('id')->on('categorias');
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
             $table->string('nombre');

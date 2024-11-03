@@ -59,29 +59,7 @@
                                                     placeholder="" />
                                             </div>
                                         </div>
-                                        @if ($usuarioCarrera)
-                                        @else
-                                            <div class="mb-3 col-md-6">
-                                                <label for="categorias" class="form-label text-dark">Rol *</label>
-                                                <select style="width: 100%" id="categorias" name="categorias"
-                                                    class="buscador form-select @error('categorias') is-invalid @enderror">
-                                                    <option>Seleccionar Rol</option>
-                                                    @foreach ($categorias as $areaNombre => $carreras)
-                                                        <optgroup label="{{ $areaNombre }}">
-                                                            @foreach ($carreras as $carrera)
-                                                                <option value="{{ $carrera['id'] }}"
-                                                                    {{ old('categorias') == $carrera['id'] ? 'selected' : '' }}>
-                                                                    {{ $carrera['nombre'] }}
-                                                                </option>
-                                                            @endforeach
-                                                        </optgroup>
-                                                    @endforeach
-                                                </select>
-                                                @error('categorias')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        @endif
+                                       
                                         <div class="mt-2">
                                             <button type="submit" class="btn btn-success me-2"><i class="bi bi-save"></i>
                                                 Guardar cambios</button>

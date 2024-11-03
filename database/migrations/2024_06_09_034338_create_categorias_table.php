@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre')->unique();
             $table->text('descripcion')->nullable();
             $table->integer('estado')->default(1);
+            $table->boolean('tipo')->nullable();
             $table->timestamps();
         });
     }

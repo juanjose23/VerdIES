@@ -1,4 +1,4 @@
-@extends('Layouts.layouts')
+@extends('Layouts.layout')
 @section('title', 'Categorias')
 
 @section('content')
@@ -36,6 +36,7 @@
                                 @enderror
                             </div>
                         </div>
+                       
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="descripcion" class="form-label text-dark">Descripción</label>
@@ -46,7 +47,17 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <br>
+                        <br>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form-check-input" type="checkbox" id="terms-conditions"
+                                name="tipo" />
+                            <label class="form-check-label" for="terms-conditions">
+                                 <a href="javascript:void(0);">Categoria para promociones</a>
+                            </label>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
                                 <a href="{{ route('categorias.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>

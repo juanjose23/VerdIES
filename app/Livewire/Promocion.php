@@ -13,7 +13,7 @@ class Promocion extends Component
     public function render()
     {
         // Realizar la búsqueda en todos los atributos del modelo
-        $promociones = Promociones::with('users','detalles','detalles.monedas','imagenes')->where(function ($query) {
+        $promociones = Promociones::with('users', 'detalles', 'detalles.monedas', 'imagenes', 'categorias')->where(function ($query) {
             $query->where('nombre', 'like', '%' . $this->buscar . '%')
                 ->orWhere('descripcion', 'like', '%' . $this->buscar . '%')
                 ->orWhereHas('users', function ($query) {
@@ -24,13 +24,17 @@ class Promocion extends Component
                     $query->where('cantidad', 'like', '%' . $this->buscar . '%');
 
                 })
+                ->orWhereHas('categorias', function ($query) {
+                    $query->where('nombre', 'like', '%' . $this->buscar . '%');
+
+                })
                 ->orWhereHas('detalles.monedas', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
 
                 });
         })->paginate($this->perPage);
-//dd($promociones);
-        return view('livewire.promocion',compact('promociones'));
+        //dd($promociones);
+        return view('livewire.promocion', compact('promociones'));
     }
 
     public function setPerPage($perPage)

@@ -42,7 +42,7 @@ class PageController extends Controller
 
         $user = User::findOrFail($idUsuario);
         $sessiones = inicio::where('user_id', $idUsuario)->where('active', true)->orderBy('last_activity', 'DESC')->get();
-        $categorias = Carreras::ObtenerCarrera();
+     
         $agent = new Agent();
         foreach ($sessiones as $session) {
             $agent->setUserAgent($session->user_agent);
@@ -52,7 +52,7 @@ class PageController extends Controller
         // return $categorias;
         $usuarioCarrera = User_carreras::where('users_id', $idUsuario)->first();
 
-        return view('Page.perfil', compact('user', 'sessiones', 'categorias', 'usuarioCarrera'));
+        return view('Page.perfil', compact('user', 'sessiones',  'usuarioCarrera'));
     }
     public function index()
     {
@@ -203,7 +203,7 @@ class PageController extends Controller
             } else {
                 // Crear un nuevo registro
                 $usuarioCarrera = new User_carreras();
-                $usuarioCarrera->carreras_id = $request->categorias;
+                $usuarioCarrera->carreras_id = 1;
                 $usuarioCarrera->users_id = $idUsuario;
                 $usuarioCarrera->save();
             }

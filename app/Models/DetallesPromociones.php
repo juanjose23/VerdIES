@@ -9,7 +9,13 @@ class DetallesPromociones extends Model
 {
     use HasFactory;
     protected $table = 'detalle_promociones';
-
+    protected $fillable = [
+        'promociones_id',
+        'cantidad',
+        'valor',
+        'monedas_id',
+        'cantidadmoneda',
+    ];
     public function promociones()
     {
         return $this->belongsTo('App\Models\Promociones');

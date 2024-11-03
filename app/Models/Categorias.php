@@ -13,4 +13,8 @@ class Categorias extends Model
     {
         return $this->hasMany(Materiales::class);
     }
+    public function promociones()
+    {
+        return $this->hasMany(Promociones::class);
+    }
 }

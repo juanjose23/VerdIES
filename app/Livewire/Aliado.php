@@ -16,24 +16,36 @@ class Aliado extends Component
     public function render()
     {
         // Realizar la búsqueda utilizando la relación entre users y rolesusuarios
-        $users = User::whereHas('rolesUsuarios', function ($query) {
+        $users = User::with('imagenes')->whereHas('rolesUsuarios', function ($query) {
             $query->where('roles_id', 6)
-                ->where('estado', 1); // condición para rolesusuarios
+                ->where('estado', 1);
         })
             ->where('estado', 1) // condición para users
             ->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->buscar . '%');
-                // Puedes agregar más atributos de users si deseas
+
+            })
+            ->whereHas('promociones', function ($query) {
+                $query->where('estado', 1); // Promociones activas
             })
             ->paginate($this->perPage);
+            $contador = User::whereHas('rolesUsuarios', function ($query) {
+                $query->where('roles_id', 6)
+                      ->where('estado', 1);
+            })
+            ->where('estado', 1) // condición para users
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->buscar . '%');
+            })
+            ->whereHas('promociones', function ($query) {
+                $query->where('estado', 1); // Promociones activas
+            })
+            ->count();
+        
 
-        // Añadir foto de perfil a cada usuario
-        $users->getCollection()->transform(function ($user) {
-            $user->ObtenerInformacionUsuario($user->id);
-            return $user;
-        });
 
-        return view('livewire.aliados', compact('users'));
+
+        return view('livewire.aliados', compact('users','contador'));
     }
 
     public function setPerPage($perPage)

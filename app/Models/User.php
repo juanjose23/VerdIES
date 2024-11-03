@@ -34,7 +34,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->name);
+    }
     /**
      * The attributes that should be cast.
      *
@@ -47,6 +50,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(RolesUsuarios::class, 'users_id');
     }
+    public function imagenes()
+    {
+        return $this->morphOne('App\Models\Media', 'imagenable');
+    }
+
+
     public function user_carrera()
     {
         return $this->hasOne('App\Models\User_carreras', 'users_id');
@@ -63,7 +72,7 @@ class User extends Authenticatable
 
     public function promociones()
     {
-        return $this->hasMany('App\Models\Promociones');
+        return $this->hasMany('App\Models\Promociones','users_id');
     }
     public function material()
     {

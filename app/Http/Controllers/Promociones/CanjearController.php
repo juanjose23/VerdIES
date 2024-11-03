@@ -5,13 +5,23 @@ namespace App\Http\Controllers\Promociones;
 use App\Http\Controllers\Controller;
 use App\Models\Puntos;
 use App\Models\Transciones;
+use App\Services\CategoriaService;
+use App\Services\PromocionesServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class CanjearController extends Controller
 {
     //
-    
+    protected $PromocionServices;
+    protected $CategoriaServices;
+    public function __construct(PromocionesServices $PromocionServices, CategoriaService $CategoriaServices)
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+       
+        $this->PromocionServices = $PromocionServices;
+        $this->CategoriaServices = $CategoriaServices;
+    }
     public function index()
     {
         return view('Gestion_Promociones.Canjes.index');
