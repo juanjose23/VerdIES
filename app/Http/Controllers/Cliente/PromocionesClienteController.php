@@ -38,10 +38,10 @@ class PromocionesClienteController extends Controller
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
         // Obtén el usuario por su id y selecciona solo el nombre
-        $usuario = User::select('id', 'name')->findOrFail($id);
+     $usuario = User::where('name', 'LIKE', '%' . str_replace('-', ' ', $slug) . '%')->firstOrFail();
     
         // Retorna la vista con el id y el nombre del usuario
         return view('cliente.establecimientos', [

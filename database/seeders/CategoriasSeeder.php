@@ -18,52 +18,62 @@ class CategoriasSeeder extends Seeder
             [
                 'nombre' => 'Plásticos',
                 'descripcion' => 'Botellas de plástico, envases de alimentos y bebidas, bolsas de plástico, plásticos de alta densidad (HDPE)',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Papel y Cartón',
                 'descripcion' => 'Periódicos, revistas, cajas de cartón, papel de oficina',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Vidrio',
                 'descripcion' => 'Botellas de vidrio, frascos de vidrio',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Metales',
                 'descripcion' => 'Latas de aluminio, latas de acero, chatarra metálica',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Tetra Pak',
                 'descripcion' => 'Envases de cartón para bebidas (leche, jugos)',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Orgánicos',
                 'descripcion' => 'Residuos de alimentos, desechos de jardín',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Electrónicos',
                 'descripcion' => 'Aparatos electrónicos pequeños, baterías, teléfonos móviles',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Textiles',
                 'descripcion' => 'Ropa, zapatos, telas',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Aceite usado',
                 'descripcion' => 'Aceite de cocina usado',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ],
             [
                 'nombre' => 'Residuos peligrosos',
                 'descripcion' => 'Pilas y baterías, productos químicos domésticos, pinturas y solventes',
-                'estado' => 1
+                'estado' => 1,
+                'tipo'=>0
             ]
         ];
 

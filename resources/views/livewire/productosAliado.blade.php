@@ -24,10 +24,10 @@
             </div> -->
         </div>
         <div class="card-product-info">
-            @foreach ($producto->detallePromociones as $detalle)
+           
             <div class="inner-info">
                 <a class="title link fw-6">{{ wordwrap($producto->nombre , 15, "\n", true) }}</a>
-                <span class="price fw-6">{{ $detalle->cantidadmoneda }} {{ $detalle->moneda->nombre }}</span>
+                <span class="price fw-6">{{ $producto->detalles->cantidadmoneda }} {{ $producto->detalles->moneda->nombre }}</span>
             </div>
             <div class="list-product-btn">
                 <a href="javascript:void(0);" wire:click="cargarProducto({{ $producto->id }})"
@@ -36,7 +36,7 @@
                     <span class="tooltip">Añadir al carrito</span>
                 </a>
             </div>
-            @endforeach
+         
         </div>
     </div>
     @endforeach

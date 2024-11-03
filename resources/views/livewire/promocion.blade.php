@@ -49,7 +49,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Promocion</th>
-                                <th>Aliado</th>
+                                <th>Categoría</th>
+                            
                                 <th>Cupos</th>
                                 <th>Costo</th>
                                 <th>Divisa</th>
@@ -83,6 +84,7 @@
                                                     </div>
                                                 @endif
                                             </div>
+                                           
                                             <div class="d-flex flex-column">
                                                 <a href="" class="text-body text-truncate">
                                                     <span class="fw-medium">{{ $material->nombre }}</span>
@@ -90,12 +92,14 @@
                                             </div>
 
                                         </div>
-                                    </td>
+                                    </td>   
+                                     <td>{{ $material->categorias->nombre }}</td>
+
                                     <td>{{ $material->users->name }}</td>
                                     <td>{{ $material->detalles->cantidad ?? 'N/A' }}</td>
                                     <td>{{ $material->detalles->valor ?? 'N/A' }}</td>
-                                    <td>{{ $material->detalles->monedas->nombre}}</td>
-                                    <td>{{ $material->detalles->cantidadmoneda ?? 'N/A' }}</td>
+                             
+                                    <td>{{ $material->detalles->monedas->nombre}} {{ $material->detalles->cantidadmoneda ?? 'N/A' }}</td>
                                     <td>{{ $material->fecha_vencimiento }}</td>
                                     <td class="text-wrap">{{ wordwrap($material->descripcion, 50, "\n", true) }}</td>
                                     <td><span

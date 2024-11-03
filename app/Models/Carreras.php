@@ -21,27 +21,7 @@ class Carreras extends Model
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
     }
-    public static function ObtenerCarrera()
-    {
-        $areas = Universidades::where('estado', 1)->with('carreras')->get(); // Asegúrate de cargar las carreras
-    
-        $resultados = [];
-    
-        foreach ($areas as $area) {
-            $nombreArea = $area->nombre;
-    
-            if ($area->carreras !== null && $area->carreras->count() > 0) {
-                foreach ($area->carreras as $carrera) {
-                    $resultados[$nombreArea][] = [
-                        'id' => $carrera->id,
-                        'nombre' => $carrera->nombre
-                    ];
-                }
-            }
-        }
-    
-        return $resultados;
-    }
+ 
     
 
 }
