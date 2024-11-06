@@ -8,33 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Promociones extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'users_id',
-        'categorias_id',
-        'nombre',
-        'fecha_vencimiento',
-        'estado',
-        'descripcion',
-    ];
     public function users()
     {
-        return $this->belongsTo(User::class,'users_id');
-    }
-    public function categorias()
-    {
-        return $this->belongsTo(categorias::class);
+        return $this->belongsTo('App\Models\User');
     }
     public function detalles()
     {
-        return $this->hasOne(DetallesPromociones::class,'promociones_id');
+        return $this->hasOne('App\Models\DetallesPromociones');
     }
     public function transciones()
     {
-        return $this->hasMany(Transciones::class);
+        return $this->hasMany('App\Models\Transciones');
     }
     public function imagenes()
     {
         return $this->morphOne('App\Models\Media', 'imagenable');
     }
-    
+    public function detallePromociones()
+    {
+        return $this->hasMany('App\Models\DetallesPromociones', 'promociones_id');
+    }
 }

@@ -26,7 +26,7 @@ class ProductosAliados extends Component
 
     public function render()
     {
-        $productos = Promociones::with(['detalles.monedas', 'imagenes']) // Agrega 'imagenes' para cargar la relación
+        $productos = Promociones::with(['detallePromociones.monedas', 'imagenes']) // Agrega 'imagenes' para cargar la relación
             ->where('estado', 1)
             ->where('users_id', $this->idUsuario)
             ->where(function ($query) {
@@ -50,13 +50,13 @@ class ProductosAliados extends Component
     public function cargarProducto(int $productoId)
     {
         // Cargar el producto seleccionado
-        $producto = Promociones::with('detalles.monedas', 'imagenes')->find($productoId);
+        $producto = Promociones::with('detallePromociones.monedas', 'imagenes')->find($productoId);
 
         // Obtener la moneda del usuario con respecto al id del detalle de la promoción
         $userId = Auth::id();
 
         // Acceder al primer detalle de promoción y su moneda
-        $detallePromocion = $producto->detalles->first();
+        $detallePromocion = $producto->detallePromociones->first();
         $detalleMonedaId = $detallePromocion->monedas->id ?? null;
 
         if ($detalleMonedaId) {
