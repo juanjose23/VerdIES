@@ -24,19 +24,21 @@
             </div> -->
         </div>
         <div class="card-product-info">
-           
+
             <div class="inner-info">
                 <a class="title link fw-6">{{ wordwrap($producto->nombre , 15, "\n", true) }}</a>
                 <span class="price fw-6">{{ $producto->detalles->cantidadmoneda }} {{ $producto->detalles->moneda->nombre }}</span>
             </div>
             <div class="list-product-btn">
-                <a href="javascript:void(0);" wire:click="cargarProducto({{ $producto->id }})"
-                    class="box-icon quick-add tf-btn-loading">
+                <a href="javascript:void(0);" wire:click="abrirModalQuickAdd({{ $producto->id }})"
+                    class="box-icon quick-add tf-btn-loading"
+                    wire:loading.attr="disabled"
+                    wire:target="abrirModalQuickAdd({{ $producto->id }})">
                     <span class="icon icon-bag"></span>
                     <span class="tooltip">Añadir al carrito</span>
                 </a>
             </div>
-         
+
         </div>
     </div>
     @endforeach
@@ -256,7 +258,7 @@
                 if (imgProduct) {
                     imgProduct.src = productoData.imagenes.url || 'ruta/a/imagen/predeterminada.jpg';
                 } else {
-                    console.error('No se encontró el elemento con el ID imgProduct');
+                    console.error('No se encontr�� el elemento con el ID imgProduct');
                 }
                 document.querySelector('#quick_add .content a').textContent = productoData.nombre;
                 document.getElementById('productDescription').textContent = productoData.descripcion;
@@ -270,8 +272,7 @@
         function actualizarCarrito() {
             if (!localStorage.getItem('carrito') || localStorage.getItem('carrito') === '[]') {
                 let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'none';
-            }
-            else {
+            } else {
                 let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'block';
             }
             const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -356,12 +357,12 @@
                                 actualizarCarrito();
                                 errorMessage.style.display = 'none';
                             } else {
-                                
+
                                 errorMessage.textContent = "No hay más cantidad disponible para este producto.";
                                 errorMessage.style.display = 'block';
                             }
                         } else {
-                            
+
                             errorMessage.textContent = "No tienes suficientes puntos para incrementar esta cantidad.";
                             errorMessage.style.display = 'block';
                         }
