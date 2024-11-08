@@ -1701,7 +1701,6 @@ header {
 }
 
 .modal-shopping-cart .tf-mini-cart-bottom-wrap .tf-cart-totals-discounts {
-  display: flex;
   align-items: center;
   justify-content: space-between;
 }

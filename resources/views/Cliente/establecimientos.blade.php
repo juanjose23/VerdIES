@@ -14,7 +14,12 @@
 
 
 <style>
-    
+    .list-product-btn .disabled {
+    opacity: 0.5; /* Hacer que el botón parezca desactivado */
+    cursor: not-allowed; /* Cambiar el cursor a una señal de "no permitido" */
+    pointer-events: none; /* Evitar clics adicionales */
+}
+
 </style>
 
 
@@ -69,6 +74,7 @@
                                         <img class="lazyload img-hover" data-src="images/products/vegetable2.jpg" src="images/products/vegetable2.jpg" alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
+                                        
                                         <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
                                             <span class="icon icon-heart"></span>
                                             <span class="tooltip">Add to Wishlist</span>
@@ -1365,7 +1371,7 @@
                         <div class="tf-mini-cart-bottom-wrap">
                             <div class="tf-cart-totals-discounts">
                                 <div class="tf-cart-total">Subtotal</div>
-                                <div class="tf-totals-total-value fw-6">$49.99 USD</div>
+                                <div class="tf-cart-total-details"></div>
                             </div>
                             <div class="tf-cart-tax">Revisa los <a href="#">términos de pago</a></div>
                             <div class="tf-mini-cart-line"></div>
@@ -1667,6 +1673,7 @@
                                 <td>28 - 29</td>
                                 <td>38 - 40</td>
                             </tr>
+                            
                             <tr>
                                 <td>L</td>
                                 <td>8</td>
@@ -1734,7 +1741,9 @@
 
 
 
-
+<script>
+    window.usuario = @json($usuario);
+</script>
 <script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/validator-localstorage-before-request.js') }}"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>

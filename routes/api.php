@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AcopiosController;
 use App\Http\Controllers\Api\MaterialesController;
 use App\Http\Controllers\Api\RecepcionesController;
+use App\Http\Controllers\Api\MonedasController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,6 @@ Route::resource('v1/tasacambio', RecepcionesController::class)
     ->parameters(['tasas' => 'tasas'])
     ->names('v1.tasas');
 
+Route::resource('v1/monedas', MonedasController::class)
+    ->parameters(['monedas' => 'monedas'])
+    ->names('v1.monedas');

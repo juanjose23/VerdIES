@@ -17,7 +17,7 @@ class ProductosAliados extends Component
     public $buscar = '';
     public $perPage = 10;
     public $idUsuario;
-    public $productoSeleccionado; 
+    public $productoSeleccionado;
     public $cargandoProducto = false; // Nueva propiedad para controlar el estado de carga
 
     public function mount($idUsuario)
@@ -25,9 +25,10 @@ class ProductosAliados extends Component
         $this->idUsuario = $idUsuario;
     }
 
+
     public function render()
     {
-        $productos = Promociones::with(['detallePromociones.monedas', 'imagenes']) 
+        $productos = Promociones::with(['detallePromociones.monedas', 'imagenes'])
             ->where('estado', 1)
             ->where('users_id', $this->idUsuario)
             ->where(function ($query) {
@@ -37,9 +38,15 @@ class ProductosAliados extends Component
             ->select('id', 'nombre', 'descripcion')
             ->paginate($this->perPage);
 
-        return view('livewire.productosAliado', compact('productos'));
-    }
+        // Obtener todas las monedas activas
+        $monedas = Monedas::where('estado', 1)
+            ->with(['imagenes' => function ($query) {
+                $query->select('url', 'imagenable_id');
+            }])
+            ->get(['id', 'nombre', 'descripcion']);
 
+        return view('livewire.productosAliado', compact('productos', 'monedas'));
+    }
 
     public function abrirModalQuickAdd($productoId)
     {
