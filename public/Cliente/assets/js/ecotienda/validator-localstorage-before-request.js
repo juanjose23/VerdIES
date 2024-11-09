@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Obtiene el ID del negocio actual desde la variable global window.usuario
     const currentBusinessId = window.usuario.id; // Esto se obtiene previamente del backend del blade en el HTML
     console.log("ID del negocio actual:", currentBusinessId);
-    const storedBusinessId = localStorage.getItem("businessId");
+    const storedBusinessId = Number(localStorage.getItem("businessId"));
 
     // Función para almacenar el ID actual en localStorage
     function storeBusinessId(id) {

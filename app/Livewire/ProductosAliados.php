@@ -45,7 +45,9 @@ class ProductosAliados extends Component
             }])
             ->get(['id', 'nombre', 'descripcion']);
 
-        return view('livewire.productosAliado', compact('productos', 'monedas'));
+        $userId = Auth::id();
+
+        return view('livewire.productosAliado', compact('productos', 'monedas', 'userId'));
     }
 
     public function abrirModalQuickAdd($productoId)

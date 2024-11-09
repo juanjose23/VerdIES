@@ -453,5 +453,63 @@
         actualizarCarrito();
 
 
+        // Evento para enviar al backend los datos del carrito
+        const btnPagar = document.getElementById('btnPagar');
+        if (btnPagar) {
+            btnPagar.addEventListener('click', function() {
+                const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                const idUsuario = @json($userId);
+                const businessId = Number(localStorage.getItem("businessId")); // Convertir a número
+
+                const detallesCanje = {
+                    id_usuario: idUsuario,
+                    id_aliado: businessId,
+                    detalles_promociones: carrito.map(item => ({
+                        id_promocion: item.id,
+                        cantidad: item.cantidad,
+                        id_moneda: item.monedaId,
+                        total_moneda: item.puntosUsados
+                    }))
+                };
+
+                console.log(JSON.stringify(detallesCanje, null, 2));
+                
+                // Mostrar SweetAlert2 para simular el pago
+                Swal.fire({
+                    title: "Pago completado",
+                    text: "Se ha enviado una solicitud de canje de tus productos",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+
+                // TODO: Enviar los datos al backend YA VERAS VOS
+                // fetch('/api/canje', {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: JSON.stringify(detallesCanje)
+                //     })
+                //     .then(response => response.json())
+                //     .then(data => {
+                //         console.log('Respuesta del backend:', data);
+                //         if (data.status === 'success') {
+                //             toastr.success(data.message, 'Canje exitoso');
+                //             localStorage.removeItem('carrito');
+                //             localStorage.removeItem('puntosDisponibles');
+                //             localStorage.removeItem('cantidadDisponible');
+                //             actualizarCarrito();
+                //         } else {
+                //             toastr.error(data.message, 'Error en el canje');
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error al enviar los datos al backend:', error);
+                //         toastr.error('Ocurrió un error al enviar los datos al backend.', 'Error en la solicitud');
+                //     });
+
+            });
+
+        }
     });
 </script>

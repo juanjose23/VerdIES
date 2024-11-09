@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="{{ asset('Cliente/assets/scss/ecotienda/ecotienda.css') }}">
 <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/toastr/toastr.css') }}">
 <link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/animate-css/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('Cliente/assets/vendor/libs/sweetalert2/sweetalert2.css') }}" />
+<script src="{{ asset('Cliente/assets/vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
+<script src="{{ asset('Cliente/assets/js/extended-ui-sweetalert2.js') }}"></script>
+
 
 
 <style>
@@ -1376,7 +1380,7 @@
                             <div class="tf-cart-tax">Revisa los <a href="#">términos de pago</a></div>
                             <div class="tf-mini-cart-line"></div>
                             <div class="tf-mini-cart-view-checkout">
-                                <a href="checkout.html" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Pagar</span></a>
+                                <a id="btnPagar" href="javascript:void(0);" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Pagar</span></a>
                             </div>
                         </div>
                     </div>
@@ -1765,6 +1769,7 @@
 <script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/multiple-modal.js') }}"></script>
 <script type="text/javascript" src="{{ asset('Cliente/assets/js/ecotienda/main.js') }}"></script>
 <script src="{{ asset('Cliente/assets/js/ui-toasts.js') }}"></script>
+
 
 
 
