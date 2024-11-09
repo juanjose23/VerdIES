@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button style="background-color:rgb(0, 179, 131);" class="btn btn-primary d-grid w-100" type="submit">Iniciar sesión</button>
+                                <button  class="btn btn-primary d-grid w-100" type="submit">Iniciar sesión</button>
                             </div>
                         </form>
 
