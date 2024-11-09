@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const exitModal = new bootstrap.Modal(document.getElementById('exitModal'));
     let redirectUrl = null;
 
-    // Obtiene el ID del negocio actual desde la URL y verifica que sea un número
-    const currentBusinessId = window.location.pathname.split("/").pop();
-    const storedBusinessId = localStorage.getItem("businessId");
+    // Obtiene el ID del negocio actual desde la variable global window.usuario
+    const currentBusinessId = window.usuario.id; // Esto se obtiene previamente del backend del blade en el HTML
+    console.log("ID del negocio actual:", currentBusinessId);
+    const storedBusinessId = Number(localStorage.getItem("businessId"));
 
     // Función para almacenar el ID actual en localStorage
     function storeBusinessId(id) {
@@ -41,8 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Asegúrate de que el target existe, tiene un href y no es `javascript:void(0);`
         if (target && target.href && target.href !== "javascript:void(0);" && hasCartData()) {
+            // Verifica si el enlace tiene el atributo `data-bs-toggle="modal"`
+            if (target.getAttribute('data-bs-toggle') === 'modal') {
+                return; // No hacer nada si el enlace abre un modal
+            }
+
             try {
-                // Intentar crear una URL, para asegurarse de que `target.href` es válido
+                // Obtén el ID del negocio del enlace de alguna manera
                 const targetBusinessId = new URL(target.href).pathname.split("/").pop();
                 console.log(targetBusinessId); // Esto debería mostrar el ID del negocio si es válido
 

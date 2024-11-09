@@ -17,16 +17,18 @@ class ProductosAliados extends Component
     public $buscar = '';
     public $perPage = 10;
     public $idUsuario;
-    public $productoSeleccionado; // Nueva propiedad para almacenar el producto seleccionado
+    public $productoSeleccionado;
+    public $cargandoProducto = false; // Nueva propiedad para controlar el estado de carga
 
     public function mount($idUsuario)
     {
         $this->idUsuario = $idUsuario;
     }
 
+
     public function render()
     {
-        $productos = Promociones::with(['detallePromociones.monedas', 'imagenes']) // Agrega 'imagenes' para cargar la relación
+        $productos = Promociones::with(['detallePromociones.monedas', 'imagenes'])
             ->where('estado', 1)
             ->where('users_id', $this->idUsuario)
             ->where(function ($query) {
@@ -36,13 +38,25 @@ class ProductosAliados extends Component
             ->select('id', 'nombre', 'descripcion')
             ->paginate($this->perPage);
 
-        return view('livewire.productosAliado', compact('productos'));
-    }
+        // Obtener todas las monedas activas
+        $monedas = Monedas::where('estado', 1)
+            ->with(['imagenes' => function ($query) {
+                $query->select('url', 'imagenable_id');
+            }])
+            ->get(['id', 'nombre', 'descripcion']);
 
+        $userId = Auth::id();
+
+        return view('livewire.productosAliado', compact('productos', 'monedas', 'userId'));
+    }
 
     public function abrirModalQuickAdd($productoId)
     {
-        // Cambiar a `dispatch` en lugar de `emit` y asegurar el nombre del evento
+        if ($this->cargandoProducto) {
+            return; // Si ya se está cargando un producto, no hacer nada
+        }
+
+        $this->cargandoProducto = true; // Marcar que se está cargando un producto
         $this->dispatch('cargarProducto', productoId: $productoId);
     }
 
@@ -83,6 +97,8 @@ class ProductosAliados extends Component
             // Emitir el evento `mostrarModalQuickAdd` con los datos del producto
             $this->dispatch('mostrarModalQuickAdd', producto: $producto);
         }
+
+        $this->cargandoProducto = false; // Marcar que se ha terminado de cargar el producto
     }
 
 

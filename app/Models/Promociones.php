@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Livewire\Categoria;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +28,10 @@ class Promociones extends Model
     public function detallePromociones()
     {
         return $this->hasMany('App\Models\DetallesPromociones', 'promociones_id');
+    }
+
+    public function categorias()
+    {
+        return $this->belongsTo(Categorias::class);
     }
 }

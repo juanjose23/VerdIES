@@ -24,19 +24,21 @@
             </div> -->
         </div>
         <div class="card-product-info">
-           
+
             <div class="inner-info">
                 <a class="title link fw-6">{{ wordwrap($producto->nombre , 15, "\n", true) }}</a>
                 <span class="price fw-6">{{ $producto->detalles->cantidadmoneda }} {{ $producto->detalles->moneda->nombre }}</span>
             </div>
             <div class="list-product-btn">
-                <a href="javascript:void(0);" wire:click="cargarProducto({{ $producto->id }})"
-                    class="box-icon quick-add tf-btn-loading">
+                <a href="javascript:void(0);" wire:click="abrirModalQuickAdd({{ $producto->id }})"
+                    class="box-icon quick-add tf-btn-loading"
+                    wire:loading.attr="disabled"
+                    wire:target="abrirModalQuickAdd({{ $producto->id }})">
                     <span class="icon icon-bag"></span>
                     <span class="tooltip">Añadir al carrito</span>
                 </a>
             </div>
-         
+
         </div>
     </div>
     @endforeach
@@ -61,6 +63,8 @@
     });
 
     document.addEventListener('DOMContentLoaded', function() {
+
+
         // Función para actualizar el precio total, ahora fuera del evento Livewire.on
         function actualizarPrecioTotal() {
             const inputCantidad = document.getElementById('quantityInput');
@@ -256,7 +260,7 @@
                 if (imgProduct) {
                     imgProduct.src = productoData.imagenes.url || 'ruta/a/imagen/predeterminada.jpg';
                 } else {
-                    console.error('No se encontró el elemento con el ID imgProduct');
+                    console.error('No se encontr�� el elemento con el ID imgProduct');
                 }
                 document.querySelector('#quick_add .content a').textContent = productoData.nombre;
                 document.getElementById('productDescription').textContent = productoData.descripcion;
@@ -268,51 +272,90 @@
 
         // Función para actualizar el carrito en el DOM
         function actualizarCarrito() {
-            if (!localStorage.getItem('carrito') || localStorage.getItem('carrito') === '[]') {
-                let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'none';
-            }
-            else {
-                let notificationCartSpan = document.getElementById('notificationCartSpan').style.display = 'block';
-            }
             const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
             const carritoItemsContainer = document.querySelector('.tf-mini-cart-items');
-            const subtotalElement = document.querySelector('.tf-totals-total-value');
+            const descuentosElement = document.querySelector('.tf-cart-total-details');
+            const notificationCartSpan = document.getElementById('notificationCartSpan'); // Añade esta línea
+
             carritoItemsContainer.innerHTML = '';
 
-            let subtotal = 0;
+            let subtotales = {};
 
             carrito.forEach(item => {
                 const itemElement = document.createElement('div');
                 itemElement.classList.add('tf-mini-cart-item');
+                const monedaNombre = obtenerNombreMoneda(item.monedaId); // Obtener el nombre de la moneda
+
                 itemElement.innerHTML = `
-                        <div class="tf-mini-cart-image">
-                            <a href="product-detail.html">
-                                <img src="${item.imagen}" alt="${item.nombre}">
-                            </a>
-                        </div>
-                        <div class="tf-mini-cart-info">
-                            <a class="title link" href="product-detail.html">${item.nombre}</a>
-                            <div class="price fw-6">$${item.puntosUsados.toFixed(2)}</div>
-                            <div class="tf-mini-cart-btns">
-                                <div class="wg-quantity small">
-                                    <span class="btn-quantity minus-btn">-</span>
-                                    <input type="text" name="number" value="${item.cantidad}">
-                                    <span class="btn-quantity plus-btn">+</span>
-                                </div>
-                                <div class="tf-mini-cart-remove">Eliminar</div>
+                    <div class="tf-mini-cart-image">
+                        <a href="product-detail.html">
+                            <img src="${item.imagen}" alt="${item.nombre}">
+                        </a>
+                    </div>
+                    <div class="tf-mini-cart-info">
+                        <a class="title link" href="product-detail.html">${item.nombre}</a>
+                        <div class="price fw-6">${item.puntosUsados.toFixed(2)} ${monedaNombre}</div> <!-- Mostrar el nombre de la moneda -->
+                        <div class="tf-mini-cart-btns">
+                            <div class="wg-quantity small">
+                                <span class="btn-quantity minus-btn">-</span>
+                                <input type="text" name="number" value="${item.cantidad}">
+                                <span class="btn-quantity plus-btn">+</span>
                             </div>
-                            <p class="error-message" style="color: red; display: none; margin-top: 5px;"></p> <!-- Moved here -->
-                        </div>`;
+                            <div class="tf-mini-cart-remove">Eliminar</div>
+                        </div>
+                        <p class="error-message" style="color: red; display: none; margin-top: 5px;"></p>
+                    </div>`;
 
                 carritoItemsContainer.appendChild(itemElement);
 
-                subtotal += item.puntosUsados;
+                if (!subtotales[item.monedaId]) {
+                    subtotales[item.monedaId] = 0;
+                }
+                subtotales[item.monedaId] += item.puntosUsados;
             });
 
-            subtotalElement.textContent = `$${subtotal.toFixed(2)} USD`;
+            descuentosElement.innerHTML = '';
+            for (const monedaId in subtotales) {
+                const subtotal = subtotales[monedaId];
+                const monedaNombre = obtenerNombreMoneda(monedaId); // Obtener el nombre de la moneda
+                descuentosElement.innerHTML += `<div>${monedaNombre}: ${subtotal.toFixed(2)} <a href="javascript:void(0);" class="infoIcon"><i class='bx bx-info-circle'></i></a></div>`; // Mostrar el nombre de la moneda
+            }
+
+            // Muestra el modal de información
+            const infoIcons = document.querySelectorAll('.infoIcon');
+            infoIcons.forEach(function(infoIcon) {
+                infoIcon.addEventListener('click', function() {
+                    var myModal = new bootstrap.Modal(document.getElementById('paymentMethods'), {
+                        keyboard: false
+                    });
+                    myModal.show();
+                });
+            });
 
             // Asigna eventos a los botones del carrito
             asignarEventosCarrito();
+
+            // Añade esta lógica para cambiar el estilo del elemento notificationCartSpan
+            if (carrito.length > 0) {
+                notificationCartSpan.style.display = 'block';
+            } else {
+                notificationCartSpan.style.display = 'none';
+            }
+        }
+
+        const monedas = @json($monedas);
+
+        // Función para obtener el nombre de la moneda desde el backend
+        function obtenerNombreMoneda(monedaId) {
+            console.log("Monedas:", monedas);
+            console.log("Moneda a buscar:", monedaId);
+            console.log("Moneda de prueba:", monedas[0].id);
+
+            // Convertimos ambos valores a números para asegurar la coincidencia
+            const moneda = monedas.find(moneda => Number(moneda.id) === Number(monedaId));
+
+            console.log("Moneda encontrada:", moneda ? moneda.nombre : 'Moneda desconocida');
+            return moneda ? moneda.nombre : 'Moneda desconocida';
         }
 
         // Función para asignar eventos a los botones del carrito
@@ -356,12 +399,12 @@
                                 actualizarCarrito();
                                 errorMessage.style.display = 'none';
                             } else {
-                                
+
                                 errorMessage.textContent = "No hay más cantidad disponible para este producto.";
                                 errorMessage.style.display = 'block';
                             }
                         } else {
-                            
+
                             errorMessage.textContent = "No tienes suficientes puntos para incrementar esta cantidad.";
                             errorMessage.style.display = 'block';
                         }
@@ -408,5 +451,65 @@
 
         // Llama a la función al cargar la página para actualizar el carrito con los datos almacenados
         actualizarCarrito();
+
+
+        // Evento para enviar al backend los datos del carrito
+        const btnPagar = document.getElementById('btnPagar');
+        if (btnPagar) {
+            btnPagar.addEventListener('click', function() {
+                const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                const idUsuario = @json($userId);
+                const businessId = Number(localStorage.getItem("businessId")); // Convertir a número
+
+                const detallesCanje = {
+                    id_usuario: idUsuario,
+                    id_aliado: businessId,
+                    detalles_promociones: carrito.map(item => ({
+                        id_promocion: item.id,
+                        cantidad: item.cantidad,
+                        id_moneda: item.monedaId,
+                        total_moneda: item.puntosUsados
+                    }))
+                };
+
+                console.log(JSON.stringify(detallesCanje, null, 2));
+                
+                // Mostrar SweetAlert2 para simular el pago
+                Swal.fire({
+                    title: "Pago completado",
+                    text: "Se ha enviado una solicitud de canje de tus productos",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+
+                // TODO: Enviar los datos al backend YA VERAS VOS
+                // fetch('/api/canje', {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json'
+                //         },
+                //         body: JSON.stringify(detallesCanje)
+                //     })
+                //     .then(response => response.json())
+                //     .then(data => {
+                //         console.log('Respuesta del backend:', data);
+                //         if (data.status === 'success') {
+                //             toastr.success(data.message, 'Canje exitoso');
+                //             localStorage.removeItem('carrito');
+                //             localStorage.removeItem('puntosDisponibles');
+                //             localStorage.removeItem('cantidadDisponible');
+                //             actualizarCarrito();
+                //         } else {
+                //             toastr.error(data.message, 'Error en el canje');
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error('Error al enviar los datos al backend:', error);
+                //         toastr.error('Ocurrió un error al enviar los datos al backend.', 'Error en la solicitud');
+                //     });
+
+            });
+
+        }
     });
 </script>
