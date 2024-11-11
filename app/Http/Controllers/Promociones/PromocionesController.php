@@ -9,6 +9,7 @@ use App\Models\Monedas;
 use App\Models\Promociones;
 use App\Models\RolesUsuarios;
 use App\Models\User;
+use App\Services\MonedaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -17,17 +18,20 @@ use App\Notifications\NuevaPromocion;
 use Illuminate\Support\Facades\Notification;
 use App\Services\CategoriaService;
 use App\Services\PromocionesServices;
+use Illuminate\Validation\Rule;
 class PromocionesController extends Controller
 {
     //
     protected $PromocionServices;
     protected $CategoriaServices;
-    public function __construct(PromocionesServices $PromocionServices, CategoriaService $CategoriaServices)
+    protected $MonedaServices;
+    public function __construct(PromocionesServices $PromocionServices, CategoriaService $CategoriaServices, MonedaService $MonedaServices)
     {
         // Aplica el middleware de autorización solo a los métodos "create" y "store"
-       
+
         $this->PromocionServices = $PromocionServices;
         $this->CategoriaServices = $CategoriaServices;
+        $this->MonedaServices = $MonedaServices;
     }
     public function index()
     {
@@ -37,14 +41,14 @@ class PromocionesController extends Controller
     public function create()
     {
         $categorias = $this->PromocionServices->ObtenerCategorias();
-        $monedas = Monedas::where('estado', 1)->get();
+        $monedas = $this->MonedaServices->ObtenerMonedasActivas();
         return view('Gestion_Promociones.Promociones.create', compact('categorias', 'monedas'));
     }
     public function store(Request $request)
     {
         // Validación de los datos recibidos
         $validator = Validator::make($request->all(), [
-            'categorias' => 'required|exists:categorias,id',
+            'categorias' => 'required|exists:categoria,id',
             'nombre' => 'required|string|max:255|unique:promociones',
             'fecha' => 'required|date',
             'estado' => 'required|boolean',
@@ -60,18 +64,23 @@ class PromocionesController extends Controller
     }
     public function edit($promociones)
     {
-        $promocion = Promociones::with(['users','detalles'])->findOrFail($promociones);
-        $monedas = Monedas::where('estado', 1)->get();
+        $promocion = $this->PromocionServices->ObtenerPromocionPorId($promociones);
+        $categorias = $this->PromocionServices->ObtenerCategorias();
+        $monedas = $this->MonedaServices->ObtenerMonedasActivas();
 
-        return view('Gestion_Promociones.Promociones.edit', compact('promocion', 'monedas'));
+        return view('Gestion_Promociones.Promociones.edit', compact('promocion', 'monedas', 'categorias'));
     }
     //
-    public function update(Request $request, $id)
+    public function update(Request $request, $promociones)
     {
-        // Validación de los datos recibidos
+
         $validator = Validator::make($request->all(), [
-          
-            'nombre' => 'required|string|max:255|unique:promociones,nombre,' . $id,
+            'nombre' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'categorias' => 'required|exists:categoria,id',
             'fecha' => 'required|date',
             'estado' => 'required|boolean',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -81,6 +90,7 @@ class PromocionesController extends Controller
             'preciomoneda' => 'required|numeric|min:0',
             'descripcion' => 'nullable|string',
         ]);
+        
 
         // Si la validación falla, retornar los errores
         if ($validator->fails()) {
@@ -90,50 +100,11 @@ class PromocionesController extends Controller
                 ->withInput();
         }
 
-        // Buscar la promoción existente
-        $promocion = Promociones::findOrFail($id);
-        $promocion->nombre = $request->nombre;
-        $promocion->fecha_vencimiento = $request->fecha;
-        $promocion->estado = $request->estado;
-        $promocion->descripcion = $request->descripcion;
-        $promocion->save();
+        // Actualizar la promoción usando el servicio
+        $this->PromocionServices->editarPromocion($request, $promociones);
 
-        // Verificar si se ha subido una nueva imagen
-        if ($request->has('imagen')) {
-            // Eliminar la imagen antigua de Cloudinary
-            $imagenes = $promocion->imagenes;
-
-            if ($imagenes) {
-                $public_id = $imagenes['public_id'];
-                Cloudinary::destroy($public_id);
-                Media::destroy($imagenes['id']);
-            }
-          
-
-            // Subir la nueva imagen a Cloudinary y obtener el resultado
-            $result = $request->file('imagen')->storeOnCloudinary('Verdies/Promociones');
-
-            // Crear una nueva entrada de imagen en la base de datos
-            $imagen = new Media();
-            $imagen->url = $result->getSecurePath();
-            $imagen->public_id = $result->getPublicId();
-            $imagen->imagenable_id = $promocion->id;
-            $imagen->imagenable_type = get_class($promocion);
-            $imagen->save();
-        }
-
-        // Buscar el detalle de la promoción existente
-        $detallepromocion = DetallesPromociones::where('promociones_id', $promocion->id)->firstOrFail();
-        $detallepromocion->cantidad = $request->cantidad;
-        $detallepromocion->valor = $request->precio;
-        $detallepromocion->monedas_id = $request->moneda;
-        $detallepromocion->cantidadmoneda = $request->preciomoneda;
-        $detallepromocion->save();
-
-        // Redireccionar a la vista de promociones o hacer cualquier otra acción
         return redirect()->route('promociones.index')->with('success', 'Promoción actualizada exitosamente.');
     }
-
     //
     public function destroy($promociones)
     {

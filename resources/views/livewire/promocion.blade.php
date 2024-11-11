@@ -1,4 +1,8 @@
 <div>
+    @php
+    $idUsuario = session('IdUser');
+    $roleUsuario = App\Models\RolesUsuarios::where('users_id', $idUsuario)->first();
+@endphp
     <div class="row">
 
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -51,6 +55,11 @@
                                 <th>Promocion</th>
                                 <th>Categoría</th>
                             
+
+                                @if ($roleUsuario->roles_id != 6)
+                                    <th>Aliados</th>
+                                @endif
+
                                 <th>Cupos</th>
                                 <th>Costo</th>
                                 <th>Divisa</th>
@@ -84,7 +93,7 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                           
+
                                             <div class="d-flex flex-column">
                                                 <a href="" class="text-body text-truncate">
                                                     <span class="fw-medium">{{ $material->nombre }}</span>
@@ -92,14 +101,17 @@
                                             </div>
 
                                         </div>
-                                    </td>   
-                                     <td>{{ $material->categorias->nombre }}</td>
+                                    </td>
+                                    <td>{{ $material->categorias->nombre }}</td>
+                                    @if ($roleUsuario->roles_id != 6)
+                                        <td>{{ $material->users->name }}</td>
+                                    @endif
 
-                                    <td>{{ $material->users->name }}</td>
                                     <td>{{ $material->detalles->cantidad ?? 'N/A' }}</td>
                                     <td>{{ $material->detalles->valor ?? 'N/A' }}</td>
-                             
-                                    <td>{{ $material->detalles->monedas->nombre}} {{ $material->detalles->cantidadmoneda ?? 'N/A' }}</td>
+
+                                    <td>{{ $material->detalles->monedas->nombre }}
+                                        {{ $material->detalles->cantidadmoneda ?? 'N/A' }}</td>
                                     <td>{{ $material->fecha_vencimiento }}</td>
                                     <td class="text-wrap">{{ wordwrap($material->descripcion, 50, "\n", true) }}</td>
                                     <td><span
@@ -125,7 +137,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                         onclick="confirmAction({{ $material->id }})">
                                                         <i
-                                                            class="fas fa-{{ $material->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
+                                                            class="bx bx-{{ $material->estado == 1 ? 'trash-alt' : 'toggle-left' }}"></i>
                                                         {{ $material->estado == 1 ? 'Eliminar' : 'Activar' }}
                                                     </a>
                                                 @endcan
