@@ -78,11 +78,9 @@
         // Escucha el evento 'mostrarModalQuickAdd' de Livewire
         Livewire.on('mostrarModalQuickAdd', function(producto) {
             console.log("Producto recibido:", producto);
-
             // Extrae los datos del producto
             const productoData = producto.producto;
             const detallePromocion = productoData.detalle_promociones|| {};
-            console.log( productoData.detalle_promociones);
             const cantidadDisponibleInicial = parseFloat(detallePromocion.cantidad) || 0;
             const puntosRequeridos = parseFloat(detallePromocion.cantidadmoneda) || 0;
             const monedaId = productoData.moneda.id;
@@ -256,7 +254,7 @@
 
         // Función para actualizar el contenido del modal
         function actualizarContenidoModal(productoData, cantidadDisponible, puntosRequeridos, puntosDisponibles) {
-            if (productoData.detalle_promociones && productoData.detalle_promociones[0]) {
+            if (productoData.detalle_promociones && productoData.detalle_promociones) {
                 const imgProduct = document.getElementById('imgProduct');
                 if (imgProduct) {
                     imgProduct.src = productoData.imagenes.url || 'ruta/a/imagen/predeterminada.jpg';
@@ -266,7 +264,7 @@
                 document.querySelector('#quick_add .content a').textContent = productoData.nombre;
                 document.getElementById('productDescription').textContent = productoData.descripcion;
                 document.getElementById('quantityAvailable').textContent = cantidadDisponible;
-                document.querySelector('#quick_add .price').textContent = `${puntosRequeridos} ${productoData.detalle_promociones[0].monedas.nombre}`;
+                document.querySelector('#quick_add .price').textContent = `${puntosRequeridos} ${productoData.detalle_promociones.monedas.nombre}`;
                 document.getElementById('yourExactlyCoin').textContent = `Tu cantidad de ${productoData.moneda.nombre} : ${puntosDisponibles}`;
             }
         }

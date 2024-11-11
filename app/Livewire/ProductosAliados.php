@@ -65,23 +65,22 @@ class ProductosAliados extends Component
     {
         // Cargar el producto seleccionado
         $producto = Promociones::with('detallePromociones.monedas', 'imagenes')->find($productoId);
-        #dd($producto);
+        
         // Obtener la moneda del usuario con respecto al id del detalle de la promoción
         $userId = Auth::id();
 
         // Acceder al primer detalle de promoción y su moneda
-        $detallePromocion = $producto->detallePromociones->first();
-        $detalleMonedaId = $detallePromocion->monedas->id ?? null;
+        $detallePromocion = $producto->detallePromociones->monedas_id;
+        $detalleMonedaId = $detallePromocion;
 
         if ($detalleMonedaId) {
             // Buscar en la tabla `puntos` la moneda específica para el usuario
             $detalleMonedaUsuario = Puntos::where('users_id', $userId)
                 ->where('monedas_id', $detalleMonedaId)
                 ->sum('puntos');
-             
 
             $monedaUsuario = Monedas::where('id', $detalleMonedaId)->first();
-
+           
             if ($detalleMonedaUsuario) {
                 // Asignar la información de la moneda y los puntos al producto
                 $producto->moneda = [
@@ -93,6 +92,7 @@ class ProductosAliados extends Component
 
                     // Puedes agregar más atributos de la moneda si deseas
                 ];
+
             }
 
             // Emitir el evento `mostrarModalQuickAdd` con los datos del producto
