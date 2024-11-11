@@ -18,7 +18,7 @@ class DetallesPromociones extends Model
     ];
     public function promociones()
     {
-        return $this->belongsTo('App\Models\Promociones');
+        return $this->belongsTo(Promociones::class);
     }
 
     public function monedas()
@@ -29,6 +29,6 @@ class DetallesPromociones extends Model
     // Para acceder a la relación con la moneda
     public function moneda()
     {
-        return $this->belongsTo('App\Models\Monedas', 'monedas_id');
+        return $this->belongsTo(Monedas::class, 'monedas_id');
     }
 }

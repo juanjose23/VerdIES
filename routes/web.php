@@ -201,7 +201,7 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('clientes')->group(function () {
     // Gestión de la vista del cliente
-    Route::get('inicio', [ClienteController::class, 'index'])->name('clientes.inicio')->middleware('auth');
+    Route::get('inicios', [ClienteController::class, 'index'])->name('clientes.inicios')->middleware('auth');
 
     Route::get('promociones', [PromocionesClienteController::class, 'promociones'])->name('promociones')->middleware('auth');
     Route::get('local/{slug}', [PromocionesClienteController::class, 'show'])->name('cliente.show')->middleware('auth');
