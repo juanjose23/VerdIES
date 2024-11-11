@@ -60,12 +60,6 @@ Route::get('/canjes', [PageController::class, 'canjes'])->name('canjes');
 Route::get('/puntos', [PageController::class, 'puntos'])->name('puntos')->middleware('auth');
 Route::post('/actualizarperfil', [PageController::class, 'actualizarperfil'])->name('actualizarperfil');
 Route::post('/canjear', [PageController::class, 'canjear'])->name('canjear')->middleware('auth');
-// Gestion de entrega
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
-Route::put('/cart/update/{itemId}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
-Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')->middleware('auth');
 
 
 //Inicio de session

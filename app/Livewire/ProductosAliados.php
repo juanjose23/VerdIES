@@ -65,7 +65,7 @@ class ProductosAliados extends Component
     {
         // Cargar el producto seleccionado
         $producto = Promociones::with('detallePromociones.monedas', 'imagenes')->find($productoId);
-
+        #dd($producto);
         // Obtener la moneda del usuario con respecto al id del detalle de la promoción
         $userId = Auth::id();
 
@@ -77,17 +77,18 @@ class ProductosAliados extends Component
             // Buscar en la tabla `puntos` la moneda específica para el usuario
             $detalleMonedaUsuario = Puntos::where('users_id', $userId)
                 ->where('monedas_id', $detalleMonedaId)
-                ->first();
+                ->sum('puntos');
+             
 
             $monedaUsuario = Monedas::where('id', $detalleMonedaId)->first();
 
             if ($detalleMonedaUsuario) {
                 // Asignar la información de la moneda y los puntos al producto
                 $producto->moneda = [
-                    'id' => $detalleMonedaUsuario->monedas_id,
+                    'id' => $detalleMonedaId,
                     'nombre' => $monedaUsuario->nombre,
                     'descripcion' => $monedaUsuario->descripcion,
-                    'puntos' => $detalleMonedaUsuario->puntos,
+                    'puntos' => $detalleMonedaUsuario,
                     'imagen_url' => $monedaUsuario->imagenes->url ?? 'ruta/a/imagen/predeterminada.jpg',
 
                     // Puedes agregar más atributos de la moneda si deseas

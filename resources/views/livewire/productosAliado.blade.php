@@ -81,7 +81,8 @@
 
             // Extrae los datos del producto
             const productoData = producto.producto;
-            const detallePromocion = productoData.detalle_promociones[0] || {};
+            const detallePromocion = productoData.detalle_promociones|| {};
+            console.log( productoData.detalle_promociones);
             const cantidadDisponibleInicial = parseFloat(detallePromocion.cantidad) || 0;
             const puntosRequeridos = parseFloat(detallePromocion.cantidadmoneda) || 0;
             const monedaId = productoData.moneda.id;

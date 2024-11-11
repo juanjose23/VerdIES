@@ -34,7 +34,7 @@ class TotalMonedasUser extends Component
         $this->monedasConPuntos = $monedas->map(function ($moneda) use ($userId) {
             $puntos = Puntos::where('users_id', $userId)
                 ->where('monedas_id', $moneda->id)
-                ->value('puntos') ?? 0; // Si no tiene puntos, devolver 0
+                ->sum('puntos') ?? 0; // Si no tiene puntos, devolver 0
 
             return [
                 'id' => $moneda->id,

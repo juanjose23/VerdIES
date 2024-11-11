@@ -28,6 +28,10 @@ class Promociones extends Model
     {
         return $this->belongsTo(categorias::class);
     }
+    public function detallePromociones()
+    {
+        return $this->hasOne(DetallesPromociones::class,'promociones_id');
+    }
     public function detalles()
     {
         return $this->hasOne(DetallesPromociones::class,'promociones_id');
